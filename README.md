@@ -11,13 +11,13 @@
     <img src="/images/logo.png" alt="Logo" height="200">
   </a>
 
-<h3 align="center">MobidaM - Mobilitätsdatenplattform für München - S3 EAI</i></h3>
+<h3 align="center">MobidaM - Mobilitätsdatenplattform für München - Mobilithek EAI</i></h3>
 
   <p align="center">
     <i>Anwendung für das Management der Schnittstellen</i>
-        <br /><a href="https://https://github.com/it-at-m/mobidam-s3-eai/issues">Fehler melden</a>
+        <br /><a href="https://https://github.com/it-at-m/mobidam-mobilithek-eai/issues">Fehler melden</a>
     ·
-    <a href="https://https://github.com/it-at-m/mobidam-s3-eai/issues">Anforderung einstellen</a>
+    <a href="https://https://github.com/it-at-m/mobidam-mobilithek-eai/issues">Anforderung einstellen</a>
   </p>
 </div>
 
@@ -27,7 +27,6 @@
 
 Gesamtziel des Projektes MobidaM ist die Einführung einer Mobilitätsdatenplattform zur Bereitstellung, Haltung, Visualisierung und Auswertung von Mobilitätsdaten im Kontext der Mobilitätsplanung, der Wirkungsanalyse und der Angebotssteuerung. Hierbei werden die unterschiedlichsten Daten aus verschiedenen internen oder externen Datenquellen benötigt.
 
-Im Kontext des MobidaM Projekts implementiert die S3-EAI die Anbindung des stadteigenen S3-Hosts um Daten aus den angeschlossenen Schnittstellen in MobidaM importieren zu können.
 
 <p align="right">(<a href="#top">nach oben</a>)</p>
 
@@ -37,13 +36,12 @@ Dieses Projekt verwendet die folgenden Technologien:
 
 -   Spring Boot
 -   Apache Camel
-- S3 Client
 
 <p align="right">(<a href="#top">nach oben</a>)</p>
 
 ## Set up
 
-siehe <a href="https://github.com/it-at-m/mobidam-s3-eai/tree/main/docs">docs</a>
+siehe <a href="https://github.com/it-at-m/mobidam-mobilithek-eai/tree/main/docs">docs</a>
 
 <p align="right">(<a href="#top">nach oben</a>)</p>
 
@@ -52,7 +50,7 @@ siehe <a href="https://github.com/it-at-m/mobidam-s3-eai/tree/main/docs">docs</a
 
 <!--*what insights do you have to tell*-->
 
-Die Dokumentation befindet sich unter <a href="https://github.com/it-at-m/mobidam-s3-eai/tree/main/docs">docs</a>
+Die Dokumentation befindet sich unter <a href="https://github.com/it-at-m/mobidam-mobilithek-eai/tree/main/docs">docs</a>
 
 <p align="right">(<a href="#top">nach oben</a>)</p>
 
