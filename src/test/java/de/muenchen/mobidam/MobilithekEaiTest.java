@@ -21,9 +21,9 @@ import org.springframework.boot.test.context.SpringBootTest;
  */
 @SpringBootTest
 @CamelSpringBootTest
-class EaiTest {
+class MobilithekEaiTest {
 
-    @Produce(EaiRouteBuilder.DIRECT_ROUTE)
+    @Produce(MobilithekEaiRouteBuilder.DIRECT_ROUTE)
     private ProducerTemplate producer;
 
     @EndpointInject("mock:output")

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class EaiRouteBuilder extends RouteBuilder {
+public class MobilithekEaiRouteBuilder extends RouteBuilder {
 
     @Value("${output}")
     private String outputRoute;
