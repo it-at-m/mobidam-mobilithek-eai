@@ -1,6 +1,6 @@
 # Release-Notes
 
-## Sprint 9 (16.04.2024 - 07.05.2024)
+## Sprint 10 (16.04.2024 - 07.05.2024)
 ### Hinzugefügt
 - Workflows erstellt
 

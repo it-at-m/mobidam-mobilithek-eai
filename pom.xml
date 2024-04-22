@@ -42,6 +42,7 @@
 
         <!-- Other -->
         <org.projectlombok.lombok.version>1.18.26</org.projectlombok.lombok.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <scm>
