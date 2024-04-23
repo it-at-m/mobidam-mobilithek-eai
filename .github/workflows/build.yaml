@@ -1,6 +1,9 @@
-name: build and test
+name: Compliance check and build test
 
-on: [push]
+on:
+  push:
+  pull_request:
+    types: [ opened, reopened ]
 
 jobs:
   compliance:
@@ -8,12 +11,28 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Advance Security Policy as Code
-        uses: advanced-security/policy-as-code@v2.7.0
+        uses: advanced-security/policy-as-code@v2.4.1
         with:
           policy: it-at-m/policy-as-code
           policy-path: default.yaml
           token: ${{ secrets.GITHUB_TOKEN }}
           argvs: "--disable-dependabot --disable-secret-scanning --disable-code-scanning --display"
+
+  build-maven:
+    needs: compliance
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: "17"
+          distribution: "temurin"
+          cache: "maven"
+
+      - name: Build with Maven
+        run: mvn --update-snapshots -f pom.xml verify
