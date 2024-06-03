@@ -36,6 +36,7 @@ Dieses Projekt verwendet die folgenden Technologien:
 
 -   Spring Boot
 -   Apache Camel
+-   S3 Client
 
 <p align="right">(<a href="#top">nach oben</a>)</p>
 

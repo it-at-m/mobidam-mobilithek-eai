@@ -1,15 +1,32 @@
 camel:
   springboot:
-#    Sollte sich der Camel Main Thread nach dem Start wieder beenden, folgende Property aktivieren (http://camel.apache.org/spring-boot.html).
+    #    Sollte sich der Camel Main Thread nach dem Start wieder beenden, folgende Property aktivieren (http://camel.apache.org/spring-boot.html).
     main-run-controller: true
     tracing: false
-  servlet:
-    mapping:
-      context-path: /api/*
+  component:
+    aws2-s3:
+      region: ...
+      override-endpoint: ...
+    http:
+      proxy-auth-host: ...
+      proxy-auth-port: ...
+      proxy-auth-scheme: ...
 
 spring:
   application:
-    name: @project.artifactId@
+    name: '@project.artifactId@'
+  security:
+    oauth2:
+      client:
+        registration:
+          custom:
+            provider: ...
+            client-id: ...
+            client-secret: ...
+            authorization-grant-type: ...
+        provider:
+          custom:
+            token-uri: ...
 
 # https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html
 management:
@@ -31,13 +48,36 @@ management:
 
 info:
   application:
-    name: @project.artifactId@
-    version: @project.version@
+    name: '@project.artifactId@'
+    version: '@project.version@'
 
 logging:
   level:
     org:
       springframework: INFO
 
-#  https://camel.apache.org/components/next/index.html
-output: direct:foo
+oauth2:
+  registration:
+    id: ...
+
+de.muenchen.mobidam.integration:
+  baseUrl: ...
+  interfaces:
+    interface-1:
+      mobidam-sst-id:
+      mobilithek-subscription-id: ...
+      mobilithek-url:
+      cron-expression:
+      s3-object-path: ...
+      s3-date-format: ...
+      s3-bucket: s3-bucket-1
+
+mobidam:
+  mobilithek:
+    jks-password: ...
+  s3:
+    url: aws2-s3://$simple{header.bucketName}?accessKey=RAW($simple{header.accessKey})&secretKey=RAW($simple{header.secretKey})&region=${camel.component.aws2-s3.region}&overrideEndpoint=true&uriEndpointOverride=${camel.component.aws2-s3.override-endpoint}
+    bucket-credential-config:
+      s3-bucket-1:
+        access-key-env-var: ...
+        secret-key-env-var: ...
