@@ -20,16 +20,25 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.muenchen.mobidam;
+package de.muenchen.mobidam.s3;
 
+import de.muenchen.mobidam.Constants;
+import de.muenchen.mobidam.mobilithek.InterfaceDTO;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
+import org.apache.camel.component.aws2.s3.AWS2S3Constants;
+import org.springframework.stereotype.Component;
 
-import java.io.FileInputStream;
+@Component
+public class S3ObjectKeyBuilder implements Processor {
 
-public class MobilithekInfoMock implements Processor {
     @Override
     public void process(Exchange exchange) throws Exception {
-        exchange.getIn().setBody(new FileInputStream("src/test/resources/mobilithek-info-source-pr-daten.xml"));
+        var mobilithekInterface = exchange.getIn().getHeader(Constants.INTERFACE_TYPE, InterfaceDTO.class);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(mobilithekInterface.getS3DateFormat());
+        String date = simpleDateFormat.format(new Date());
+        exchange.getIn().setHeader(AWS2S3Constants.KEY, String.format(mobilithekInterface.getS3ObjectPath(), date));
     }
 }
