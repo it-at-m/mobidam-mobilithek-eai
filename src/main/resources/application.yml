@@ -76,7 +76,6 @@ mobidam:
   mobilithek:
     jks-password: ...
   s3:
-    url: aws2-s3://$simple{header.bucketName}?accessKey=RAW($simple{header.accessKey})&secretKey=RAW($simple{header.secretKey})&region=${camel.component.aws2-s3.region}&overrideEndpoint=true&uriEndpointOverride=${camel.component.aws2-s3.override-endpoint}
     bucket-credential-config:
       s3-bucket-1:
         access-key-env-var: ...

@@ -1,6 +1,24 @@
 /*
- * Copyright (c): it@M - Dienstleister für Informations- und Telekommunikationstechnik
- * der Landeshauptstadt München, 2021
+ * The MIT License
+ * Copyright © 2024 Landeshauptstadt München | it@M
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
 package de.muenchen.mobidam;
 
@@ -13,10 +31,12 @@ import de.muenchen.mobidam.mobilithek.MobilithekEaiRouteBuilder;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import org.apache.camel.*;
+import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.builder.ExchangeBuilder;
 import org.apache.camel.component.aws2.s3.AWS2S3Constants;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
+import org.apache.camel.test.spring.junit5.UseAdviceWith;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,12 +47,14 @@ import org.mockito.quality.Strictness;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
 @SpringBootTest
 @CamelSpringBootTest
+@UseAdviceWith
 class MobilithekRouteS3Test {
 
     @Autowired
@@ -63,7 +85,13 @@ class MobilithekRouteS3Test {
     private ArgumentCaptor<DatentransferCreateDTO> datentransferCaptor;
 
     @Test
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void test_RouteMobilithekInfoToS3Success() throws Exception {
+
+        startMobilithekInfoRequest.start();
+        AdviceWith.adviceWith(camelContext, MobilithekEaiRouteBuilder.MOBIDAM_ROUTE_ID,
+                a -> a.weaveById(MobilithekEaiRouteBuilder.MOBIDAM_ENDPOINT_S3_ID).replace().toD("mock:s3Destination"));
+        camelContext.start();
 
         var mobilithekRequest = ExchangeBuilder.anExchange(camelContext)
                 .withHeader(Constants.INTERFACE_TYPE, this.interfaces.getInterfaces().get(Constants.PARK_RIDE_DATA))
@@ -94,10 +122,18 @@ class MobilithekRouteS3Test {
         Assertions.assertEquals(EreignisTyp.ERFOLG.name(), datentransferCaptor.getAllValues().get(1).getEreignis());
         Assertions.assertEquals(EreignisTyp.ENDE.name(), datentransferCaptor.getAllValues().get(2).getEreignis());
 
+        startMobilithekInfoRequest.stop();
+
     }
 
     @Test
-    void test_RouteMobilithekInfoToS3Warn() throws Exception {
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+    void test_RouteMobilithekInfoToS3Deactivated() throws Exception {
+
+        startMobilithekInfoRequest.start();
+        AdviceWith.adviceWith(camelContext, MobilithekEaiRouteBuilder.MOBIDAM_ROUTE_ID,
+                a -> a.weaveById(MobilithekEaiRouteBuilder.MOBIDAM_ENDPOINT_S3_ID).replace().toD("mock:s3Destination"));
+        camelContext.start();
 
         var mobilithekRequest = ExchangeBuilder.anExchange(camelContext)
                 .withHeader(Constants.INTERFACE_TYPE, this.interfaces.getInterfaces().get(Constants.PARK_RIDE_DATA))
@@ -109,16 +145,19 @@ class MobilithekRouteS3Test {
         startMobilithekInfoRequest.send(mobilithekRequest);
 
         Mockito.verify(this.sstService, Mockito.times(1)).isActivated("904fcf2d-25bb-4fa9-85ff-f7ed12348fe4");
-        Mockito.verify(this.sstService, Mockito.times(3)).logDatentransfer(datentransferCaptor.capture());
-        Assertions.assertEquals(EreignisTyp.BEGINN.name(), datentransferCaptor.getAllValues().get(0).getEreignis());
-        Assertions.assertEquals(EreignisTyp.WARNUNGEN.name(), datentransferCaptor.getAllValues().get(1).getEreignis());
-        Assertions.assertEquals("Interface is not activated", datentransferCaptor.getAllValues().get(1).getInfo());
-        Assertions.assertEquals(EreignisTyp.ENDE.name(), datentransferCaptor.getAllValues().get(2).getEreignis());
+        Mockito.verify(this.sstService, Mockito.times(0)).logDatentransfer(datentransferCaptor.capture());
 
+        startMobilithekInfoRequest.stop();
     }
 
     @Test
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void test_RouteMobilithekInfoToS3Error() throws Exception {
+
+        startMobilithekInfoRequest.start();
+        AdviceWith.adviceWith(camelContext, MobilithekEaiRouteBuilder.MOBIDAM_ROUTE_ID,
+                a -> a.weaveById(MobilithekEaiRouteBuilder.MOBIDAM_ENDPOINT_S3_ID).replace().toD("mock:s3Destination"));
+        camelContext.start();
 
         var mobilithekRequest = ExchangeBuilder.anExchange(camelContext)
                 .withHeader(Constants.INTERFACE_TYPE, this.interfaces.getInterfaces().get(Constants.PARK_RIDE_DATA))
@@ -129,10 +168,13 @@ class MobilithekRouteS3Test {
         startMobilithekInfoRequest.send(mobilithekRequest);
 
         Mockito.verify(this.sstService, Mockito.times(1)).isActivated("904fcf2d-25bb-4fa9-85ff-f7ed12348fe4");
-        Mockito.verify(this.sstService, Mockito.times(2)).logDatentransfer(datentransferCaptor.capture());
+        Mockito.verify(this.sstService, Mockito.times(3)).logDatentransfer(datentransferCaptor.capture());
         Assertions.assertEquals(EreignisTyp.BEGINN.name(), datentransferCaptor.getAllValues().get(0).getEreignis());
         Assertions.assertEquals(EreignisTyp.FEHLER.name(), datentransferCaptor.getAllValues().get(1).getEreignis());
+        Assertions.assertEquals(EreignisTyp.ENDE.name(), datentransferCaptor.getAllValues().get(2).getEreignis());
         Assertions.assertEquals("End interface with error : Bucket not configured: int-mdasc-mdasdev", datentransferCaptor.getAllValues().get(1).getInfo());
+
+        startMobilithekInfoRequest.stop();
 
     }
 
