@@ -120,8 +120,6 @@ de.muenchen.mobidam.integration:
       s3-bucket: s3-bucket-1
 
 mobidam:
-  mobilithek:
-    jks-password: ...
   s3:
     bucket-credential-config:
       s3-bucket-1:
@@ -178,8 +176,6 @@ spring:
             token-uri: https://.../realms/[my-realm]]/protocol/openid-connect/token
 
 mobidam:
-  mobilithek:
-    jks-password: changeit
   s3:
     bucket-credential-config:
       my-bucket-name:
