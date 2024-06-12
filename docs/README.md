@@ -62,16 +62,6 @@ spring:
 
 Jede Mobilithek Schnittstelle hat eine individuelle _mobilithek-subscription-id_ und _mobilithek-url_.
 
-Für den Zugriff auf die Mobilithek stellt diese ein individuelles Zertifikat _certificate.p12_ inkl. Password _-srcstorepass_ zur Verfügung. 
-Das Zertifikat muss in einer Datei Namens _mobilithek.jks_ im Classpath der mobilithek-info-eai liegen.
-Die _mobilithek.jks_ kann mit folgendem Befehl erzeugt werden.
-
-```
-keytool -importkeystore -srckeystore [certificate.p12] -srcstoretype PKCS12 -srcstorepass [...] -destkeystore .\mobilithek.jks -deststorepass [changeit]
-```
-
-Das _-deststorepass_ muss als  _jks_password_ in einem Secret in der Openshift Konfiguration angegeben werden.
-
 ```
 de.muenchen.mobidam.integration:
   ...
@@ -81,12 +71,24 @@ de.muenchen.mobidam.integration:
       mobilithek-subscription-id: ...
       mobilithek-url: ...
       ...
-      
-Muss in einem Kubernetes/Openshift Secret enthalten:
+```
+
+Für den Zugriff auf die Mobilithek stellt diese ein individuelles Zertifikat _certificate.p12_ inkl. Password zur Verfügung. 
+Das Zertifikat muss in einer Datei Namens _mobilithek.jks_ im Classpath der mobilithek-info-eai liegen.
+Die _mobilithek.jks_ kann mit folgendem Befehl erzeugt werden. Dabei muss das Mobilithek Password für 
+'certificate.p12' und das Password für den zu erzeugenden Keystore 'mobilithek.jks' von Hand eingegeben werden: 
+```
+keytool -importkeystore -srckeystore [certificate.p12] -srcstoretype PKCS12 -keystore mobilithek.jks
+```
+
+Das von Hand eingegebene Keystore Password muss als  _jks_password_ in einem Secret in der Openshift Konfiguration angegeben werden.
+
+Kubernetes/Openshift Secret:
+```
 mobidam:
   mobilithek:
     jks-password: changeit
-      
+     
 ```
 
 
@@ -120,8 +122,6 @@ de.muenchen.mobidam.integration:
       s3-bucket: s3-bucket-1
 
 mobidam:
-  mobilithek:
-    jks-password: ...
   s3:
     bucket-credential-config:
       s3-bucket-1:
@@ -178,8 +178,6 @@ spring:
             token-uri: https://.../realms/[my-realm]]/protocol/openid-connect/token
 
 mobidam:
-  mobilithek:
-    jks-password: changeit
   s3:
     bucket-credential-config:
       my-bucket-name:
