@@ -70,7 +70,7 @@ Die _mobilithek.jks_ kann mit folgendem Befehl erzeugt werden.
 keytool -importkeystore -srckeystore [certificate.p12] -srcstoretype PKCS12 -srcstorepass [...] -destkeystore .\mobilithek.jks -deststorepass [changeit]
 ```
 
-Das _-deststorepass_ muss als  _jks_password_ in der Konfiguration angegeben werden.
+Das _-deststorepass_ muss als  _jks_password_ in einem Secret in der Openshift Konfiguration angegeben werden.
 
 ```
 de.muenchen.mobidam.integration:
@@ -82,7 +82,7 @@ de.muenchen.mobidam.integration:
       mobilithek-url: ...
       ...
       
-
+Muss in einem Kubernetes/Openshift Secret enthalten:
 mobidam:
   mobilithek:
     jks-password: changeit
