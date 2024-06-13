@@ -38,7 +38,7 @@ public class InterfaceMessageFactory {
 
     private Interfaces interfaceProps;
 
-    public void parkRideDataStart(Exchange exchange) {
+    public void mobilithekMessageStart(Exchange exchange) {
 
         var dto = new DatentransferCreateDTO();
         dto.setEreignis(EreignisTyp.BEGINN.name());
@@ -48,7 +48,7 @@ public class InterfaceMessageFactory {
         exchange.getMessage().setBody(dto);
     }
 
-    public void parkRideDataSuccess(Exchange exchange) {
+    public void mobilithekMessageSuccess(Exchange exchange) {
 
         var dto = new DatentransferCreateDTO();
         dto.setEreignis(EreignisTyp.ERFOLG.name());
@@ -60,7 +60,7 @@ public class InterfaceMessageFactory {
         exchange.getMessage().setBody(dto);
     }
 
-    public void parkRideDataError(Exchange exchange) {
+    public void mobilithekMessageError(Exchange exchange) {
 
         var dto = new DatentransferCreateDTO();
         dto.setEreignis(EreignisTyp.FEHLER.name());
@@ -72,7 +72,7 @@ public class InterfaceMessageFactory {
         exchange.getMessage().setBody(dto);
     }
 
-    public void parkRideDataEnd(Exchange exchange) {
+    public void mobilithekMessageEnd(Exchange exchange) {
 
         var dto = new DatentransferCreateDTO();
         dto.setEreignis(EreignisTyp.ENDE.name());

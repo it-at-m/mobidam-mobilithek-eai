@@ -43,10 +43,10 @@ public class MobilithekEaiRouteBuilder extends RouteBuilder {
 
         onException(Exception.class, SSLException.class)
                 .handled(true)
-                .bean("interfaceMessageFactory", "parkRideDataError")
+                .bean("interfaceMessageFactory", "mobilithekMessageError")
                 .bean("sstManagementIntegrationService", "logDatentransfer")
                 .log(LoggingLevel.ERROR, "${exception}")
-                .bean("interfaceMessageFactory", "parkRideDataEnd")
+                .bean("interfaceMessageFactory", "mobilithekMessageEnd")
                 .bean("sstManagementIntegrationService", "logDatentransfer");
 
         // spotless:off
@@ -54,7 +54,7 @@ public class MobilithekEaiRouteBuilder extends RouteBuilder {
                 .routeId(MOBIDAM_ROUTE_ID)
                 .bean("sstManagementIntegrationServiceFacade", "isActivated")
                 .choice().when(simple("${body} == 'TRUE'"))
-                    .bean("interfaceMessageFactory", "parkRideDataStart")
+                    .bean("interfaceMessageFactory", "mobilithekMessageStart")
                     .bean("sstManagementIntegrationServiceFacade", "logDatentransfer")
                     .setBody(simple("${null}"))
                     .setHeader(Exchange.HTTP_METHOD, constant(HttpMethods.GET))
@@ -63,9 +63,9 @@ public class MobilithekEaiRouteBuilder extends RouteBuilder {
                     .process("s3CredentialProvider")
                     .process("s3ObjectKeyBuilder")
                     .toD("aws2-s3://${header.bucketName}?accessKey=RAW(${header.accessKey})&secretKey=RAW(${header.secretKey})&region=${camel.component.aws2-s3.region}&overrideEndpoint=true&uriEndpointOverride=${camel.component.aws2-s3.override-endpoint}").id(MOBIDAM_ENDPOINT_S3_ID)
-                    .bean("interfaceMessageFactory", "parkRideDataSuccess")
+                    .bean("interfaceMessageFactory", "mobilithekMessageSuccess")
                     .bean("sstManagementIntegrationService", "logDatentransfer")
-                    .bean("interfaceMessageFactory", "parkRideDataEnd")
+                    .bean("interfaceMessageFactory", "mobilithekMessageEnd")
                     .bean("sstManagementIntegrationService", "logDatentransfer")
                 .otherwise()
                     .log(LoggingLevel.DEBUG, Constants.MOBIDAM_LOGGER, String.format("${header.%s.mobidamSstId} is not active.", Constants.INTERFACE_TYPE))
