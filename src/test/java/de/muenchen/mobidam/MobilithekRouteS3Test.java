@@ -26,7 +26,7 @@ import de.muenchen.mobidam.config.EnvironmentReader;
 import de.muenchen.mobidam.config.Interfaces;
 import de.muenchen.mobidam.integration.client.domain.DatentransferCreateDTO;
 import de.muenchen.mobidam.integration.service.SstManagementIntegrationService;
-import de.muenchen.mobidam.mobilithek.EreignisTyp;
+import de.muenchen.mobidam.sstmanagment.EreignisTyp;
 import de.muenchen.mobidam.mobilithek.MobilithekEaiRouteBuilder;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -94,10 +94,10 @@ class MobilithekRouteS3Test {
         camelContext.start();
 
         var mobilithekRequest = ExchangeBuilder.anExchange(camelContext)
-                .withHeader(Constants.INTERFACE_TYPE, this.interfaces.getInterfaces().get(Constants.PARK_RIDE_DATA))
+                .withHeader(Constants.INTERFACE_TYPE, this.interfaces.getInterfaces().get(Constants.PARK_RIDE_STATIC_DATA))
                 .build();
 
-        Mockito.when(sstService.isActivated("904fcf2d-25bb-4fa9-85ff-f7ed12348fe4")).thenReturn(true);
+        Mockito.when(sstService.isActivated("999fcf2d-25bb-4fa9-85ff-f7ed12349999")).thenReturn(true);
         Mockito.when(envReader.getEnvironmentVariable(Mockito.any())).thenReturn("foo");
 
         mobilithekInfo.whenAnyExchangeReceived(new MobilithekInfoMock());
@@ -116,7 +116,7 @@ class MobilithekRouteS3Test {
         Assertions.assertTrue(exchange.getIn().getHeader(AWS2S3Constants.KEY, String.class).startsWith("MDAS/Mobilithek/PR-statisch/"));
         Assertions.assertTrue(exchange.getIn().getHeader(AWS2S3Constants.KEY, String.class).endsWith("-pr-daten.xml"));
 
-        Mockito.verify(this.sstService, Mockito.times(1)).isActivated("904fcf2d-25bb-4fa9-85ff-f7ed12348fe4");
+        Mockito.verify(this.sstService, Mockito.times(1)).isActivated("999fcf2d-25bb-4fa9-85ff-f7ed12349999");
         Mockito.verify(this.sstService, Mockito.times(3)).logDatentransfer(datentransferCaptor.capture());
         Assertions.assertEquals(EreignisTyp.BEGINN.name(), datentransferCaptor.getAllValues().get(0).getEreignis());
         Assertions.assertEquals(EreignisTyp.ERFOLG.name(), datentransferCaptor.getAllValues().get(1).getEreignis());
@@ -136,15 +136,15 @@ class MobilithekRouteS3Test {
         camelContext.start();
 
         var mobilithekRequest = ExchangeBuilder.anExchange(camelContext)
-                .withHeader(Constants.INTERFACE_TYPE, this.interfaces.getInterfaces().get(Constants.PARK_RIDE_DATA))
+                .withHeader(Constants.INTERFACE_TYPE, this.interfaces.getInterfaces().get(Constants.PARK_RIDE_STATIC_DATA))
                 .build();
 
-        Mockito.when(sstService.isActivated("904fcf2d-25bb-4fa9-85ff-f7ed12348fe4")).thenReturn(false);
+        Mockito.when(sstService.isActivated("999fcf2d-25bb-4fa9-85ff-f7ed12349999")).thenReturn(false);
         Mockito.when(envReader.getEnvironmentVariable(Mockito.any())).thenReturn("foo");
 
         startMobilithekInfoRequest.send(mobilithekRequest);
 
-        Mockito.verify(this.sstService, Mockito.times(1)).isActivated("904fcf2d-25bb-4fa9-85ff-f7ed12348fe4");
+        Mockito.verify(this.sstService, Mockito.times(1)).isActivated("999fcf2d-25bb-4fa9-85ff-f7ed12349999");
         Mockito.verify(this.sstService, Mockito.times(0)).logDatentransfer(datentransferCaptor.capture());
 
         startMobilithekInfoRequest.stop();
@@ -160,14 +160,14 @@ class MobilithekRouteS3Test {
         camelContext.start();
 
         var mobilithekRequest = ExchangeBuilder.anExchange(camelContext)
-                .withHeader(Constants.INTERFACE_TYPE, this.interfaces.getInterfaces().get(Constants.PARK_RIDE_DATA))
+                .withHeader(Constants.INTERFACE_TYPE, this.interfaces.getInterfaces().get(Constants.PARK_RIDE_STATIC_DATA))
                 .build();
 
-        Mockito.when(sstService.isActivated("904fcf2d-25bb-4fa9-85ff-f7ed12348fe4")).thenReturn(true);
+        Mockito.when(sstService.isActivated("999fcf2d-25bb-4fa9-85ff-f7ed12349999")).thenReturn(true);
 
         startMobilithekInfoRequest.send(mobilithekRequest);
 
-        Mockito.verify(this.sstService, Mockito.times(1)).isActivated("904fcf2d-25bb-4fa9-85ff-f7ed12348fe4");
+        Mockito.verify(this.sstService, Mockito.times(1)).isActivated("999fcf2d-25bb-4fa9-85ff-f7ed12349999");
         Mockito.verify(this.sstService, Mockito.times(3)).logDatentransfer(datentransferCaptor.capture());
         Assertions.assertEquals(EreignisTyp.BEGINN.name(), datentransferCaptor.getAllValues().get(0).getEreignis());
         Assertions.assertEquals(EreignisTyp.FEHLER.name(), datentransferCaptor.getAllValues().get(1).getEreignis());

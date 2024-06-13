@@ -20,7 +20,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.muenchen.mobidam.mobilithek;
+package de.muenchen.mobidam.sstmanagment;
 
 public enum EreignisTyp {
 
