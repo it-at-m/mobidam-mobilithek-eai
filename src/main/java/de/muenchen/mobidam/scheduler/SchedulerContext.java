@@ -36,8 +36,8 @@ public class SchedulerContext {
     @Bean
     public JobDetailFactoryBean parkAndRideDetail() {
         var jobDetailFactory = new JobDetailFactoryBean();
-        jobDetailFactory.setJobClass(ParkAndRideJob.class);
-        jobDetailFactory.setDescription("Mobilithek Info Park And Ride Job");
+        jobDetailFactory.setJobClass(ParkAndRideStaticJob.class);
+        jobDetailFactory.setDescription("Mobilithek Info Park And Ride Static Job");
         jobDetailFactory.setDurability(true);
         return jobDetailFactory;
     }
@@ -46,8 +46,8 @@ public class SchedulerContext {
     public CronTriggerFactoryBean cronParkAndRide(JobDetail job, Interfaces properties) {
         var cron = new CronTriggerFactoryBean();
         cron.setJobDetail(job);
-        cron.setGroup("Park And Ride Job");
-        cron.setCronExpression(properties.getInterfaces().get(Constants.PARK_RIDE_DATA).getCronExpression());
+        cron.setGroup("Park And Ride Static Job");
+        cron.setCronExpression(properties.getInterfaces().get(Constants.PARK_RIDE_STATIC_DATA).getCronExpression());
         return cron;
     }
 

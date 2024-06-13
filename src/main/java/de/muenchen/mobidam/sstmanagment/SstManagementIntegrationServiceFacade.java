@@ -20,43 +20,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.muenchen.mobidam.scheduler;
+package de.muenchen.mobidam.sstmanagment;
 
 import de.muenchen.mobidam.Constants;
-import de.muenchen.mobidam.config.Interfaces;
-import de.muenchen.mobidam.mobilithek.MobilithekEaiRouteBuilder;
-import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.camel.CamelContext;
-import org.apache.camel.Produce;
-import org.apache.camel.ProducerTemplate;
-import org.apache.camel.builder.ExchangeBuilder;
-import org.quartz.Job;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
+import de.muenchen.mobidam.integration.client.domain.DatentransferCreateDTO;
+import de.muenchen.mobidam.integration.service.SstManagementIntegrationService;
+import de.muenchen.mobidam.mobilithek.InterfaceDTO;
+import org.apache.camel.Exchange;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Slf4j
 @Component
-@AllArgsConstructor
-public class ParkAndRideJob implements Job {
+public class SstManagementIntegrationServiceFacade {
 
-    private CamelContext camelContext;
+    @Autowired
+    private SstManagementIntegrationService service;
 
-    private Interfaces interfaces;
+    public void isActivated(Exchange exchange) throws Exception {
+        var mobilithekInterface = exchange.getIn().getHeader(Constants.INTERFACE_TYPE, InterfaceDTO.class);
+        exchange.getIn().setBody(service.isActivated(mobilithekInterface.getMobidamSstId().toString()));
+    }
 
-    @Produce(MobilithekEaiRouteBuilder.MOBIDAM_S3_ROUTE)
-    private ProducerTemplate producer;
-
-    public void execute(JobExecutionContext context) throws JobExecutionException {
-
-        log.info("Scheduler starts park and ride request : " + context.getFireTime().toString());
-
-        var mobilithekRequest = ExchangeBuilder.anExchange(this.camelContext)
-                .withHeader(Constants.INTERFACE_TYPE, this.interfaces.getInterfaces().get(Constants.PARK_RIDE_DATA))
-                .build();
-
-        producer.send(mobilithekRequest);
+    public void logDatentransfer(Exchange exchange) throws Exception {
+        service.logDatentransfer(exchange.getIn().getBody(DatentransferCreateDTO.class));
     }
 
 }

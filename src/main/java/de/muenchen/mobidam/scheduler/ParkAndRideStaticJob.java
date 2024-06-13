@@ -20,28 +20,43 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.muenchen.mobidam.mobilithek;
+package de.muenchen.mobidam.scheduler;
 
 import de.muenchen.mobidam.Constants;
-import de.muenchen.mobidam.integration.client.domain.DatentransferCreateDTO;
-import de.muenchen.mobidam.integration.service.SstManagementIntegrationService;
-import org.apache.camel.Exchange;
-import org.springframework.beans.factory.annotation.Autowired;
+import de.muenchen.mobidam.config.Interfaces;
+import de.muenchen.mobidam.mobilithek.MobilithekEaiRouteBuilder;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.camel.CamelContext;
+import org.apache.camel.Produce;
+import org.apache.camel.ProducerTemplate;
+import org.apache.camel.builder.ExchangeBuilder;
+import org.quartz.Job;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
-public class SstManagementIntegrationServiceFacade {
+@AllArgsConstructor
+public class ParkAndRideStaticJob implements Job {
 
-    @Autowired
-    private SstManagementIntegrationService service;
+    private CamelContext camelContext;
 
-    public void isActivated(Exchange exchange) throws Exception {
-        var mobilithekInterface = exchange.getIn().getHeader(Constants.INTERFACE_TYPE, InterfaceDTO.class);
-        exchange.getIn().setBody(service.isActivated(mobilithekInterface.getMobidamSstId().toString()));
-    }
+    private Interfaces interfaces;
 
-    public void logDatentransfer(Exchange exchange) throws Exception {
-        service.logDatentransfer(exchange.getIn().getBody(DatentransferCreateDTO.class));
+    @Produce(MobilithekEaiRouteBuilder.MOBIDAM_S3_ROUTE)
+    private ProducerTemplate producer;
+
+    public void execute(JobExecutionContext context) throws JobExecutionException {
+
+        log.info("Scheduler starts park and ride static request : " + context.getFireTime().toString());
+
+        var mobilithekRequest = ExchangeBuilder.anExchange(this.camelContext)
+                .withHeader(Constants.INTERFACE_TYPE, this.interfaces.getInterfaces().get(Constants.PARK_RIDE_STATIC_DATA))
+                .build();
+
+        producer.send(mobilithekRequest);
     }
 
 }
