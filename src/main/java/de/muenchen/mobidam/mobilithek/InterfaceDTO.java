@@ -20,22 +20,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.muenchen.mobidam;
+package de.muenchen.mobidam.mobilithek;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import java.util.UUID;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-/**
- * Spring Boot Anwendung, die alle Camel Routen startet.
- */
-@SpringBootApplication
-public class Application {
+@AllArgsConstructor
+@Getter
+public class InterfaceDTO {
 
-    /**
-     * Startet die Anwendung.
-     */
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
-    }
+    private UUID mobidamSstId;
+    private String mobilithekSubscriptionId;
+    private String mobilithekUrl;
+    private String cronExpression;
+    private String s3ObjectPath;
+    private String s3DateFormat;
+    private String s3Bucket;
 
 }

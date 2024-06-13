@@ -20,22 +20,25 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.muenchen.mobidam;
+package de.muenchen.mobidam.s3;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import de.muenchen.mobidam.Constants;
+import de.muenchen.mobidam.mobilithek.InterfaceDTO;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
+import org.apache.camel.component.aws2.s3.AWS2S3Constants;
+import org.springframework.stereotype.Component;
 
-/**
- * Spring Boot Anwendung, die alle Camel Routen startet.
- */
-@SpringBootApplication
-public class Application {
+@Component
+public class S3ObjectKeyBuilder implements Processor {
 
-    /**
-     * Startet die Anwendung.
-     */
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+    @Override
+    public void process(Exchange exchange) throws Exception {
+        var mobilithekInterface = exchange.getIn().getHeader(Constants.INTERFACE_TYPE, InterfaceDTO.class);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(mobilithekInterface.getS3DateFormat());
+        String date = simpleDateFormat.format(new Date());
+        exchange.getIn().setHeader(AWS2S3Constants.KEY, String.format(mobilithekInterface.getS3ObjectPath(), date));
     }
-
 }

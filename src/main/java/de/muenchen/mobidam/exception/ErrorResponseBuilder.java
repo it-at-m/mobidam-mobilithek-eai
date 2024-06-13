@@ -20,22 +20,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.muenchen.mobidam;
+package de.muenchen.mobidam.exception;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import java.math.BigDecimal;
+import java.util.Date;
 
-/**
- * Spring Boot Anwendung, die alle Camel Routen startet.
- */
-@SpringBootApplication
-public class Application {
+public class ErrorResponseBuilder {
 
-    /**
-     * Startet die Anwendung.
-     */
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+    public static ErrorResponse build(final Integer status, final String message) {
+        var res = new ErrorResponse();
+        res.setTimestamp(new Date());
+        res.setStatus(BigDecimal.valueOf(status));
+        res.setError(message);
+        return res;
     }
-
 }

@@ -9,7 +9,7 @@ management:
 
 spring:
   profiles:
-    active: default
+    active: test
 
 logging:
   level:
@@ -20,4 +20,21 @@ camel:
   springboot:
     tracing: false
 
-output : mock:output
+de.muenchen.mobidam.integration:
+  baseUrl: https://...
+  interfaces:
+    parkRideStaticData:
+      mobidam-sst-id: 999fcf2d-25bb-4fa9-85ff-f7ed12349999
+      mobilithek-subscription-id: 123456789
+      mobilithek-url: mock:mobilithekInfo
+      cron-expression: '0 0 0 ? * *'
+      s3-object-path: MDAS/Mobilithek/PR-statisch/%s-pr-daten.xml
+      s3-date-format: yyyyMMdd_HHmmss
+      s3-bucket: int-mdasc-mdasdev
+
+mobidam:
+  s3:
+    bucket-credential-config:
+      int-mdasc-mdasdev:
+        access-key-env-var: MOBIDAM_INT-MDASC-MDASDEV_ACCESS_KEY
+        secret-key-env-var: MOBIDAM_INT-MDASC-MDASDEV_SECRET_KEY
