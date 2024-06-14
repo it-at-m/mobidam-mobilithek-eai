@@ -62,7 +62,7 @@ public class MobilithekEaiRouteBuilder extends RouteBuilder {
                     .setHeader(Constants.PARAMETER_BUCKET_NAME, simple(String.format("${header.%s.s3Bucket}", Constants.INTERFACE_TYPE)))
                     .process("s3CredentialProvider")
                     .process("s3ObjectKeyBuilder")
-                    .toD("aws2-s3://${header.bucketName}?accessKey=RAW(${header.accessKey})&secretKey=RAW(${header.secretKey})&region=${camel.component.aws2-s3.region}&overrideEndpoint=true&uriEndpointOverride=${camel.component.aws2-s3.override-endpoint}").id(MOBIDAM_ENDPOINT_S3_ID)
+                    .toD("aws2-s3://${header.bucketName}?accessKey=RAW(${header.accessKey})&secretKey=RAW(${header.secretKey})&region=${properties:camel.component.aws2-s3.region}&overrideEndpoint=true&uriEndpointOverride=${properties:camel.component.aws2-s3.override-endpoint}").id(MOBIDAM_ENDPOINT_S3_ID)
                     .bean("interfaceMessageFactory", "mobilithekMessageSuccess")
                     .bean("sstManagementIntegrationService", "logDatentransfer")
                     .bean("interfaceMessageFactory", "mobilithekMessageEnd")
