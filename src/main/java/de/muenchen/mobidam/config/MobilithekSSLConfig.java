@@ -47,7 +47,7 @@ public class MobilithekSSLConfig {
     public HttpComponent httpComponent() {
 
         KeyStoreParameters ksp = new KeyStoreParameters();
-        ksp.setResource("classpath:mobilithek.jks");
+        ksp.setResource("classpath:cacerts-mobidam");
         ksp.setPassword(keyPass);
 
         KeyManagersParameters kmp = new KeyManagersParameters();
