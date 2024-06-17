@@ -26,7 +26,7 @@ public class Constants {
 
     public static final String MOBIDAM_LOGGER = "de.muenchen.mobidam";
     public static final String INTERFACE_TYPE = "MOBILITHEK_INTERFACE_TYPE";
-    public static final String PARK_RIDE_STATIC_DATA = "parkRideStaticData"; // Must match application.yaml property
+    public static final String PARK_RIDE_STATIC_DATA = "parkAndRideStaticData"; // Must match application.yaml property
 
     // Headers for s3 bucket credentials
     public static final String PARAMETER_BUCKET_NAME = "bucketName";
