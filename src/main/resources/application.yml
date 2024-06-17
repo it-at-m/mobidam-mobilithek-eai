@@ -27,8 +27,6 @@ spring:
         provider:
           custom:
             token-uri: ...
-  main:
-    web-application-type: none
 
 # https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html
 management:
