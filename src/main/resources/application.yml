@@ -73,6 +73,8 @@ de.muenchen.mobidam.integration:
       s3-bucket: s3-bucket-1
 
 mobidam:
+  eai:
+    cacerts: ...
   s3:
     bucket-credential-config:
       s3-bucket-1:
