@@ -73,21 +73,16 @@ de.muenchen.mobidam.integration:
       ...
 ```
 
-Für den Zugriff auf die Mobilithek stellt diese ein individuelles Zertifikat _certificate.p12_ inkl. Password zur Verfügung. 
-Das Zertifikat muss in einer Datei Namens _mobilithek.jks_ im Classpath der mobilithek-info-eai liegen.
-Die _mobilithek.jks_ kann mit folgendem Befehl erzeugt werden. Dabei muss das Mobilithek Password für 
-'certificate.p12' und das Password für den zu erzeugenden Keystore 'mobilithek.jks' von Hand eingegeben werden: 
-```
-keytool -importkeystore -srckeystore [certificate.p12] -srcstoretype PKCS12 -keystore mobilithek.jks
-```
-
-Das von Hand eingegebene Keystore Password muss als  _jks_password_ in einem Secret in der Openshift Konfiguration angegeben werden.
+Für den Zugriff auf die Mobilithek stellt diese ein individuelles Zertifikat _certificate.p12_ zur Verfügung. 
+Das Zertifikat muss zusammen mit den anderen LHM Zertifikaten, z.Bsp. für den Zugriff auf Mobidam-Sst-Management, in der cacerts Datei des CAP Containers verfügbar sein. 
+In der CAP wird dazu in der Pipeline eine entsprechende Datei erstellt deren Ablageort und ihr Passwort in den nachfolgenden Attributen angegeben werden muss.
 
 Kubernetes/Openshift Secret:
 ```
 mobidam:
-  mobilithek:
-    jks-password: changeit
+  eai:
+    cacerts-file: ...
+    cacerts-password: ...
      
 ```
 
@@ -178,6 +173,9 @@ spring:
             token-uri: https://.../realms/[my-realm]]/protocol/openid-connect/token
 
 mobidam:
+  eai:
+    cacerts-file: 'file:/mnt/cacerts'
+    cacerts-password: my-password
   s3:
     bucket-credential-config:
       my-bucket-name:
