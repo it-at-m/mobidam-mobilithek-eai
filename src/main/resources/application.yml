@@ -74,7 +74,8 @@ de.muenchen.mobidam.integration:
 
 mobidam:
   eai:
-    cacerts: ...
+    cacerts-file: ...
+    cacerts-password: ...
   s3:
     bucket-credential-config:
       s3-bucket-1:
