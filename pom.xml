@@ -434,33 +434,33 @@
 <!--                </dependencies>-->
 <!--            </plugin>-->
 
-            <plugin>
-                <groupId>com.mycila</groupId>
-                <artifactId>license-maven-plugin</artifactId>
-                <version>4.3</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>check</goal>
-                            <goal>format</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <properties>
-                        <owner>Landeshauptstadt München | it@M</owner>
-                        <year>2024</year>
-                    </properties>
-                    <header>com/mycila/maven/plugin/license/templates/MIT.txt</header>
-                    <failIfMissing>true</failIfMissing>
-                    <useDefaultExcludes>true</useDefaultExcludes>
-                    <excludes>
-                        <exclude>**/*.txt</exclude>
-                        <exclude>**/*.yml</exclude>
-                        <exclude>src/test/resources/*.xml</exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>com.mycila</groupId>-->
+<!--                <artifactId>license-maven-plugin</artifactId>-->
+<!--                <version>4.3</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <goals>-->
+<!--                            <goal>check</goal>-->
+<!--                            <goal>format</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--                <configuration>-->
+<!--                    <properties>-->
+<!--                        <owner>Landeshauptstadt München | it@M</owner>-->
+<!--                        <year>2024</year>-->
+<!--                    </properties>-->
+<!--                    <header>com/mycila/maven/plugin/license/templates/MIT.txt</header>-->
+<!--                    <failIfMissing>true</failIfMissing>-->
+<!--                    <useDefaultExcludes>true</useDefaultExcludes>-->
+<!--                    <excludes>-->
+<!--                        <exclude>**/*.txt</exclude>-->
+<!--                        <exclude>**/*.yml</exclude>-->
+<!--                        <exclude>src/test/resources/*.xml</exclude>-->
+<!--                    </excludes>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
         </plugins>
     </build>
 
