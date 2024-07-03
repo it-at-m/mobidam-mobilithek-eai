@@ -67,6 +67,8 @@
         <!-- Other -->
         <org.projectlombok.lombok.version>1.18.26</org.projectlombok.lombok.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <spring.cloud.version>2022.0.3</spring.cloud.version>
     </properties>
 
     <scm>
@@ -90,6 +92,14 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <!-- Import dependency management from Spring Cloud -->
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring.cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -147,11 +157,56 @@
         </dependency>
 
         <!-- SST Integration -->
+<!--        <dependency>-->
+<!--            <groupId>de.muenchen.oss.mobidam</groupId>-->
+<!--            <artifactId>mobidam-sst-management-integration-starter</artifactId>-->
+<!--            <version>0.0.2</version>-->
+<!--        </dependency>-->
+        <!-- OpenAPI -->
         <dependency>
-            <groupId>de.muenchen.oss.mobidam</groupId>
-            <artifactId>mobidam-sst-management-integration-starter</artifactId>
-            <version>0.0.2</version>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>2.2.10</version>
         </dependency>
+        <dependency>
+            <groupId>org.openapitools</groupId>
+            <artifactId>jackson-databind-nullable</artifactId>
+            <version>0.2.6</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>jsr250-api</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+            <version>3.0.2</version>
+        </dependency>
+
+        <!-- Webflux -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webflux</artifactId>
+            <version>6.0.9</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-oauth2-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-oauth2-resource-server</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-oauth2-jose</artifactId>
+        </dependency>
+
 
         <!-- Test -->
         <dependency>
@@ -179,6 +234,43 @@
         </dependency>
 
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>generate-openapi</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.openapitools</groupId>
+                        <artifactId>openapi-generator-maven-plugin</artifactId>
+                        <version>7.3.0</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                                <configuration>
+                                    <inputSpec>${project.basedir}/src/main/resources/api-docs.json</inputSpec>
+                                    <!--
+                                       https://openapi-generator.tech/docs/plugins
+                                    -->
+                                    <generatorName>java</generatorName>
+                                    <configOptions>
+                                        <apiPackage>de.muenchen.mobidam.integration.client.api</apiPackage>
+                                        <modelPackage>de.muenchen.mobidam.integration.client.domain</modelPackage>
+                                        <useSpringBoot3>true</useSpringBoot3>
+                                        <library>webclient</library>
+                                        <annotationLibrary>swagger2</annotationLibrary>
+                                        <dateLibrary>java8-localdatetime</dateLibrary>
+                                    </configOptions>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
     <build>
         <resources>

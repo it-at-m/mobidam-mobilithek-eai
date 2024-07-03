@@ -1,6 +1,6 @@
 /*
  * The MIT License
- * Copyright © 2024 Landeshauptstadt München | it@M
+ * Copyright © 2023 Landeshauptstadt München | it@M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,32 +20,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.muenchen.mobidam;
+package de.muenchen.mobidam.integration.client.domain;
 
-import de.muenchen.mobidam.integration.service.SstManagementIntegrationService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+public enum SchnittstellenStatus {
+    AKTIVIERT, DEAKTIVIERT
 
-/**
- * Spring Boot Anwendung, die alle Camel Routen startet.
- */
-@SpringBootApplication
-public class Application implements CommandLineRunner {
-
-    @Autowired
-    private SstManagementIntegrationService service;
-
-    /**
-     * Startet die Anwendung.
-     */
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
-    }
-
-    @Override
-    public void run(String... args) throws Exception {
-        System.out.println("STATUS: " + service.getStatus("904fcf2d-25bb-4fa9-85ff-f7ed12348fe4"));
-    }
 }
