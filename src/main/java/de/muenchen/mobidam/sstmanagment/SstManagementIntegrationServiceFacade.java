@@ -26,11 +26,13 @@ import de.muenchen.mobidam.Constants;
 import de.muenchen.mobidam.integration.client.domain.DatentransferCreateDTO;
 import de.muenchen.mobidam.integration.service.SstManagementIntegrationService;
 import de.muenchen.mobidam.mobilithek.InterfaceDTO;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.camel.Exchange;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
+@Slf4j
 public class SstManagementIntegrationServiceFacade {
 
     @Autowired
@@ -38,7 +40,10 @@ public class SstManagementIntegrationServiceFacade {
 
     public void isActivated(Exchange exchange) throws Exception {
         var mobilithekInterface = exchange.getIn().getHeader(Constants.INTERFACE_TYPE, InterfaceDTO.class);
-        exchange.getIn().setBody(service.isActivated(mobilithekInterface.getMobidamSstId().toString()));
+
+        boolean isActivated = service.isActivated(mobilithekInterface.getMobidamSstId().toString());
+        log.info("ACTIVATED: " + isActivated);
+        exchange.getIn().setBody(isActivated);
     }
 
     public void logDatentransfer(Exchange exchange) throws Exception {

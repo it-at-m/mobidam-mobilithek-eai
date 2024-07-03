@@ -23,6 +23,7 @@
 package de.muenchen.mobidam;
 
 import de.muenchen.mobidam.integration.service.SstManagementIntegrationService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -32,6 +33,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * Spring Boot Anwendung, die alle Camel Routen startet.
  */
 @SpringBootApplication
+@Slf4j
 public class Application implements CommandLineRunner {
 
     @Autowired
@@ -46,6 +48,6 @@ public class Application implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        System.out.println("STATUS: " + service.getStatus("904fcf2d-25bb-4fa9-85ff-f7ed12348fe4"));
+        log.info("STATUS: " + service.getStatus("904fcf2d-25bb-4fa9-85ff-f7ed12348fe4"));
     }
 }
