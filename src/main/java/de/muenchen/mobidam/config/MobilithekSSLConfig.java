@@ -37,7 +37,10 @@ import org.springframework.context.annotation.Profile;
 @Configuration
 public class MobilithekSSLConfig {
 
-    @Value("${mobidam.mobilithek.jks-password}")
+    @Value("${mobidam.eai.cacerts-file}")
+    private String cacerts;
+
+    @Value("${mobidam.eai.cacerts-password}")
     private String keyPass;
 
     @Autowired
@@ -47,7 +50,7 @@ public class MobilithekSSLConfig {
     public HttpComponent httpComponent() {
 
         KeyStoreParameters ksp = new KeyStoreParameters();
-        ksp.setResource("classpath:mobilithek.jks");
+        ksp.setResource(cacerts);
         ksp.setPassword(keyPass);
 
         KeyManagersParameters kmp = new KeyManagersParameters();
