@@ -24,31 +24,57 @@ package de.muenchen.mobidam.scheduler;
 
 import de.muenchen.mobidam.Constants;
 import de.muenchen.mobidam.config.Interfaces;
-import org.quartz.JobDetail;
+import org.quartz.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.quartz.CronTriggerFactoryBean;
-import org.springframework.scheduling.quartz.JobDetailFactoryBean;
 
 @Configuration
 public class SchedulerContext {
 
+    @Autowired
+    private Interfaces mobidamInterfaces;
+
     @Bean
-    public JobDetailFactoryBean parkAndRideDetail() {
-        var jobDetailFactory = new JobDetailFactoryBean();
-        jobDetailFactory.setJobClass(ParkAndRideStaticJob.class);
-        jobDetailFactory.setDescription("Mobilithek Info Park And Ride Static Job");
-        jobDetailFactory.setDurability(true);
-        return jobDetailFactory;
+    public JobDetail parkRideStaticDataJobDetail() {
+
+        return JobBuilder.newJob(MobilithekJobExecute.class)
+                .withIdentity(Constants.PARK_RIDE_STATIC_DATA)
+                .usingJobData(Constants.INTERFACE_TYPE, Constants.PARK_RIDE_STATIC_DATA)
+                .storeDurably()
+                .build();
     }
 
     @Bean
-    public CronTriggerFactoryBean cronParkAndRide(JobDetail job, Interfaces properties) {
-        var cron = new CronTriggerFactoryBean();
-        cron.setJobDetail(job);
-        cron.setGroup("Park And Ride Static Job");
-        cron.setCronExpression(properties.getInterfaces().get(Constants.PARK_RIDE_STATIC_DATA).getCronExpression());
-        return cron;
+    public Trigger parkRideStaticDataTrigger() {
+
+        var item = mobidamInterfaces.getInterfaces().get(Constants.PARK_RIDE_STATIC_DATA);
+        return TriggerBuilder.newTrigger()
+                .forJob(parkRideStaticDataJobDetail())
+                .withIdentity(Constants.PARK_RIDE_STATIC_DATA)
+                .withSchedule(CronScheduleBuilder.cronSchedule(item.getCronExpression()))
+                .build();
+    }
+
+    @Bean
+    public JobDetail parkRideDynamicDataJobDetail() {
+
+        return JobBuilder.newJob(MobilithekJobExecute.class)
+                .withIdentity(Constants.PARK_RIDE_DYNAMIC_DATA)
+                .usingJobData(Constants.INTERFACE_TYPE, Constants.PARK_RIDE_DYNAMIC_DATA)
+                .storeDurably()
+                .build();
+    }
+
+    @Bean
+    public Trigger parkRideDynamicDataTrigger() {
+
+        var item = mobidamInterfaces.getInterfaces().get(Constants.PARK_RIDE_DYNAMIC_DATA);
+        return TriggerBuilder.newTrigger()
+                .forJob(parkRideDynamicDataJobDetail())
+                .withIdentity(Constants.PARK_RIDE_DYNAMIC_DATA)
+                .withSchedule(CronScheduleBuilder.cronSchedule(item.getCronExpression()))
+                .build();
     }
 
 }

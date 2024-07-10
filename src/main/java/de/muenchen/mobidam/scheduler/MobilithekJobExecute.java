@@ -26,6 +26,7 @@ import de.muenchen.mobidam.Constants;
 import de.muenchen.mobidam.config.Interfaces;
 import de.muenchen.mobidam.mobilithek.MobilithekEaiRouteBuilder;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Produce;
@@ -39,24 +40,27 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @AllArgsConstructor
-public class ParkAndRideStaticJob implements Job {
+@Getter
+public class MobilithekJobExecute implements Job {
 
     private CamelContext camelContext;
 
-    private Interfaces interfaces;
+    private Interfaces mobidamInterfaces;
 
     @Produce(MobilithekEaiRouteBuilder.MOBIDAM_S3_ROUTE)
     private ProducerTemplate producer;
 
     public void execute(JobExecutionContext context) throws JobExecutionException {
 
-        log.info("Scheduler starts park and ride static request : " + context.getFireTime().toString());
+        var identifier = context.getJobDetail().getJobDataMap().get(Constants.INTERFACE_TYPE);
+        log.info("Scheduler starts mobilithek '{}' request at '{}'.", identifier, context.getFireTime().toString());
 
-        var mobilithekRequest = ExchangeBuilder.anExchange(this.camelContext)
-                .withHeader(Constants.INTERFACE_TYPE, this.interfaces.getInterfaces().get(Constants.PARK_RIDE_STATIC_DATA))
+        var exchange = ExchangeBuilder.anExchange(getCamelContext())
+                .withHeader(Constants.INTERFACE_TYPE, getMobidamInterfaces().getInterfaces().get(identifier))
                 .build();
 
-        producer.send(mobilithekRequest);
+        producer.send(exchange);
+
     }
 
 }

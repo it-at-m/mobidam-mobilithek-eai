@@ -31,7 +31,6 @@ import lombok.Getter;
 public class InterfaceDTO {
 
     private UUID mobidamSstId;
-    private String mobilithekSubscriptionId;
     private String mobilithekUrl;
     private String cronExpression;
     private String s3ObjectPath;
