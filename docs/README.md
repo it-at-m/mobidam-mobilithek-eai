@@ -148,13 +148,20 @@ de.muenchen.mobidam.integration:
 de.muenchen.mobidam.integration:
   baseUrl: https://mobidam-sst-management...
   interfaces:
-    parkRideData:
+    parkRideStaticData:
       mobidam-sst-id: 999fcf2d-25bb-4fa9-85ff-f7ed12349999
       mobilithek-url: https://mobilithek.info:8443/mobilithek/api/v1.0/subscription/123456789/clientPullService?subscriptionID=123456789
       cron-expression: '0 * * ? * *'
-      s3-object-path: MDAS/Mobilithek/PR-statisch/%s-pr-daten.xml
+      s3-object-path: MDAS/Mobilithek/PR-static/%s-pr-daten.xml
       s3-date-format: yyyyMMdd_HHmmss
       s3-bucket: my-bucket-name
+    parkRideDynamicData:
+      mobidam-sst-id: 888fcf2d-25bb-4fa9-85ff-f7ed12348888
+      mobilithek-url: https://mobilithek.info:8443/mobilithek/api/v1.0/subscription/1234567891/clientPullService?subscriptionID=1234567891
+      cron-expression: '30 * * ? * *'
+      s3-object-path: MDAS/Mobilithek/PR-dynamic/%s-pr-daten.xml
+      s3-date-format: yyyyMMdd_HHmmss
+      s3-bucket: my-bucket-name  
 
 spring:
   security:
