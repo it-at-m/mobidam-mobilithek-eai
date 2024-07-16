@@ -1,5 +1,9 @@
 # Release-Notes
 
+## Sprint 14 (09.07.2024 - 30.07.2024)
+### Hinzugefügt
+- Dynamische Anbindung Mobilithek, S3 und SST-Management erstellt.
+
 ## Sprint 11 + 12 (08.05.2024 - 18.06.2024)
 ### Hinzugefügt
 - Anbindung Mobilithek, S3 und SST-Management erstellt.
