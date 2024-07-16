@@ -3,27 +3,26 @@ package de.muenchen.mobidam.config;
 import de.muenchen.mobidam.Constants;
 import de.muenchen.mobidam.mobilithek.InterfaceDTO;
 import de.muenchen.mobidam.scheduler.MobilithekJobExecute;
-import org.quartz.CronScheduleBuilder;
-import org.quartz.JobBuilder;
-import org.quartz.JobDetail;
-import org.quartz.Trigger;
-import org.quartz.TriggerBuilder;
+import javax.annotation.PostConstruct;
+import java.util.Map;
+import org.quartz.*;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Configuration;
-
-import javax.annotation.PostConstruct;
 
 @Configuration
 public class InterfaceBeansConfiguration implements BeanFactoryAware {
 
+    private static final String SCHEDULER_GROUP = "MobidamMobilithekEai";
     private static final String BEAN_NAME_TRIGGER = "interface_trigger_";
     private static final String BEAN_NAME_JOBDETAIL = "interface_jobdetail_";
 
-    @Autowired
-    Interfaces interfaces;
+    public InterfaceBeansConfiguration(Interfaces interfaces) {
+        this.interfaces = interfaces;
+    }
+
+    private Interfaces interfaces;
 
     private BeanFactory beanFactory;
 
@@ -34,29 +33,35 @@ public class InterfaceBeansConfiguration implements BeanFactoryAware {
 
     @PostConstruct
     public void onPostConstruct() {
+
         ConfigurableBeanFactory configurableBeanFactory = (ConfigurableBeanFactory) beanFactory;
-        interfaces.getInterfaces().forEach((key,value) -> {
-            Trigger trigger = createTrigger(value);
-            configurableBeanFactory.registerSingleton(BEAN_NAME_TRIGGER + key, trigger);
-            JobDetail jobDetail = createJobDetail(value.getName()); // TODO: JobDetail wird zweimal initialisiert -> prüfen, ob nur einmal mögl.
-            configurableBeanFactory.registerSingleton(BEAN_NAME_JOBDETAIL + key, jobDetail);
-        });
+        var iterator = interfaces.getInterfaces().entrySet().iterator();
+        while (iterator.hasNext()) {
+            var next = iterator.next();
+             if (CronExpression.isValidExpression(next.getValue().getCronExpression())) {
+                Trigger trigger = createTrigger(next);
+                configurableBeanFactory.registerSingleton(BEAN_NAME_TRIGGER + next.getKey(), trigger);
+                JobDetail jobDetail = createJobDetail(next);
+                configurableBeanFactory.registerSingleton(BEAN_NAME_JOBDETAIL + next.getKey(), jobDetail);
+             }
+        };
     }
-    private JobDetail createJobDetail(final String identity) {
+
+    private JobDetail createJobDetail(Map.Entry<String, InterfaceDTO> next) {
 
         return JobBuilder.newJob(MobilithekJobExecute.class)
-                .withIdentity(identity)
-                .usingJobData(Constants.INTERFACE_TYPE, identity)
+                .withIdentity(next.getKey() ,SCHEDULER_GROUP)
+                .usingJobData(Constants.INTERFACE_TYPE, next.getKey())
                 .storeDurably()
                 .build();
     }
 
-    private Trigger createTrigger(final InterfaceDTO item) {
+    private Trigger createTrigger(final Map.Entry<String, InterfaceDTO> next) {
 
         return TriggerBuilder.newTrigger()
-                .forJob(createJobDetail(item.getName()))
-                .withIdentity(item.getName())
-                .withSchedule(CronScheduleBuilder.cronSchedule(item.getCronExpression()))
+                .forJob(next.getKey(), SCHEDULER_GROUP)
+                .withIdentity(next.getKey(), SCHEDULER_GROUP)
+                .withSchedule(CronScheduleBuilder.cronSchedule(next.getValue().getCronExpression()))
                 .build();
     }
 
