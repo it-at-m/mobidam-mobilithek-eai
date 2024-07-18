@@ -7,11 +7,9 @@ import org.apache.tika.metadata.Metadata;
 import org.apache.tika.mime.MediaType;
 import org.junit.jupiter.api.Test;
 import org.owasp.encoder.Encode;
-import org.owasp.esapi.errors.ValidationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.w3c.tidy.Tidy;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -61,7 +59,7 @@ public class EsapiTest
 //    }
 //
     @Test
-    public void testIsInvalidMimetypeTika() throws IOException, ValidationException, TikaException {
+    public void testIsInvalidMimetypeTika() throws IOException, TikaException {
 //        String safe = Files.readString(Path.of("C:\\Users\\martin.dietrich\\tmp\\mdas-scan\\test0.xml"));
 //        String unsafe = Files.readString(Path.of("C:\\Users\\martin.dietrich\\tmp\\mdas-scan\\test2.xml"));
         TikaConfig tika = new TikaConfig();
@@ -75,7 +73,7 @@ public class EsapiTest
     }
 
     @Test
-    public void testIsValidMimetypeTika() throws IOException, ValidationException, TikaException {
+    public void testIsValidMimetypeTika() throws IOException, TikaException {
 //        String safe = Files.readString(Path.of("C:\\Users\\martin.dietrich\\tmp\\mdas-scan\\test0.xml"));
 //        String unsafe = Files.readString(Path.of("C:\\Users\\martin.dietrich\\tmp\\mdas-scan\\test2.xml"));
         TikaConfig tika = new TikaConfig();
@@ -89,7 +87,7 @@ public class EsapiTest
     }
 
     @Test
-    public void testIsValidXmlTika() throws IOException, ValidationException, TikaException {
+    public void testIsValidXmlTika() throws IOException, TikaException {
 //        String safe = Files.readString(Path.of("C:\\Users\\martin.dietrich\\tmp\\mdas-scan\\test0.xml"));
 //        String unsafe = Files.readString(Path.of("C:\\Users\\martin.dietrich\\tmp\\mdas-scan\\test2.xml"));
         TikaConfig tika = new TikaConfig();
@@ -97,7 +95,7 @@ public class EsapiTest
             Metadata metadata = new Metadata();
             //TikaInputStream sets the TikaCoreProperties.RESOURCE_NAME_KEY
             //when initialized with a file or path
-            MediaType mimetype = tika.getDetector().detect(TikaInputStream.get(Path.of("C:\\Users\\martin.dietrich\\tmp\\mdas-scan\\test0.xml")), metadata);
+            MediaType mimetype = tika.getDetector().detect(TikaInputStream.get(Path.of("C:\\Users\\martin.dietrich\\tmp\\mdas-scan\\valid.xml")), metadata);
             System.out.println("File is " + mimetype);
             assertEquals("application/xml", mimetype.toString());
     }

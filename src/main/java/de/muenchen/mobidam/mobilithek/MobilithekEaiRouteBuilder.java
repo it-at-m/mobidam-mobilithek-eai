@@ -26,9 +26,14 @@ import de.muenchen.mobidam.Constants;
 import javax.net.ssl.SSLException;
 import org.apache.camel.Exchange;
 import org.apache.camel.LoggingLevel;
+import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.converter.stream.InputStreamCache;
 import org.apache.camel.http.common.HttpMethods;
+import org.apache.camel.impl.engine.DefaultStreamCachingStrategy;
+import org.apache.camel.spi.StreamCachingStrategy;
 import org.springframework.stereotype.Component;
+import org.apache.camel.CamelContext;
 
 @Component
 public class MobilithekEaiRouteBuilder extends RouteBuilder {
@@ -41,17 +46,26 @@ public class MobilithekEaiRouteBuilder extends RouteBuilder {
     @Override
     public void configure() {
 
+        StreamCachingStrategy strategy = new DefaultStreamCachingStrategy();
+        strategy.setSpoolEnabled(true);
+
+        CamelContext context = getContext();
+        context.setStreamCachingStrategy(strategy);
+        context.setStreamCaching(true);
+
         onException(Exception.class, SSLException.class)
                 .handled(true)
-                .bean("interfaceMessageFactory", "mobilithekMessageError")
-                .bean("sstManagementIntegrationService", "logDatentransfer")
+//                .bean("interfaceMessageFactory", "mobilithekMessageError")
+//                .bean("sstManagementIntegrationService", "logDatentransfer")
                 .log(LoggingLevel.ERROR, "${exception}")
-                .bean("interfaceMessageFactory", "mobilithekMessageEnd")
-                .bean("sstManagementIntegrationService", "logDatentransfer");
+//                .bean("interfaceMessageFactory", "mobilithekMessageEnd")
+//                .bean("sstManagementIntegrationService", "logDatentransfer")
+                ;
 
         // spotless:off
         from(MOBIDAM_S3_ROUTE)
                 .routeId(MOBIDAM_ROUTE_ID)
+//                .streamCaching(strategy)
 //                .bean("sstManagementIntegrationServiceFacade", "isActivated")
 //                .choice().when(simple("${body} == 'TRUE'"))
 //                    .bean("interfaceMessageFactory", "mobilithekMessageStart")
@@ -59,6 +73,18 @@ public class MobilithekEaiRouteBuilder extends RouteBuilder {
 //                    .setBody(simple("${null}"))
                     .setHeader(Exchange.HTTP_METHOD, constant(HttpMethods.GET))
                     .toD(String.format("${header.%s.mobilithekUrl}", Constants.INTERFACE_TYPE))
+                .process(new Processor() {
+                    @Override
+                    public void process(Exchange exchange) throws Exception {
+                        System.out.println(exchange);
+                        InputStreamCache cache = exchange.getIn().getBody(InputStreamCache.class);
+                        // Reset the cache to the beginning of the stream
+                        cache.reset();
+                        System.out.println(new String(cache.readAllBytes()));
+                        cache.reset();
+                    }
+                })
+//                    .convertBodyTo(byte[].class)
                     .process("mimeTypeChecker")
                     .process("codeDetectionProcessor")
                     .setHeader(Constants.PARAMETER_BUCKET_NAME, simple(String.format("${header.%s.s3Bucket}", Constants.INTERFACE_TYPE)))

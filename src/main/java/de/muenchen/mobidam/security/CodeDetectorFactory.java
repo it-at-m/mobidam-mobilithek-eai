@@ -16,13 +16,13 @@ public class CodeDetectorFactory {
     private final MaliciousXmlCodeDetector maliciousXmlCodeDetector;
     private final DefaultMaliciousCodeDetector defaultMaliciousCodeDetector;
 
-    private final Map<String, DefaultMaliciousCodeDetector> map = new HashMap<>();
+    private final Map<String, MaliciousCodeDetector> map = new HashMap<>();
     @PostConstruct
     public void init(){
         map.put("application/xml", maliciousXmlCodeDetector);
     }
 
-    public DefaultMaliciousCodeDetector getCodeDetector(final String mimeType){
+    public MaliciousCodeDetector getCodeDetector(final String mimeType){
         return map.getOrDefault(mimeType, defaultMaliciousCodeDetector);
     }
 

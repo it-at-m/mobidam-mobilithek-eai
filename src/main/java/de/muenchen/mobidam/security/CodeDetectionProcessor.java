@@ -6,9 +6,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
+import org.apache.camel.converter.stream.InputStreamCache;
 import org.springframework.stereotype.Component;
-
-import java.io.File;
 
 @Component
 @RequiredArgsConstructor
@@ -19,11 +18,12 @@ public class CodeDetectionProcessor implements Processor {
     @Override
     public void process(Exchange exchange) throws Exception {
         var mobilithekInterface = exchange.getIn().getHeader(Constants.INTERFACE_TYPE, InterfaceDTO.class);
-        File file = exchange.getIn().getBody(File.class); // TODO
-        DefaultMaliciousCodeDetector codeDetector = codeDetectorFactory.getCodeDetector(mobilithekInterface.getMimeType());
-        boolean result = codeDetector.isValidData(file); // from exchange
+        InputStreamCache stream = exchange.getIn().getBody(InputStreamCache.class);
+        stream.reset();
+        MaliciousCodeDetector codeDetector = codeDetectorFactory.getCodeDetector(mobilithekInterface.getAllowedMimeTypes().get(0)); // TODO
+        boolean result = codeDetector.isValidData(stream); // from exchange
         if (!result){
-            log.warn("XSS attack detected: {}", file);
+            log.warn("XSS attack detected: {}", mobilithekInterface.getName());
             // TODO: quarantäne
         }
     }

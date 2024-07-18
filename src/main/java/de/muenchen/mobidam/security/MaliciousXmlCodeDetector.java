@@ -13,16 +13,17 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 @Service
 @Slf4j
-public class MaliciousXmlCodeDetector extends DefaultMaliciousCodeDetector{
+public class MaliciousXmlCodeDetector implements MaliciousCodeDetector{
 
-    public boolean isValidData(final File file) throws Exception {
+    public boolean isValidData(final InputStream stream) throws Exception {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
-        Document doc = builder.parse(file);
+        Document doc = builder.parse(stream);
         ArrayList<String> textNodes = traverseNode(doc.getDocumentElement());
         for (String textNode : textNodes) {
             log.trace(textNode);

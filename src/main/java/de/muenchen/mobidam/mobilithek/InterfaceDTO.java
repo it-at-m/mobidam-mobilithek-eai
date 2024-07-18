@@ -22,6 +22,7 @@
  */
 package de.muenchen.mobidam.mobilithek;
 
+import java.util.List;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -37,6 +38,6 @@ public class InterfaceDTO {
     private String s3ObjectPath;
     private String s3DateFormat;
     private String s3Bucket;
-    private String mimeType;
+    private List<String> allowedMimeTypes;
 
 }
