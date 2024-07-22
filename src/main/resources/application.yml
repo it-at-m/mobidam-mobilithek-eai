@@ -65,7 +65,6 @@ de.muenchen.mobidam.integration:
   interfaces:
     interface-1:
       mobidam-sst-id:
-      mobilithek-subscription-id: ...
       mobilithek-url:
       cron-expression:
       s3-object-path: ...

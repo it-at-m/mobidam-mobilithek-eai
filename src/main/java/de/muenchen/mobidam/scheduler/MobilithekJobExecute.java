@@ -24,31 +24,43 @@ package de.muenchen.mobidam.scheduler;
 
 import de.muenchen.mobidam.Constants;
 import de.muenchen.mobidam.config.Interfaces;
-import org.quartz.JobDetail;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.quartz.CronTriggerFactoryBean;
-import org.springframework.scheduling.quartz.JobDetailFactoryBean;
+import de.muenchen.mobidam.mobilithek.MobilithekEaiRouteBuilder;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.camel.CamelContext;
+import org.apache.camel.Produce;
+import org.apache.camel.ProducerTemplate;
+import org.apache.camel.builder.ExchangeBuilder;
+import org.quartz.Job;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
+import org.springframework.stereotype.Component;
 
-@Configuration
-public class SchedulerContext {
+@Slf4j
+@Component
+@AllArgsConstructor
+@Getter
+public class MobilithekJobExecute implements Job {
 
-    @Bean
-    public JobDetailFactoryBean parkAndRideDetail() {
-        var jobDetailFactory = new JobDetailFactoryBean();
-        jobDetailFactory.setJobClass(ParkAndRideStaticJob.class);
-        jobDetailFactory.setDescription("Mobilithek Info Park And Ride Static Job");
-        jobDetailFactory.setDurability(true);
-        return jobDetailFactory;
-    }
+    private CamelContext camelContext;
 
-    @Bean
-    public CronTriggerFactoryBean cronParkAndRide(JobDetail job, Interfaces properties) {
-        var cron = new CronTriggerFactoryBean();
-        cron.setJobDetail(job);
-        cron.setGroup("Park And Ride Static Job");
-        cron.setCronExpression(properties.getInterfaces().get(Constants.PARK_RIDE_STATIC_DATA).getCronExpression());
-        return cron;
+    private Interfaces mobidamInterfaces;
+
+    @Produce(MobilithekEaiRouteBuilder.MOBIDAM_S3_ROUTE)
+    private ProducerTemplate producer;
+
+    public void execute(JobExecutionContext context) throws JobExecutionException {
+
+        var identifier = context.getJobDetail().getJobDataMap().get(Constants.INTERFACE_TYPE);
+        log.info("Scheduler starts mobilithek '{}' request at '{}'.", identifier, context.getFireTime().toString());
+
+        var exchange = ExchangeBuilder.anExchange(getCamelContext())
+                .withHeader(Constants.INTERFACE_TYPE, getMobidamInterfaces().getInterfaces().get(identifier))
+                .build();
+
+        producer.send(exchange);
+
     }
 
 }
