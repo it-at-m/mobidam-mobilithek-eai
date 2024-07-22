@@ -7,11 +7,16 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.converter.stream.InputStreamCache;
 import org.apache.tika.Tika;
-import org.apache.tika.config.TikaConfig;
 import org.apache.tika.exception.TikaException;
+import org.apache.tika.metadata.Metadata;
+import org.apache.tika.mime.MediaType;
+import org.apache.tika.parser.AutoDetectParser;
+import org.apache.tika.parser.ParseContext;
+import org.apache.tika.parser.Parser;
+import org.apache.tika.sax.BodyContentHandler;
 import org.springframework.stereotype.Service;
+import org.xml.sax.SAXException;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -42,24 +47,31 @@ public class MimeTypeChecker implements Processor {
         return allowedMimeTypes.contains(mimetype);
     }
 
-    private String getMimeTypeSimple(final InputStream stream) throws IOException {
+    private String getMimeTypeSimple(final InputStream stream) {
         Tika tika = new Tika();
-        String mimeType = tika.detect(stream);
+//        String mimeType = tika.detect(stream);
+        String mimeType = null;
+        try {
+            mimeType = getMimeType(stream);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         return mimeType;
     }
 
-//    private String getMimeType(final InputStream stream){
-//        Parser parser = new AutoDetectParser();
-//
-//        BodyContentHandler handler = new BodyContentHandler();
-//
-//        Metadata metadata = new Metadata();
-//
-//        parser.parse(stream, handler, metadata);
-//
-//        MediaType mediaType = MediaType.parse(metadata.get(Metadata.CONTENT_TYPE));
-//
-//        return mediaType.toString();
-//    }
+    private String getMimeType(final InputStream stream) throws TikaException, IOException, SAXException {
+        Parser parser = new AutoDetectParser();
+
+        BodyContentHandler handler = new BodyContentHandler();
+
+        Metadata metadata = new Metadata();
+
+        ParseContext ctx = null;
+        parser.parse(stream, handler, metadata, ctx);
+
+        MediaType mediaType = MediaType.parse(metadata.get(Metadata.CONTENT_TYPE));
+
+        return mediaType.toString();
+    }
 
 }
