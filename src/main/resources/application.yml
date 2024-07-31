@@ -34,11 +34,13 @@ management:
     enabled-by-default: false
     web:
       exposure:
-        include: health,info
+        include: health,info,metrics
   endpoint:
     info:
       enabled: true
     health:
+      enabled: true
+    metrics:
       enabled: true
   info:
     env:
