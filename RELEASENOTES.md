@@ -1,4 +1,7 @@
 # Release-Notes
+## Sprint 15 (30.07.2024 - 20.08.2024)
+### Entfernt
+- die Demo-Workflows wurden entfernt
 
 ## Sprint 14 (09.07.2024 - 30.07.2024)
 ### Hinzugefügt
