@@ -1,4 +1,11 @@
 # Release-Notes
+## Sprint 15 (30.07.2024 - 20.08.2024)
+### Entfernt
+- die Demo-Workflows wurden entfernt
+
+## Sprint 14 (09.07.2024 - 30.07.2024)
+### Hinzugefügt
+- Multiple Anbindungen an Mobilithek (per Konfiguration) hinzugefügt.
 
 ## Sprint 11 + 12 (08.05.2024 - 18.06.2024)
 ### Hinzugefügt
