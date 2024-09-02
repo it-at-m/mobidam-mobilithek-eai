@@ -24,8 +24,10 @@ package de.muenchen.mobidam;
 
 import de.muenchen.mobidam.config.EnvironmentReader;
 import de.muenchen.mobidam.config.Interfaces;
+import de.muenchen.mobidam.exception.MobidamSecurityException;
 import de.muenchen.mobidam.integration.client.domain.DatentransferCreateDTO;
 import de.muenchen.mobidam.integration.service.SstManagementIntegrationService;
+import de.muenchen.mobidam.security.MimeTypeProcessor;
 import de.muenchen.mobidam.sstmanagment.EreignisTyp;
 import de.muenchen.mobidam.mobilithek.MobilithekEaiRouteBuilder;
 import java.io.InputStream;
@@ -49,6 +51,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.isA;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
@@ -81,8 +86,14 @@ class MobilithekRouteS3Test {
     @MockBean
     private EnvironmentReader envReader;
 
+    @MockBean
+    private MimeTypeProcessor mimeTypeProcessor;
+
     @Captor
     private ArgumentCaptor<DatentransferCreateDTO> datentransferCaptor;
+
+    @EndpointInject("mock:s3Destination")
+    private MockEndpoint mockS3Endpoint;
 
     @Test
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
@@ -175,7 +186,35 @@ class MobilithekRouteS3Test {
         Assertions.assertEquals("End interface with error : Bucket not configured: int-mdasc-mdasdev", datentransferCaptor.getAllValues().get(1).getInfo());
 
         startMobilithekInfoRequest.stop();
+    }
 
+    @Test
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+    void test_RouteMobilithekInfoToSecurityException() throws Exception {
+
+        startMobilithekInfoRequest.start();
+        AdviceWith.adviceWith(camelContext, MobilithekEaiRouteBuilder.MOBIDAM_ROUTE_ID,
+                a -> a.weaveById(MobilithekEaiRouteBuilder.MOBIDAM_ENDPOINT_S3_QUARANTINE_ID).replace().toD("mock:s3Destination"));
+        camelContext.start();
+
+        var mobilithekRequest = ExchangeBuilder.anExchange(camelContext)
+                .withHeader(Constants.INTERFACE_TYPE, this.interfaces.getInterfaces().get(this.interfaces.getInterfaces().keySet().iterator().next()))
+                .build();
+
+        Mockito.when(sstService.isActivated("999fcf2d-25bb-4fa9-85ff-f7ed12349999")).thenReturn(true);
+        Mockito.when(envReader.getEnvironmentVariable(any())).thenReturn("foo");
+        Mockito.doThrow(new MobidamSecurityException("danger!")).when(mimeTypeProcessor).process(isA(Exchange.class));
+
+        startMobilithekInfoRequest.send(mobilithekRequest);
+
+        Mockito.verify(this.sstService, Mockito.times(1)).isActivated("999fcf2d-25bb-4fa9-85ff-f7ed12349999");
+        Mockito.verify(this.sstService, Mockito.times(3)).logDatentransfer(datentransferCaptor.capture());
+        Assertions.assertEquals(EreignisTyp.BEGINN.name(), datentransferCaptor.getAllValues().get(0).getEreignis());
+        Assertions.assertEquals(EreignisTyp.FEHLER.name(), datentransferCaptor.getAllValues().get(1).getEreignis());
+        Assertions.assertEquals(EreignisTyp.ENDE.name(), datentransferCaptor.getAllValues().get(2).getEreignis());
+
+        mockS3Endpoint.expectedMessageCount(1);
+        startMobilithekInfoRequest.stop();
     }
 
 }

@@ -46,6 +46,7 @@ public class MobilithekEaiRouteBuilder extends RouteBuilder {
 
     public static final String MOBIDAM_ROUTE_ID = "Interface-Mobilithek-Info";
     public static final String MOBIDAM_ENDPOINT_S3_ID = "Endpoint-S3";
+    public static final String MOBIDAM_ENDPOINT_S3_QUARANTINE_ID = "Endpoint-S3-Quarantine";
 
     @Override
     public void configure() {
@@ -59,61 +60,65 @@ public class MobilithekEaiRouteBuilder extends RouteBuilder {
 
         // spotless:off
         onException(MobidamSecurityException.class)
-                .handled(false) // TODO: check if goes to onExc(Exd)
-//                .log(LoggingLevel.ERROR, "${exception}")
+                .handled(true)
                 .process(exchange -> {
                     var mobilithekInterface = exchange.getIn().getHeader(Constants.INTERFACE_TYPE, InterfaceDTO.class);
                     exchange.getIn().setHeader(AWS2S3Constants.KEY, S3ObjectPathBuilder.buildQuarantinePath(mobilithekInterface));
                 })
-                .toD("aws2-s3://${header.bucketName}?accessKey=RAW(${header.accessKey})&secretKey=RAW(${header.secretKey})&region=${properties:camel.component.aws2-s3.region}&overrideEndpoint=true&uriEndpointOverride=${properties:camel.component.aws2-s3.override-endpoint}").id(MOBIDAM_ENDPOINT_S3_ID)
-                        .log(LoggingLevel.WARN, "Moved to quarantine")
-                ;
+                .toD("aws2-s3://${header.bucketName}?accessKey=RAW(${header.accessKey})&secretKey=RAW(${header.secretKey})&region=${properties:camel.component.aws2-s3.region}&overrideEndpoint=true&uriEndpointOverride=${properties:camel.component.aws2-s3.override-endpoint}").id(MOBIDAM_ENDPOINT_S3_QUARANTINE_ID)
+                .log(LoggingLevel.INFO, "Moved to quarantine: ${header." + AWS2S3Constants.KEY + "}")
+                .to("direct:handleError")
+        ;
 
         onException(Exception.class, SSLException.class)
                 .handled(true)
-//                .bean("interfaceMessageFactory", "mobilithekMessageError")
-//                .bean("sstManagementIntegrationService", "logDatentransfer")
-                .log(LoggingLevel.ERROR, "${exception}")
-//                .bean("interfaceMessageFactory", "mobilithekMessageEnd")
-//                .bean("sstManagementIntegrationService", "logDatentransfer")
-                ;
+                .to("direct:handleError")
+        ;
 
         from(MOBIDAM_S3_ROUTE)
                 .routeId(MOBIDAM_ROUTE_ID)
 //                .streamCaching(strategy)
-//                .bean("sstManagementIntegrationServiceFacade", "isActivated")
-//                .choice().when(simple("${body} == 'TRUE'"))
-//                    .bean("interfaceMessageFactory", "mobilithekMessageStart")
-//                    .bean("sstManagementIntegrationServiceFacade", "logDatentransfer")
-//                    .setBody(simple("${null}"))
+                .bean("sstManagementIntegrationServiceFacade", "isActivated")
+                .choice().when(simple("${body} == 'TRUE'"))
+                    .bean("interfaceMessageFactory", "mobilithekMessageStart")
+                    .bean("sstManagementIntegrationServiceFacade", "logDatentransfer")
+                    .setBody(simple("${null}"))
                     .setHeader(Exchange.HTTP_METHOD, constant(HttpMethods.GET))
                     .toD(String.format("${header.%s.mobilithekUrl}", Constants.INTERFACE_TYPE))
-                .process(new Processor() {
-                    @Override
-                    public void process(Exchange exchange) throws Exception {
-                        System.out.println(exchange);
-                        InputStreamCache cache = exchange.getIn().getBody(InputStreamCache.class);
-                        // Reset the cache to the beginning of the stream
-                        cache.reset();
-                        System.out.println(new String(cache.readAllBytes()));
-                        cache.reset();
-                    }
-                })
+//                .process(new Processor() {
+//                    @Override
+//                    public void process(Exchange exchange) throws Exception {
+//                        System.out.println(exchange);
+//                        InputStreamCache cache = exchange.getIn().getBody(InputStreamCache.class);
+//                        // Reset the cache to the beginning of the stream
+//                        cache.reset();
+//                        System.out.println(new String(cache.readAllBytes()));
+//                        cache.reset();
+//                    }
+//                })
                 .setHeader(Constants.PARAMETER_BUCKET_NAME, simple(String.format("${header.%s.s3Bucket}", Constants.INTERFACE_TYPE)))
                 .process("s3CredentialProvider")
 //                    .convertBodyTo(byte[].class)
-                .process("mimeTypeChecker")
+                .process("mimeTypeProcessor")
                 .process("codeDetectionProcessor")
                 .process("s3ObjectKeyBuilder")
                     .toD("aws2-s3://${header.bucketName}?accessKey=RAW(${header.accessKey})&secretKey=RAW(${header.secretKey})&region=${properties:camel.component.aws2-s3.region}&overrideEndpoint=true&uriEndpointOverride=${properties:camel.component.aws2-s3.override-endpoint}").id(MOBIDAM_ENDPOINT_S3_ID)
-//                    .bean("interfaceMessageFactory", "mobilithekMessageSuccess")
-//                    .bean("sstManagementIntegrationService", "logDatentransfer")
-//                    .bean("interfaceMessageFactory", "mobilithekMessageEnd")
-//                    .bean("sstManagementIntegrationService", "logDatentransfer")
-//                .otherwise()
-//                    .log(LoggingLevel.DEBUG, Constants.MOBIDAM_LOGGER, String.format("${header.%s.mobidamSstId} is not active.", Constants.INTERFACE_TYPE))
-//                .end()
-                ;
+                    .bean("interfaceMessageFactory", "mobilithekMessageSuccess")
+                    .bean("sstManagementIntegrationService", "logDatentransfer")
+                    .bean("interfaceMessageFactory", "mobilithekMessageEnd")
+                    .bean("sstManagementIntegrationService", "logDatentransfer")
+                .otherwise()
+                    .log(LoggingLevel.DEBUG, Constants.MOBIDAM_LOGGER, String.format("${header.%s.mobidamSstId} is not active.", Constants.INTERFACE_TYPE))
+                .end()
+        ;
+
+        from("direct:handleError")
+                .bean("interfaceMessageFactory", "mobilithekMessageError")
+                .bean("sstManagementIntegrationService", "logDatentransfer")
+                .log(LoggingLevel.ERROR, "${exception}")
+                .bean("interfaceMessageFactory", "mobilithekMessageEnd")
+                .bean("sstManagementIntegrationService", "logDatentransfer")
+        ;
         //  spotless:on
 
     }
