@@ -24,21 +24,9 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class MimeTypeChecker implements Processor {
+public class MimeTypeChecker {
 
-    @Override
-    public void process(Exchange exchange) throws Exception {
-        var mobilithekInterface = exchange.getIn().getHeader(Constants.INTERFACE_TYPE, InterfaceDTO.class);
-        InputStreamCache stream = exchange.getMessage().getBody(InputStreamCache.class);
-        stream.reset();
-        log.debug("Checking mime type of content for interface {}", mobilithekInterface.getName());
-        boolean result = check(stream, mobilithekInterface.getAllowedMimeTypes());
-        if (!result) {
-            throw new MobidamSecurityException("Illegal MIME type detected in interface: " + mobilithekInterface.getName());
-        }
-    }
-
-    private boolean check(final InputStreamCache stream, final List<String> allowedMimeTypes) throws IOException {
+    public boolean check(final InputStream stream, final List<String> allowedMimeTypes) throws IOException {
 
         //        Metadata metadata = new Metadata();
         //        InputStream input = TikaInputStream.get(content);
@@ -48,15 +36,15 @@ public class MimeTypeChecker implements Processor {
         return allowedMimeTypes.contains(mimetype);
     }
 
-    private String getMimeTypeSimple(final InputStream stream) {
+    private String getMimeTypeSimple(final InputStream stream) throws IOException {
         Tika tika = new Tika();
-        //        String mimeType = tika.detect(stream);
-        String mimeType = null;
-        try {
-            mimeType = getMimeType(stream);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        String mimeType = tika.detect(stream);
+        //        String mimeType = null;
+        //        try {
+        //            mimeType = getMimeType(stream);
+        //        } catch (Exception e) {
+        //            throw new RuntimeException(e);
+        //        }
         return mimeType;
     }
 
