@@ -20,6 +20,9 @@ public class CodeDetectionProcessor implements Processor {
     @Override
     public void process(Exchange exchange) throws Exception {
         var mobilithekInterface = exchange.getIn().getHeader(Constants.INTERFACE_TYPE, InterfaceDTO.class);
+        if (!mobilithekInterface.getMaliciousCodeDetectionEnabled()) {
+            return;
+        }
         InputStreamCache stream = exchange.getIn().getBody(InputStreamCache.class);
         stream.reset();
         MaliciousCodeDetector codeDetector = codeDetectorFactory.getCodeDetector(mobilithekInterface.getAllowedMimeTypes().get(0)); // TODO

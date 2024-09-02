@@ -40,5 +40,6 @@ public class InterfaceDTO {
     private String s3DateFormat;
     private String s3Bucket;
     private List<String> allowedMimeTypes;
+    private Boolean maliciousCodeDetectionEnabled;
 
 }
