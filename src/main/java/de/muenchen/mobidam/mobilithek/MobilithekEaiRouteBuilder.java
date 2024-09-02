@@ -24,10 +24,14 @@ package de.muenchen.mobidam.mobilithek;
 
 import de.muenchen.mobidam.Constants;
 import javax.net.ssl.SSLException;
+
+import de.muenchen.mobidam.exception.MobidamSecurityException;
+import de.muenchen.mobidam.s3.S3ObjectPathBuilder;
 import org.apache.camel.Exchange;
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.aws2.s3.AWS2S3Constants;
 import org.apache.camel.converter.stream.InputStreamCache;
 import org.apache.camel.http.common.HttpMethods;
 import org.apache.camel.impl.engine.DefaultStreamCachingStrategy;
@@ -53,6 +57,18 @@ public class MobilithekEaiRouteBuilder extends RouteBuilder {
         context.setStreamCachingStrategy(strategy);
         context.setStreamCaching(true);
 
+        // spotless:off
+        onException(MobidamSecurityException.class)
+                .handled(false) // TODO: check if goes to onExc(Exd)
+//                .log(LoggingLevel.ERROR, "${exception}")
+                .process(exchange -> {
+                    var mobilithekInterface = exchange.getIn().getHeader(Constants.INTERFACE_TYPE, InterfaceDTO.class);
+                    exchange.getIn().setHeader(AWS2S3Constants.KEY, S3ObjectPathBuilder.buildQuarantinePath(mobilithekInterface));
+                })
+                .toD("aws2-s3://${header.bucketName}?accessKey=RAW(${header.accessKey})&secretKey=RAW(${header.secretKey})&region=${properties:camel.component.aws2-s3.region}&overrideEndpoint=true&uriEndpointOverride=${properties:camel.component.aws2-s3.override-endpoint}").id(MOBIDAM_ENDPOINT_S3_ID)
+                        .log(LoggingLevel.WARN, "Moved to quarantine")
+                ;
+
         onException(Exception.class, SSLException.class)
                 .handled(true)
 //                .bean("interfaceMessageFactory", "mobilithekMessageError")
@@ -62,7 +78,6 @@ public class MobilithekEaiRouteBuilder extends RouteBuilder {
 //                .bean("sstManagementIntegrationService", "logDatentransfer")
                 ;
 
-        // spotless:off
         from(MOBIDAM_S3_ROUTE)
                 .routeId(MOBIDAM_ROUTE_ID)
 //                .streamCaching(strategy)
@@ -84,12 +99,12 @@ public class MobilithekEaiRouteBuilder extends RouteBuilder {
                         cache.reset();
                     }
                 })
+                .setHeader(Constants.PARAMETER_BUCKET_NAME, simple(String.format("${header.%s.s3Bucket}", Constants.INTERFACE_TYPE)))
+                .process("s3CredentialProvider")
 //                    .convertBodyTo(byte[].class)
-                    .process("mimeTypeChecker")
-                    .process("codeDetectionProcessor")
-                    .setHeader(Constants.PARAMETER_BUCKET_NAME, simple(String.format("${header.%s.s3Bucket}", Constants.INTERFACE_TYPE)))
-                    .process("s3CredentialProvider")
-                    .process("s3ObjectKeyBuilder")
+                .process("mimeTypeChecker")
+                .process("codeDetectionProcessor")
+                .process("s3ObjectKeyBuilder")
                     .toD("aws2-s3://${header.bucketName}?accessKey=RAW(${header.accessKey})&secretKey=RAW(${header.secretKey})&region=${properties:camel.component.aws2-s3.region}&overrideEndpoint=true&uriEndpointOverride=${properties:camel.component.aws2-s3.override-endpoint}").id(MOBIDAM_ENDPOINT_S3_ID)
 //                    .bean("interfaceMessageFactory", "mobilithekMessageSuccess")
 //                    .bean("sstManagementIntegrationService", "logDatentransfer")

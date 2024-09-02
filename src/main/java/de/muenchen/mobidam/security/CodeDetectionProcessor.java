@@ -1,6 +1,7 @@
 package de.muenchen.mobidam.security;
 
 import de.muenchen.mobidam.Constants;
+import de.muenchen.mobidam.exception.MobidamSecurityException;
 import de.muenchen.mobidam.mobilithek.InterfaceDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Component;
 public class CodeDetectionProcessor implements Processor {
 
     private final CodeDetectorFactory codeDetectorFactory;
+
     @Override
     public void process(Exchange exchange) throws Exception {
         var mobilithekInterface = exchange.getIn().getHeader(Constants.INTERFACE_TYPE, InterfaceDTO.class);
@@ -22,9 +24,9 @@ public class CodeDetectionProcessor implements Processor {
         stream.reset();
         MaliciousCodeDetector codeDetector = codeDetectorFactory.getCodeDetector(mobilithekInterface.getAllowedMimeTypes().get(0)); // TODO
         boolean result = codeDetector.isValidData(stream); // from exchange
-        if (!result){
-            log.warn("XSS attack detected: {}", mobilithekInterface.getName());
-            // TODO: quarantäne
+        if (!result) {
+            log.warn("Possible XSS attack detected: {}", mobilithekInterface.getName());
+            throw new MobidamSecurityException("Possible XSS attack detected in interface: " + mobilithekInterface.getName());
         }
     }
 }

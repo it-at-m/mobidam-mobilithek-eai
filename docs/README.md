@@ -60,7 +60,7 @@ spring:
 
 ### [Mobilithek.Info](https://mobilithek.info/)
 
-Jede Mobilithek Schnittstelle hat eine individuelle _mobilithek-url_.
+Jede Mobilithek Schnittstelle hat eine individuelle _mobilithek-subscription-id_ und _mobilithek-url_.
 
 ```
 de.muenchen.mobidam.integration:
@@ -68,6 +68,7 @@ de.muenchen.mobidam.integration:
   interfaces:
     interface-1:
       ...
+      mobilithek-subscription-id: ...
       mobilithek-url: ...
       ...
 ```
@@ -150,6 +151,7 @@ de.muenchen.mobidam.integration:
   interfaces:
     parkRideData:
       mobidam-sst-id: 999fcf2d-25bb-4fa9-85ff-f7ed12349999
+      mobilithek-subscription-id: 123456789
       mobilithek-url: https://mobilithek.info:8443/mobilithek/api/v1.0/subscription/123456789/clientPullService?subscriptionID=123456789
       cron-expression: '0 * * ? * *'
       s3-object-path: MDAS/Mobilithek/PR-statisch/%s-pr-daten.xml

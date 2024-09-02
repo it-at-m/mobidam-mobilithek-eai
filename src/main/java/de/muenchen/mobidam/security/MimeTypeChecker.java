@@ -1,6 +1,7 @@
 package de.muenchen.mobidam.security;
 
 import de.muenchen.mobidam.Constants;
+import de.muenchen.mobidam.exception.MobidamSecurityException;
 import de.muenchen.mobidam.mobilithek.InterfaceDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.camel.Exchange;
@@ -32,16 +33,16 @@ public class MimeTypeChecker implements Processor {
         stream.reset();
         log.debug("Checking mime type of content for interface {}", mobilithekInterface.getName());
         boolean result = check(stream, mobilithekInterface.getAllowedMimeTypes());
-        if (!result){
-            // TODO: quarantäne
+        if (!result) {
+            throw new MobidamSecurityException("Illegal MIME type detected in interface: " + mobilithekInterface.getName());
         }
     }
 
     private boolean check(final InputStreamCache stream, final List<String> allowedMimeTypes) throws IOException {
 
-//        Metadata metadata = new Metadata();
-//        InputStream input = TikaInputStream.get(content);
-//        MediaType mimetype = tika.getDetector().detect(input, metadata);
+        //        Metadata metadata = new Metadata();
+        //        InputStream input = TikaInputStream.get(content);
+        //        MediaType mimetype = tika.getDetector().detect(input, metadata);
         String mimetype = getMimeTypeSimple(stream);
         log.debug("File is of mime type: {}", mimetype);
         return allowedMimeTypes.contains(mimetype);
@@ -49,7 +50,7 @@ public class MimeTypeChecker implements Processor {
 
     private String getMimeTypeSimple(final InputStream stream) {
         Tika tika = new Tika();
-//        String mimeType = tika.detect(stream);
+        //        String mimeType = tika.detect(stream);
         String mimeType = null;
         try {
             mimeType = getMimeType(stream);

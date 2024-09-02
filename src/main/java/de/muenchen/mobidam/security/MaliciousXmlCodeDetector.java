@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 @Service
 @Slf4j
-public class MaliciousXmlCodeDetector implements MaliciousCodeDetector{
+public class MaliciousXmlCodeDetector implements MaliciousCodeDetector {
 
     public boolean isValidData(final InputStream stream) throws Exception {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -28,7 +28,7 @@ public class MaliciousXmlCodeDetector implements MaliciousCodeDetector{
         for (String textNode : textNodes) {
             log.trace(textNode);
             String clean = Encode.forHtml(textNode);
-            if (!textNode.equals(clean)){
+            if (!textNode.equals(clean)) {
                 return false;
             }
         }
