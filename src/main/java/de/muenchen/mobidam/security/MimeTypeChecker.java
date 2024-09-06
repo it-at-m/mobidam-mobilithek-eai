@@ -1,12 +1,12 @@
 package de.muenchen.mobidam.security;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tika.Tika;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
 
 @Service
 @Slf4j

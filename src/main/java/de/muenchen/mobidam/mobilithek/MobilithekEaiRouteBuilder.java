@@ -23,21 +23,18 @@
 package de.muenchen.mobidam.mobilithek;
 
 import de.muenchen.mobidam.Constants;
-import javax.net.ssl.SSLException;
-
 import de.muenchen.mobidam.exception.MobidamSecurityException;
 import de.muenchen.mobidam.s3.S3ObjectPathBuilder;
+import javax.net.ssl.SSLException;
+import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.LoggingLevel;
-import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.aws2.s3.AWS2S3Constants;
-import org.apache.camel.converter.stream.InputStreamCache;
 import org.apache.camel.http.common.HttpMethods;
 import org.apache.camel.impl.engine.DefaultStreamCachingStrategy;
 import org.apache.camel.spi.StreamCachingStrategy;
 import org.springframework.stereotype.Component;
-import org.apache.camel.CamelContext;
 
 @Component
 public class MobilithekEaiRouteBuilder extends RouteBuilder {
@@ -77,7 +74,6 @@ public class MobilithekEaiRouteBuilder extends RouteBuilder {
 
         from(MOBIDAM_S3_ROUTE)
                 .routeId(MOBIDAM_ROUTE_ID)
-//                .streamCaching(strategy)
                 .bean("sstManagementIntegrationServiceFacade", "isActivated")
                 .choice().when(simple("${body} == 'TRUE'"))
                     .bean("interfaceMessageFactory", "mobilithekMessageStart")
@@ -85,17 +81,6 @@ public class MobilithekEaiRouteBuilder extends RouteBuilder {
                     .setBody(simple("${null}"))
                     .setHeader(Exchange.HTTP_METHOD, constant(HttpMethods.GET))
                     .toD(String.format("${header.%s.mobilithekUrl}", Constants.INTERFACE_TYPE))
-//                .process(new Processor() {
-//                    @Override
-//                    public void process(Exchange exchange) throws Exception {
-//                        System.out.println(exchange);
-//                        InputStreamCache cache = exchange.getIn().getBody(InputStreamCache.class);
-//                        // Reset the cache to the beginning of the stream
-//                        cache.reset();
-//                        System.out.println(new String(cache.readAllBytes()));
-//                        cache.reset();
-//                    }
-//                })
                 .setHeader(Constants.PARAMETER_BUCKET_NAME, simple(String.format("${header.%s.s3Bucket}", Constants.INTERFACE_TYPE)))
                 .process("s3CredentialProvider")
 //                    .convertBodyTo(byte[].class)
