@@ -25,10 +25,12 @@ package de.muenchen.mobidam.mobilithek;
 import java.util.List;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 @AllArgsConstructor
-@Getter
+@Data
 public class InterfaceDTO {
 
     private UUID mobidamSstId;

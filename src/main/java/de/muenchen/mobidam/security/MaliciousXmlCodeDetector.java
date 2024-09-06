@@ -11,7 +11,6 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -20,10 +19,15 @@ import java.util.ArrayList;
 @Slf4j
 public class MaliciousXmlCodeDetector implements MaliciousCodeDetector {
 
-    public boolean isValidData(final InputStream stream) throws Exception {
+    public boolean isValidData(final InputStream stream) throws ParserConfigurationException, IOException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
-        Document doc = builder.parse(stream);
+        Document doc;
+        try {
+            doc = builder.parse(stream);
+        } catch (SAXException e) {
+            return false;
+        }
         ArrayList<String> textNodes = traverseNode(doc.getDocumentElement());
         for (String textNode : textNodes) {
             log.trace(textNode);

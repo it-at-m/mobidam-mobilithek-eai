@@ -25,11 +25,16 @@ public class CodeDetectionProcessor implements Processor {
         }
         InputStreamCache stream = exchange.getIn().getBody(InputStreamCache.class);
         stream.reset();
-        MaliciousCodeDetector codeDetector = codeDetectorFactory.getCodeDetector(mobilithekInterface.getAllowedMimeTypes().get(0)); // TODO
-        boolean result = codeDetector.isValidData(stream); // from exchange
+        MaliciousCodeDetector codeDetector = codeDetectorFactory.getCodeDetector(mobilithekInterface.getAllowedMimeTypes().get(0));
+        boolean result = false;
+        try {
+            result = codeDetector.isValidData(stream); // from exchange
+        } catch (Exception ex) {
+            log.warn("Malicious code detection failed", ex);
+        }
         if (!result) {
-            log.warn("Possible XSS attack detected: {}", mobilithekInterface.getName());
-            throw new MobidamSecurityException("Possible XSS attack detected in interface: " + mobilithekInterface.getName());
+            log.warn("Possible malicious code detected: {}", mobilithekInterface.getName());
+            throw new MobidamSecurityException("Possible malicious code detected in interface: " + mobilithekInterface.getName());
         }
     }
 }

@@ -1,12 +1,11 @@
 package de.muenchen.mobidam.security;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Component
@@ -20,7 +19,7 @@ public class CodeDetectorFactory {
 
     @PostConstruct
     public void init() {
-        map.put("application/xml", maliciousXmlCodeDetector);
+        map.put(MediaType.APPLICATION_XML_VALUE, maliciousXmlCodeDetector);
     }
 
     public MaliciousCodeDetector getCodeDetector(final String mimeType) {
