@@ -66,13 +66,14 @@ de.muenchen.mobidam.integration:
     interface-1:
       mobidam-sst-id:
       name:
+      mobilithek-subscription-id:
       mobilithek-url:
       cron-expression:
-      s3-object-path: ...
-      s3-date-format: ...
-      s3-bucket: s3-bucket-1
-      allowed-mime-types: application/xml, text/plain
-      malicious-code-detection-enabled: true
+      s3-object-path:
+      s3-date-format:
+      s3-bucket:
+      allowed-mime-types:
+      malicious-code-detection-enabled:
 
 mobidam:
   eai:
