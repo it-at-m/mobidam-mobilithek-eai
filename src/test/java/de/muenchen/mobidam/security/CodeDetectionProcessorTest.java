@@ -37,7 +37,7 @@ public class CodeDetectionProcessorTest {
     @Test
     public void testProcessWithValidXmlData() throws Exception {
         Exchange exchange = createExchange(List.of(MediaType.APPLICATION_XML_VALUE));
-        try (InputStream resStream = this.getClass().getResourceAsStream("/testdata/valid.xml")){
+        try (InputStream resStream = this.getClass().getResourceAsStream("/testdata/valid.xml")) {
             if (resStream == null) throw new IOException("Resource not found: /testdata/valid.xml");
             InputStreamCache stream = new InputStreamCache(resStream.readAllBytes());
             exchange.getIn().setBody(stream);

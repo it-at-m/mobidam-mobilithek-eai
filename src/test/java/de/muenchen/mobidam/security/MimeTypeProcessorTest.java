@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 public class MimeTypeProcessorTest {
@@ -34,6 +36,17 @@ public class MimeTypeProcessorTest {
         InputStreamCache stream = new InputStreamCache(XML_CONTENT.getBytes());
         exchange.getIn().setBody(stream);
         processor.process(exchange);
+    }
+
+    @Test
+    public void testCheckWithValidXml2() throws Exception {
+        Exchange exchange = createExchange(List.of(MediaType.TEXT_PLAIN_VALUE, MediaType.APPLICATION_XML_VALUE));
+        try (InputStream resStream = this.getClass().getResourceAsStream("/testdata/valid.xml")) {
+            if (resStream == null) throw new IOException("Resource not found: /testdata/valid.xml");
+            InputStreamCache stream = new InputStreamCache(resStream.readAllBytes());
+            exchange.getIn().setBody(stream);
+            processor.process(exchange);
+        }
     }
 
     @Test
