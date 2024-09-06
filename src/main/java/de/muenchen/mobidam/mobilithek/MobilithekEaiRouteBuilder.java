@@ -83,7 +83,6 @@ public class MobilithekEaiRouteBuilder extends RouteBuilder {
                     .toD(String.format("${header.%s.mobilithekUrl}", Constants.INTERFACE_TYPE))
                 .setHeader(Constants.PARAMETER_BUCKET_NAME, simple(String.format("${header.%s.s3Bucket}", Constants.INTERFACE_TYPE)))
                 .process("s3CredentialProvider")
-//                    .convertBodyTo(byte[].class)
                 .process("mimeTypeProcessor")
                 .process("codeDetectionProcessor")
                 .process("s3ObjectKeyBuilder")

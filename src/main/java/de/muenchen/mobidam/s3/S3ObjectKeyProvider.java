@@ -30,7 +30,7 @@ import org.apache.camel.component.aws2.s3.AWS2S3Constants;
 import org.springframework.stereotype.Component;
 
 @Component
-public class S3ObjectKeyBuilder implements Processor { // TODO: rename to S3ObjectKeyProvider
+public class S3ObjectKeyProvider implements Processor {
 
     @Override
     public void process(Exchange exchange) throws Exception {

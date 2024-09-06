@@ -50,7 +50,7 @@ public class CodeDetectionProcessor implements Processor {
         MaliciousCodeDetector codeDetector = codeDetectorFactory.getCodeDetector(mobilithekInterface.getAllowedMimeTypes().get(0));
         boolean result = false;
         try {
-            result = codeDetector.isValidData(stream); // from exchange
+            result = codeDetector.isValidData(stream);
         } catch (Exception ex) {
             log.warn("Malicious code detection failed", ex);
         }
