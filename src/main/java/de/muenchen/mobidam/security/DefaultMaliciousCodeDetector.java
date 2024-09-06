@@ -4,7 +4,6 @@ import java.io.InputStream;
 import org.owasp.encoder.Encode;
 import org.springframework.stereotype.Component;
 
-
 @Component
 public class DefaultMaliciousCodeDetector implements MaliciousCodeDetector {
 
