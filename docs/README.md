@@ -148,7 +148,9 @@ Mit der folgenden Konfiguration läßt sich die Schadcode-Erkennung einschalten:
 de.muenchen.mobidam.integration:
   interfaces:
     parkRideStaticData:
-      allowed-mime-types: application/xml, text/plain
+      allowed-mime-types: 
+      - application/xml
+      - text/plain
       malicious-code-detection-enabled: true
 ```
 Anhand des gelieferten Dateiinhalts wird der Mimetype ermittelt und gegen die Liste der erlaubten Typen geprüft. 
@@ -171,7 +173,9 @@ de.muenchen.mobidam.integration:
       s3-object-path: MDAS/Mobilithek/PR-static/%s-pr-daten.xml
       s3-date-format: yyyyMMdd_HHmmss
       s3-bucket: my-bucket-name
-      allowed-mime-types: application/xml, text/plain
+      allowed-mime-types: 
+        - application/xml
+        - text/plain
       malicious-code-detection-enabled: true
     parkRideDynamicData:
       mobidam-sst-id: 888fcf2d-25bb-4fa9-85ff-f7ed12348888
@@ -181,7 +185,9 @@ de.muenchen.mobidam.integration:
       s3-object-path: MDAS/Mobilithek/PR-dynamic/%s-pr-daten.xml
       s3-date-format: yyyyMMdd_HHmmss
       s3-bucket: my-bucket-name  
-      allowed-mime-types: application/xml, text/plain
+      allowed-mime-types: 
+       - application/xml
+       - text/plain
       malicious-code-detection-enabled: true
 spring:
   security:
