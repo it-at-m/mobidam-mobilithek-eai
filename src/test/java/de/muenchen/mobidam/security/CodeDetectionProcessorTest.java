@@ -68,6 +68,17 @@ public class CodeDetectionProcessorTest {
     }
 
     @Test
+    public void testProcessWithValidXmlDataAndMultipleAllowedMimeTypes() throws Exception {
+        Exchange exchange = createExchange(List.of(MediaType.APPLICATION_XML_VALUE, MediaType.TEXT_PLAIN_VALUE));
+        try (InputStream resStream = this.getClass().getResourceAsStream("/testdata/valid.xml")) {
+            if (resStream == null) throw new IOException("Resource not found: /testdata/valid.xml");
+            InputStreamCache stream = new InputStreamCache(resStream.readAllBytes());
+            exchange.getIn().setBody(stream);
+            processor.process(exchange);
+        }
+    }
+
+    @Test
     public void testProcessWithExe() throws Exception {
         Exchange exchange = createExchange(List.of(MediaType.APPLICATION_XML_VALUE));
         assertInvalid("/testdata/invalid-exe.xml", exchange);
