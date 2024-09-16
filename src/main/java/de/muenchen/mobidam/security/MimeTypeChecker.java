@@ -20,27 +20,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.muenchen.mobidam.mobilithek;
+package de.muenchen.mobidam.security;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
-import java.util.UUID;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.tika.Tika;
+import org.springframework.stereotype.Service;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
-public class InterfaceDTO {
+@Service
+@Slf4j
+public class MimeTypeChecker {
 
-    private UUID mobidamSstId;
-    private String name;
-    private String mobilithekUrl;
-    private String cronExpression;
-    private String s3ObjectPath;
-    private String s3DateFormat;
-    private String s3Bucket;
-    private List<String> allowedMimeTypes;
-    private Boolean maliciousCodeDetectionEnabled;
+    private final Tika tika = new Tika();
+
+    public boolean check(final InputStream stream, final List<String> allowedMimeTypes) throws IOException {
+
+        String mimetype = getMimeType(stream);
+        log.debug("File is of mime type: {}", mimetype);
+        return allowedMimeTypes.contains(mimetype);
+    }
+
+    private String getMimeType(final InputStream stream) throws IOException {
+        return tika.detect(stream);
+    }
 
 }

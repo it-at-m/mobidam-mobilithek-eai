@@ -20,25 +20,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.muenchen.mobidam.s3;
+package de.muenchen.mobidam.security;
 
-import de.muenchen.mobidam.Constants;
-import de.muenchen.mobidam.mobilithek.InterfaceDTO;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import org.apache.camel.Exchange;
-import org.apache.camel.Processor;
-import org.apache.camel.component.aws2.s3.AWS2S3Constants;
+import java.util.HashMap;
+import java.util.Map;
+import javax.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 
 @Component
-public class S3ObjectKeyBuilder implements Processor {
+@RequiredArgsConstructor
+public class CodeDetectorFactory {
 
-    @Override
-    public void process(Exchange exchange) throws Exception {
-        var mobilithekInterface = exchange.getIn().getHeader(Constants.INTERFACE_TYPE, InterfaceDTO.class);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(mobilithekInterface.getS3DateFormat());
-        String date = simpleDateFormat.format(new Date());
-        exchange.getIn().setHeader(AWS2S3Constants.KEY, String.format(mobilithekInterface.getS3ObjectPath(), date));
+    private final MaliciousXmlCodeDetector maliciousXmlCodeDetector;
+    private final DefaultMaliciousCodeDetector defaultMaliciousCodeDetector;
+
+    private final Map<String, MaliciousCodeDetector> map = new HashMap<>();
+
+    @PostConstruct
+    public void init() {
+        map.put(MediaType.APPLICATION_XML_VALUE, maliciousXmlCodeDetector);
     }
+
+    public MaliciousCodeDetector getCodeDetector(final String mimeType) {
+        return map.getOrDefault(mimeType, defaultMaliciousCodeDetector);
+    }
+
 }

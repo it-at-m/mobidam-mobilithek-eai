@@ -1,4 +1,9 @@
 # Release-Notes
+
+## Sprint 16 (20.08.2024 - 09.09.2024)
+### Hinzugefügt
+- Schadcode-Erkennung und Mimetype-Prüfung 
+
 ## Sprint 15 (30.07.2024 - 20.08.2024)
 ### Entfernt
 - die Demo-Workflows wurden entfernt

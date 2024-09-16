@@ -20,27 +20,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.muenchen.mobidam.mobilithek;
+package de.muenchen.mobidam.exception;
 
-import java.util.List;
-import java.util.UUID;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+public class MobidamSecurityException extends MobidamException {
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
-public class InterfaceDTO {
-
-    private UUID mobidamSstId;
-    private String name;
-    private String mobilithekUrl;
-    private String cronExpression;
-    private String s3ObjectPath;
-    private String s3DateFormat;
-    private String s3Bucket;
-    private List<String> allowedMimeTypes;
-    private Boolean maliciousCodeDetectionEnabled;
-
+    public MobidamSecurityException(String message) {
+        super(message);
+    }
 }
