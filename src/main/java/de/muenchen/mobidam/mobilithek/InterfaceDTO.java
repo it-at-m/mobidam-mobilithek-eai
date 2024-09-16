@@ -35,7 +35,6 @@ public class InterfaceDTO {
 
     private UUID mobidamSstId;
     private String name;
-    private String mobilithekSubscriptionId;
     private String mobilithekUrl;
     private String cronExpression;
     private String s3ObjectPath;
