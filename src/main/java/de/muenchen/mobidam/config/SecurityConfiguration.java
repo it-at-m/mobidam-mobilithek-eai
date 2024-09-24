@@ -31,14 +31,14 @@ public class SecurityConfiguration {
 
         return http
                 .authorizeHttpRequests((requests) -> requests.requestMatchers(
-                                // allow access to /actuator/info
-                                AntPathRequestMatcher.antMatcher("/actuator/info"),
-                                // allow access to /actuator/health for OpenShift Health Check
-                                AntPathRequestMatcher.antMatcher("/actuator/health"),
-                                // allow access to single metrics values
-                                AntPathRequestMatcher.antMatcher("/actuator/metrics/*"),
-                                // allow access to /actuator/metrics for Prometheus monitoring in OpenShift
-                                AntPathRequestMatcher.antMatcher("/actuator/metrics"))
+                        // allow access to /actuator/info
+                        AntPathRequestMatcher.antMatcher("/actuator/info"),
+                        // allow access to /actuator/health for OpenShift Health Check
+                        AntPathRequestMatcher.antMatcher("/actuator/health"),
+                        // allow access to single metrics values
+                        AntPathRequestMatcher.antMatcher("/actuator/metrics/*"),
+                        // allow access to /actuator/metrics for Prometheus monitoring in OpenShift
+                        AntPathRequestMatcher.antMatcher("/actuator/metrics"))
                         .permitAll())
                 .build();
     }
