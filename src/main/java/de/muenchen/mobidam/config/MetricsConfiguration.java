@@ -30,11 +30,11 @@ public class MetricsConfiguration {
 
     public MetricsConfiguration() {
         Metrics.gauge("mobidam.exchanges.inflight", 0);
-        Metrics.counter("mobidam.exchanges.ereignis.beginn");
-        Metrics.counter("mobidam.exchanges.ereignis.ende");
-        Metrics.counter("mobidam.exchanges.ereignis.fehler");
-        Metrics.counter("mobidam.exchanges.ereignis.erfolg");
-        Metrics.counter("mobidam.exchanges.ereignis.warnungen");
+        Metrics.counter("mobidam.exchanges.ereignis.beginn.counter");
+        Metrics.counter("mobidam.exchanges.ereignis.ende.counter");
+        Metrics.counter("mobidam.exchanges.ereignis.fehler.counter");
+        Metrics.counter("mobidam.exchanges.ereignis.erfolg.counter");
+        Metrics.counter("mobidam.exchanges.ereignis.warnungen.counter");
     }
 
 }

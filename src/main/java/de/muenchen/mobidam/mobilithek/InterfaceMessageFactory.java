@@ -39,7 +39,7 @@ public class InterfaceMessageFactory {
 
     public void mobilithekMessageStart(Exchange exchange) {
 
-        Metrics.counter("mobidam.exchanges.ereignis.beginn").increment();
+        Metrics.counter("mobidam.exchanges.ereignis.beginn.counter").increment();
 
         var dto = new DatentransferCreateDTO();
         dto.setEreignis(EreignisTyp.BEGINN.name());
@@ -51,7 +51,7 @@ public class InterfaceMessageFactory {
 
     public void mobilithekMessageSuccess(Exchange exchange) {
 
-        Metrics.counter("mobidam.exchanges.ereignis.erfolg").increment();
+        Metrics.counter("mobidam.exchanges.ereignis.erfolg.counter").increment();
 
         var dto = new DatentransferCreateDTO();
         dto.setEreignis(EreignisTyp.ERFOLG.name());
@@ -65,7 +65,7 @@ public class InterfaceMessageFactory {
 
     public void mobilithekMessageError(Exchange exchange) {
 
-        Metrics.counter("mobidam.exchanges.ereignis.fehler").increment();
+        Metrics.counter("mobidam.exchanges.ereignis.fehler.counter").increment();
 
         var dto = new DatentransferCreateDTO();
         dto.setEreignis(EreignisTyp.FEHLER.name());
@@ -79,7 +79,7 @@ public class InterfaceMessageFactory {
 
     public void mobilithekMessageEnd(Exchange exchange) {
 
-        Metrics.counter("mobidam.exchanges.ereignis.ende").increment();
+        Metrics.counter("mobidam.exchanges.ereignis.ende.counter").increment();
 
         var dto = new DatentransferCreateDTO();
         dto.setEreignis(EreignisTyp.ENDE.name());
