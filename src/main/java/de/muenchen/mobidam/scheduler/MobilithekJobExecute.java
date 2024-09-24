@@ -25,6 +25,7 @@ package de.muenchen.mobidam.scheduler;
 import de.muenchen.mobidam.Constants;
 import de.muenchen.mobidam.config.Interfaces;
 import de.muenchen.mobidam.mobilithek.MobilithekEaiRouteBuilder;
+import io.micrometer.core.instrument.Metrics;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -59,8 +60,11 @@ public class MobilithekJobExecute implements Job {
                 .withHeader(Constants.INTERFACE_TYPE, getMobidamInterfaces().getInterfaces().get(identifier))
                 .build();
 
+        Metrics.gauge("mobidam.exchanges.inflight", camelContext.getInflightRepository().size());
+
         producer.send(exchange);
 
+        Metrics.gauge("mobidam.exchanges.inflight", camelContext.getInflightRepository().size());
     }
 
 }
