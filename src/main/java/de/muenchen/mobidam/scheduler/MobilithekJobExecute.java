@@ -24,8 +24,11 @@ package de.muenchen.mobidam.scheduler;
 
 import de.muenchen.mobidam.Constants;
 import de.muenchen.mobidam.config.Interfaces;
+import de.muenchen.mobidam.config.MetricsConfiguration;
 import de.muenchen.mobidam.mobilithek.MobilithekEaiRouteBuilder;
+import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.Metrics;
+import io.micrometer.core.instrument.Timer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -48,6 +51,8 @@ public class MobilithekJobExecute implements Job {
 
     private Interfaces mobidamInterfaces;
 
+    private MetricsConfiguration metricsConfiguration;
+
     @Produce(MobilithekEaiRouteBuilder.MOBIDAM_S3_ROUTE)
     private ProducerTemplate producer;
 
@@ -60,11 +65,8 @@ public class MobilithekJobExecute implements Job {
                 .withHeader(Constants.INTERFACE_TYPE, getMobidamInterfaces().getInterfaces().get(identifier))
                 .build();
 
-        Metrics.gauge("mobidam.exchanges.inflight", camelContext.getInflightRepository().size());
-
         producer.send(exchange);
-
-        Metrics.gauge("mobidam.exchanges.inflight", camelContext.getInflightRepository().size());
+        metricsConfiguration.setProcessingTimeMax(Gauge.builder("mobidam.exchanges.processingtime.max", context, jobContext -> Math.max(jobContext.getJobRunTime(), 1)).register(metricsConfiguration.getMeterRegistry()));
     }
 
 }
