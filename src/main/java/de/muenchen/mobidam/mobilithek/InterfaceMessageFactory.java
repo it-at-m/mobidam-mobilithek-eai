@@ -27,8 +27,6 @@ import de.muenchen.mobidam.config.MetricsConfiguration;
 import de.muenchen.mobidam.integration.client.domain.DatentransferCreateDTO;
 import de.muenchen.mobidam.sstmanagment.EreignisTyp;
 import java.time.LocalDateTime;
-
-import io.micrometer.core.instrument.Metrics;
 import lombok.AllArgsConstructor;
 import org.apache.camel.Exchange;
 import org.apache.camel.component.aws2.s3.AWS2S3Constants;
