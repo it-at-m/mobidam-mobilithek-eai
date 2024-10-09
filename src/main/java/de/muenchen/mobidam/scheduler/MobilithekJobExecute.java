@@ -26,9 +26,6 @@ import de.muenchen.mobidam.Constants;
 import de.muenchen.mobidam.config.Interfaces;
 import de.muenchen.mobidam.config.MetricsConfiguration;
 import de.muenchen.mobidam.mobilithek.MobilithekEaiRouteBuilder;
-import io.micrometer.core.instrument.Gauge;
-import io.micrometer.core.instrument.Metrics;
-import io.micrometer.core.instrument.Timer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +37,8 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.stereotype.Component;
+
+import java.util.Date;
 
 @Slf4j
 @Component
@@ -56,17 +55,18 @@ public class MobilithekJobExecute implements Job {
     @Produce(MobilithekEaiRouteBuilder.MOBIDAM_S3_ROUTE)
     private ProducerTemplate producer;
 
+
+
     public void execute(JobExecutionContext context) throws JobExecutionException {
 
         var identifier = context.getJobDetail().getJobDataMap().get(Constants.INTERFACE_TYPE);
         log.info("Scheduler starts mobilithek '{}' request at '{}'.", identifier, context.getFireTime().toString());
 
-        var exchange = ExchangeBuilder.anExchange(getCamelContext())
+        var exchange = metricsConfiguration.getProcessingTime().record(() -> ExchangeBuilder.anExchange(getCamelContext())
                 .withHeader(Constants.INTERFACE_TYPE, getMobidamInterfaces().getInterfaces().get(identifier))
-                .build();
+                .build());
 
         producer.send(exchange);
-        metricsConfiguration.setProcessingTimeMax(Gauge.builder("mobidam.exchanges.processingtime.max", context, jobContext -> Math.max(jobContext.getJobRunTime(), 1)).register(metricsConfiguration.getMeterRegistry()));
     }
 
 }

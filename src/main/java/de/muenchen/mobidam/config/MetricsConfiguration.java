@@ -25,15 +25,11 @@ package de.muenchen.mobidam.config;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Timer;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.apache.camel.CamelContext;
 import org.springframework.stereotype.Component;
-
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.DoubleAdder;
-import java.util.function.Supplier;
 
 @Component
 @Getter
@@ -49,7 +45,7 @@ public class MetricsConfiguration {
     private final Counter erfolgCounter;
     private final Counter warnungenCounter;
     private final Gauge inflightExchanges;
-    private Gauge processingTimeMax;
+    private Timer processingTime;
 
     public MetricsConfiguration(final MeterRegistry meterRegistry, CamelContext camelContext) {
         this.meterRegistry = meterRegistry;
@@ -60,7 +56,7 @@ public class MetricsConfiguration {
         this.erfolgCounter = Counter.builder("mobidam.exchanges.ereignis.erfolg.counter").register(meterRegistry);
         this.warnungenCounter = Counter.builder("mobidam.exchanges.ereignis.warnungen.counter").register(meterRegistry);
         this.inflightExchanges = Gauge.builder("mobidam.exchanges.inflight", camelContext, context -> context.getInflightRepository().size()).register(meterRegistry);
-        this.processingTimeMax = Gauge.builder("mobidam.exchanges.processingtime.m", DoubleAdder::new).register(meterRegistry);
+        this.processingTime = Timer.builder("mobidam.exchanges.processingtime").register(meterRegistry);
 
     }
 
