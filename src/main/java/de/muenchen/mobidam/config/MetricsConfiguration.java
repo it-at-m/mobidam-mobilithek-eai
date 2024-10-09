@@ -55,7 +55,8 @@ public class MetricsConfiguration {
         this.fehlerCounter = Counter.builder("mobidam.exchanges.ereignis.fehler.counter").register(meterRegistry);
         this.erfolgCounter = Counter.builder("mobidam.exchanges.ereignis.erfolg.counter").register(meterRegistry);
         this.warnungenCounter = Counter.builder("mobidam.exchanges.ereignis.warnungen.counter").register(meterRegistry);
-        this.inflightExchanges = Gauge.builder("mobidam.exchanges.inflight", camelContext, context -> context.getInflightRepository().size()).register(meterRegistry);
+        this.inflightExchanges = Gauge.builder("mobidam.exchanges.inflight", camelContext, context -> context.getInflightRepository().size())
+                .register(meterRegistry);
         this.processingTime = Timer.builder("mobidam.exchanges.processingtime").register(meterRegistry);
 
     }

@@ -55,8 +55,6 @@ public class MobilithekJobExecute implements Job {
     @Produce(MobilithekEaiRouteBuilder.MOBIDAM_S3_ROUTE)
     private ProducerTemplate producer;
 
-
-
     public void execute(JobExecutionContext context) throws JobExecutionException {
 
         var identifier = context.getJobDetail().getJobDataMap().get(Constants.INTERFACE_TYPE);
