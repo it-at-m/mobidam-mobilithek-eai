@@ -37,29 +37,8 @@ import org.springframework.stereotype.Component;
 @Setter
 public class MetricsConfiguration {
 
-    @Value("${mobidam.metrics.beginn-counter-metric}")
-    private String beginnCounterName;
-
-    @Value("${mobidam.metrics.ende-counter-metric}")
-    private String endeCounterName;
-
-    @Value("${mobidam.metrics.fehler-counter-metric}")
-    private String fehlerCounterName;
-
-    @Value("${mobidam.metrics.erfolg-counter-metric}")
-    private String erfolgCounterName;
-
-    @Value("${mobidam.metrics.warnungen-counter-metric}")
-    private String warnungenCounterName;
-
-    @Value("${mobidam.metrics.processing-time-metric}")
-    private String processingTimeName;
-
-    @Value("${mobidam.metrics.inflight-exchanges-metric}")
-    private String inflightExchangesName;
-
-
     private final MeterRegistry meterRegistry;
+    private final MetricsNameConfig metricsNameConfig;
     private final CamelContext camelContext;
 
     private final Counter beginnCounter;
@@ -70,17 +49,18 @@ public class MetricsConfiguration {
     private final Gauge inflightExchanges;
     private Timer processingTime;
 
-    public MetricsConfiguration(final MeterRegistry meterRegistry, CamelContext camelContext) {
+    public MetricsConfiguration(final MeterRegistry meterRegistry, MetricsNameConfig metricsNameConfig, CamelContext camelContext) {
         this.meterRegistry = meterRegistry;
+        this.metricsNameConfig = metricsNameConfig;
         this.camelContext = camelContext;
-        this.beginnCounter = Counter.builder(beginnCounterName).register(meterRegistry);
-        this.endeCounter = Counter.builder(endeCounterName).register(meterRegistry);
-        this.fehlerCounter = Counter.builder(fehlerCounterName).register(meterRegistry);
-        this.erfolgCounter = Counter.builder(erfolgCounterName).register(meterRegistry);
-        this.warnungenCounter = Counter.builder(warnungenCounterName).register(meterRegistry);
-        this.inflightExchanges = Gauge.builder(inflightExchangesName, camelContext, context -> context.getInflightRepository().size())
+        this.beginnCounter = Counter.builder(metricsNameConfig.getBeginnCounterMetric()).register(meterRegistry);
+        this.endeCounter = Counter.builder(metricsNameConfig.getEndCounterMetric()).register(meterRegistry);
+        this.fehlerCounter = Counter.builder(metricsNameConfig.getFehlerCounterMetric()).register(meterRegistry);
+        this.erfolgCounter = Counter.builder(metricsNameConfig.getErfolgCounterMetric()).register(meterRegistry);
+        this.warnungenCounter = Counter.builder(metricsNameConfig.getWarnungenCounterMetric()).register(meterRegistry);
+        this.inflightExchanges = Gauge.builder(metricsNameConfig.getInflightExchangesMetric(), camelContext, context -> context.getInflightRepository().size())
                 .register(meterRegistry);
-        this.processingTime = Timer.builder(processingTimeName).register(meterRegistry);
+        this.processingTime = Timer.builder(metricsNameConfig.getProcessingTimeMetric()).register(meterRegistry);
 
     }
 
