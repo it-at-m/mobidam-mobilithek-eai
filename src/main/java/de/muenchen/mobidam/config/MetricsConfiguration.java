@@ -29,12 +29,35 @@ import io.micrometer.core.instrument.Timer;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.camel.CamelContext;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 @Getter
 @Setter
 public class MetricsConfiguration {
+
+    @Value("${mobidam.metrics.beginn-counter-metric}")
+    private String beginnCounterName;
+
+    @Value("${mobidam.metrics.ende-counter-metric}")
+    private String endeCounterName;
+
+    @Value("${mobidam.metrics.fehler-counter-metric}")
+    private String fehlerCounterName;
+
+    @Value("${mobidam.metrics.erfolg-counter-metric}")
+    private String erfolgCounterName;
+
+    @Value("${mobidam.metrics.warnungen-counter-metric}")
+    private String warnungenCounterName;
+
+    @Value("${mobidam.metrics.processing-time-metric}")
+    private String processingTimeName;
+
+    @Value("${mobidam.metrics.inflight-exchanges-metric}")
+    private String inflightExchangesName;
+
 
     private final MeterRegistry meterRegistry;
     private final CamelContext camelContext;
@@ -50,14 +73,14 @@ public class MetricsConfiguration {
     public MetricsConfiguration(final MeterRegistry meterRegistry, CamelContext camelContext) {
         this.meterRegistry = meterRegistry;
         this.camelContext = camelContext;
-        this.beginnCounter = Counter.builder("mobidam.exchanges.ereignis.beginn.counter").register(meterRegistry);
-        this.endeCounter = Counter.builder("mobidam.exchanges.ereignis.ende.counter").register(meterRegistry);
-        this.fehlerCounter = Counter.builder("mobidam.exchanges.ereignis.fehler.counter").register(meterRegistry);
-        this.erfolgCounter = Counter.builder("mobidam.exchanges.ereignis.erfolg.counter").register(meterRegistry);
-        this.warnungenCounter = Counter.builder("mobidam.exchanges.ereignis.warnungen.counter").register(meterRegistry);
-        this.inflightExchanges = Gauge.builder("mobidam.exchanges.inflight", camelContext, context -> context.getInflightRepository().size())
+        this.beginnCounter = Counter.builder(beginnCounterName).register(meterRegistry);
+        this.endeCounter = Counter.builder(endeCounterName).register(meterRegistry);
+        this.fehlerCounter = Counter.builder(fehlerCounterName).register(meterRegistry);
+        this.erfolgCounter = Counter.builder(erfolgCounterName).register(meterRegistry);
+        this.warnungenCounter = Counter.builder(warnungenCounterName).register(meterRegistry);
+        this.inflightExchanges = Gauge.builder(inflightExchangesName, camelContext, context -> context.getInflightRepository().size())
                 .register(meterRegistry);
-        this.processingTime = Timer.builder("mobidam.exchanges.processingtime").register(meterRegistry);
+        this.processingTime = Timer.builder(processingTimeName).register(meterRegistry);
 
     }
 
