@@ -31,4 +31,6 @@ public class Constants {
     public static final String PARAMETER_BUCKET_NAME = "bucketName";
     public static final String ACCESS_KEY = "accessKey";
     public static final String SECRET_KEY = "secretKey";
+
+    public static final String QUARANTINE_PREFIX = "quarantine/";
 }

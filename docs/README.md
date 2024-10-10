@@ -142,6 +142,23 @@ de.muenchen.mobidam.integration:
 
 
 
+### Schadcode-Erkennung
+Mit der folgenden Konfiguration läßt sich die Schadcode-Erkennung einschalten:
+```yaml
+de.muenchen.mobidam.integration:
+  interfaces:
+    parkRideStaticData:
+      allowed-mime-types: 
+      - application/xml
+      - text/plain
+      malicious-code-detection-enabled: true
+```
+Anhand des gelieferten Dateiinhalts wird der Mimetype ermittelt und gegen die Liste der erlaubten Typen geprüft. 
+Der erste konfigurierte Mimetype wird dazu verwendet, einen geeigneten Dateiparser bereitzustellen, 
+der den Inhalt der Datei auf unerlaubte Binärzeichen oder XSS-Code durchsucht. 
+
+
+
 ### Beispielkonfiguration:
 
 ```
@@ -150,19 +167,28 @@ de.muenchen.mobidam.integration:
   interfaces:
     parkRideStaticData:
       mobidam-sst-id: 999fcf2d-25bb-4fa9-85ff-f7ed12349999
+      name: P+R Statisch
       mobilithek-url: https://mobilithek.info:8443/mobilithek/api/v1.0/subscription/123456789/clientPullService?subscriptionID=123456789
       cron-expression: '0 * * ? * *'
       s3-object-path: MDAS/Mobilithek/PR-static/%s-pr-daten.xml
       s3-date-format: yyyyMMdd_HHmmss
       s3-bucket: my-bucket-name
+      allowed-mime-types: 
+        - application/xml
+        - text/plain
+      malicious-code-detection-enabled: true
     parkRideDynamicData:
       mobidam-sst-id: 888fcf2d-25bb-4fa9-85ff-f7ed12348888
+      name: P+R Dynamisch
       mobilithek-url: https://mobilithek.info:8443/mobilithek/api/v1.0/subscription/1234567891/clientPullService?subscriptionID=1234567891
       cron-expression: '30 * * ? * *'
       s3-object-path: MDAS/Mobilithek/PR-dynamic/%s-pr-daten.xml
       s3-date-format: yyyyMMdd_HHmmss
       s3-bucket: my-bucket-name  
-
+      allowed-mime-types: 
+       - application/xml
+       - text/plain
+      malicious-code-detection-enabled: true
 spring:
   security:
     oauth2:

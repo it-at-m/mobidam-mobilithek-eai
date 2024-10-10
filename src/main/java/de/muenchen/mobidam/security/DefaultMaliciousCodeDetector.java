@@ -20,27 +20,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.muenchen.mobidam.mobilithek;
+package de.muenchen.mobidam.security;
 
-import java.util.List;
-import java.util.UUID;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.io.InputStream;
+import org.owasp.encoder.Encode;
+import org.springframework.stereotype.Component;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
-public class InterfaceDTO {
+@Component
+public class DefaultMaliciousCodeDetector implements MaliciousCodeDetector {
 
-    private UUID mobidamSstId;
-    private String name;
-    private String mobilithekUrl;
-    private String cronExpression;
-    private String s3ObjectPath;
-    private String s3DateFormat;
-    private String s3Bucket;
-    private List<String> allowedMimeTypes;
-    private Boolean maliciousCodeDetectionEnabled;
+    public boolean isValidData(final InputStream stream) throws Exception {
+        return isValidInput(new String(stream.readAllBytes()));
+    }
+
+    protected boolean isValidInput(final String content) {
+        String clean = Encode.forHtml(content);
+        return content.equals(clean);
+    }
 
 }

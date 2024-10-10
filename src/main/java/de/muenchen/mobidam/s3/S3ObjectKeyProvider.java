@@ -20,27 +20,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.muenchen.mobidam.mobilithek;
+package de.muenchen.mobidam.s3;
 
-import java.util.List;
-import java.util.UUID;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import de.muenchen.mobidam.Constants;
+import de.muenchen.mobidam.mobilithek.InterfaceDTO;
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
+import org.apache.camel.component.aws2.s3.AWS2S3Constants;
+import org.springframework.stereotype.Component;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
-public class InterfaceDTO {
+@Component
+public class S3ObjectKeyProvider implements Processor {
 
-    private UUID mobidamSstId;
-    private String name;
-    private String mobilithekUrl;
-    private String cronExpression;
-    private String s3ObjectPath;
-    private String s3DateFormat;
-    private String s3Bucket;
-    private List<String> allowedMimeTypes;
-    private Boolean maliciousCodeDetectionEnabled;
-
+    @Override
+    public void process(Exchange exchange) throws Exception {
+        final String objectPath = S3ObjectPathBuilder.buildFilingPath(exchange.getIn().getHeader(Constants.INTERFACE_TYPE, InterfaceDTO.class));
+        exchange.getIn().setHeader(AWS2S3Constants.KEY, objectPath);
+    }
 }

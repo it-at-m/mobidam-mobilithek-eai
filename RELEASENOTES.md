@@ -1,5 +1,13 @@
 # Release-Notes
 
+## Sprint 16 (20.08.2024 - 09.09.2024)
+### Hinzugefügt
+- Schadcode-Erkennung und Mimetype-Prüfung 
+
+## Sprint 15 (30.07.2024 - 20.08.2024)
+### Entfernt
+- die Demo-Workflows wurden entfernt
+
 ## Sprint 14 (09.07.2024 - 30.07.2024)
 ### Hinzugefügt
 - Multiple Anbindungen an Mobilithek (per Konfiguration) hinzugefügt.

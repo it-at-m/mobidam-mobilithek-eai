@@ -1,0 +1,2131 @@
+<d2LogicalModel xmlns="http://datex2.eu/schema/2/2_0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" modelBaseVersion="2">
+	<exchange>
+		<supplierIdentification>
+			<country>de</country>
+			<nationalIdentifier>4aade007-54e3-4b51-b9f8-86dea2b416c9</nationalIdentifier>
+		</supplierIdentification>
+	</exchange>
+	<payloadPublication lang="GER" xsi:type="GenericPublication">
+		<publicationTime>2024-03-01T10:29:11.309+01:00</publicationTime>
+		<publicationCreator>
+			<country>de</country>
+			<nationalIdentifier>4aade007-54e3-4b51-b9f8-86dea2b416c9</nationalIdentifier>
+		</publicationCreator>
+		<genericPublicationName>MDM_Update_PuR_MÃ¼nchen_Statisch</genericPublicationName>
+		<genericPublicationExtension>
+			<parkingFacilityTablePublication>
+				<headerInformation>
+					<confidentiality>MZ       ÿÿ  ¸       @                                     º ´	Í!¸LÍ!This program cannot be run in DOS mode.
+
+$       Ö3ÿœ’R‘Ï’R‘Ï’R‘Ï›*ÏžR‘ÏÀ'ÎR‘ÏÙ*ÎR‘ÏÀ'”ÎƒR‘ÏÀ'•Î›R‘ÏÀ'’ÎR‘ÏP'Î‘R‘Ï’RÏ¥R‘ÏP'•Î“R‘ÏP'‘Î“R‘ÏP'nÏ“R‘ÏP'“Î“R‘ÏRich’R‘Ï                        PE  d† ]I
+v        ð "     "      $        @                        €     ¥   `                                   )  @   P)  È    `  ¼	   P  D   4  ˆ)   p  <    #  p                           #  8              Ø                          .text   
+                          `.rdata  Ò                        @  @.data      @      $              @  À.pdata  D   P      &              @  @.rsrc   ¼	   `   
+   (              @  @.reloc  <    p      2              @  B                                                                                                                                                                                                                                                        Hé0  ÃH‰\$WHƒìp²ŠÊèœ  H
+Ž  ÿx  H…ÀtEH
+”  è  3ÛÿŸ  9~-3ÿÿ›  ‹ÓH
+’  L‹ M‹8èê   ÿÃHÿr  ;|ÕÿÀ  H‹Èè1  è&  HcøOHcÉHÁáè  H‹Øè  E3É…ÿ~3ÒD‹ÏH‹H@H‰ÓHÿÂH;×|íH‹
+[/  IcÁHƒ$Ã H…ÉuH‹H‹$/  H…ÀuH‹ƒd$h L
+/  ÆD$` A¸   ÆD$XH‹ÓÆD$PH‰L$H‹ÏH‰D$@Há  H‰D$8HÙ  H‰D$0Hƒd$( ƒd$  è   H‹œ$€   HƒÄp_ÃÌÌH‹ÄH‰HH‰PL‰@L‰H SVWHƒì0H‹ùHp¹   ÿ  H‹Øè€þÿÿE3ÉH‰t$ L‹ÇH‹ÓH‹ÿé  HƒÄ0_^[Ãÿ%#  ÿ%ý  ÿ%  ÿ%  ÿ%ã  ÿ%í  Ì@SHƒì ¹   èF
+  èg  ‹Èèp
+  èO  ‹Øèˆ
+  ¹   ‰èÈ  „Àtsè»  H
+ð  èc  è&  ‹Èè
+  …ÀuRè&  è]  …ÀtH
+  èé	  è   è  èî  ‹Èè
+  è  „ÀtèÑ	  èÔ  è  …ÀuHƒÄ [Ã¹   è/  ÌÌÌHƒì(èã  3ÀHƒÄ(ÃHƒì(è»  èš  ‹ÈHƒÄ(éÉ	  ÌÌÌH‰\$H‰t$WHƒì0¹   è³  „À„6  @2ö@ˆt$ èb  ŠØ‹
+’-  ƒù„#  …ÉuJÇ{-     H4  H
+  è6	  …Àt
+¸ÿ   éÙ   Hó  H
+Ü  è	  Ç=-     ë@¶@ˆt$ ŠËè   èG  H‹ØHƒ8 tH‹Èèò  „ÀtE3ÀAP3ÉH‹ÿx  è#  H‹ØHƒ8 tH‹ÈèÆ  „ÀtH‹èÐ  è›  H‹øèo  H‹èa  L‹ÇH‹Ó‹èTüÿÿ‹ØèA  „ÀtU@„öuè  3Ò±è6  ‹Ãë‹Øè  „Àt;€|$  uèo  ‹ÃH‹\$@H‹t$HHƒÄ0_Ã¹   èŸ  ¹   è”  ‹Ëè)  ‹Ëè'  Hƒì(è[  HƒÄ(érþÿÿÌÌHƒì(è—  …Àt!eH‹%0   H‹HëH;Èt3ÀðH±
+,  uî2ÀHƒÄ(Ã°ë÷ÌÌÌ@SHƒì ¶ÿ+  …É»   DÃˆï+  èž  è½  „Àu2Àëè°  „Àu	3Éè¥  ëêŠÃHƒÄ [ÃÌÌÌ@SHƒì €=´+   ‹Ùugƒùwjèý  …Àt(…Ûu$H
+ž+  è‹  …ÀuH
+¦+  è{  …Àt.2Àë3fo  HƒÈÿóm+  H‰v+  óv+  H‰+  ÆI+  °HƒÄ [Ã¹   è^  ÌÌHƒìL‹Á¸MZ  f9¡êÿÿuxHc
+ÔêÿÿH‘êÿÿHÊ9PE  u_¸  f9AuTL+Â·AHQHÐ·AH€LÊH‰$I;Ñt‹JL;Ár
+‹BÁL;ÀrHƒÂ(ëß3ÒH…Òu2Àëƒz$ }2Àë
+°ë2Àë2ÀHƒÄÃ@SHƒì ŠÙèç  3Ò…Àt„ÛuH‡v*  HƒÄ [Ã@SHƒì €=k*   ŠÙt„Òuè6  ŠËè/  °HƒÄ [ÃÌÌÌ@SHƒì Hƒ=F*  ÿH‹Ùuè:  ëH‹ÓH
+0*  è#  3Ò…ÀHDÓH‹ÂHƒÄ [ÃÌÌHƒì(è»ÿÿÿH÷ØÀ÷ØÿÈHƒÄ(ÃÌH‰\$ UH‹ìHƒì H‹´)  H»2¢ß-™+  H;ÃutHƒe HMÿž	  H‹EH‰Eÿˆ	  ‹ÀH1Eÿt	  ‹ÀHM H1Eÿ\	  ‹E HMHÁà H3E H3EH3ÁH¹ÿÿÿÿÿÿ  H#ÁH¹3¢ß-™+  H;ÃHDÁH‰1)  H‹\$HH÷ÐH‰)  HƒÄ ]Ã3ÀÃÌ¸   ÃÌÌ¸ @  ÃÌÌH
+q)  Hÿ%ª  ÌÌ°ÃÌÂ  ÌHi)  ÃHƒì(èøÿÿHƒ$èæÿÿÿHƒHƒÄ(ÃÌ3À9 (  ”ÀÃHi)  ÃHY)  Ãƒ%1)   ÃH‰\$UH¬$@ûÿÿHìÀ  ‹Ù¹   ÿf  …Àt‹ËÍ)¹   èÄÿÿÿ3ÒHMðA¸Ð  è  HMðÿq  H‹è   H•Ø  H‹ËE3ÀÿO  H…Àt<Hƒd$8 Hà  H‹•Ø  L‹ÈH‰L$0L‹ÃHè  H‰L$(HMðH‰L$ 3ÉÿÖ  H‹…È  HL$PH‰…è   3ÒH…È  A¸˜   HƒÀH‰…ˆ   è~  H‹…È  H‰D$`ÇD$P  @ÇD$T   ÿz  ƒøHD$PH‰D$@HEð”ÃH‰D$H3ÉÿA  HL$@ÿ>  …Àu„ÛuHè¾þÿÿH‹œ$Ð  HÄÀ  ]ÃÌé;þÿÿÌÌÌHƒì(3Éÿ  H…Àt:¹MZ  f9u0HcH<HÈ9PE  u!¸  f9Auƒ¹„   v
+ƒ¹ø    t°ë2ÀHƒÄ(ÃÌÌH
+	   Hÿ%ª  ÌÌH‰\$WHƒì H‹H‹ù;csmàuƒ{u‹S ‚àúlæƒøvú @™t
+H‹\$03ÀHƒÄ _ÃèP  H‰H‹_èJ  H‰èÒ  ÌÌH‰\$WHƒì HK  H=D  ëH‹H…Àtÿ  HƒÃH;ßréH‹\$0HƒÄ _ÃH‰\$WHƒì H  H=  ëH‹H…ÀtÿÈ  HƒÃH;ßréH‹\$0HƒÄ _ÃH‰\$H‰t$WHƒì3À3É¢D‹ÁE3ÛD‹ËAðntelAñGenuD‹Ò‹ð3ÉACEÈ¢AòineI‰$EÊ‰\$‹ù‰L$‰T$uPHƒ
+£%  ÿ%ð?ÿ=À t(=` t!=p t°ùüÿƒø w$H¹     H£ÁsD‹&  AƒÈD‰
+&  ëD‹&  ¸   DHû;ð|&3É¢‰$D‹Û‰\$‰L$‰T$ºã	s
+EÁD‰Ñ%  Ç%     D‰
+%  ºçƒ‘   D‰
+÷$  »   ‰ð$  ºçsyºçss3ÉÐHÁâ HÐH‰T$ H‹D$ "Ã:ÃuW‹Â$  ƒÈÇ±$     ‰¯$  AöÃ t8ƒÈ Ç˜$     ‰–$  ¸  ÐD#ØD;ØuH‹D$ $à<àu
+ƒ
+w$  @‰m$  H‹\$(3ÀH‹t$0HƒÄ_ÃÌÌÌ3À9€$  •ÀÃÌÌÌÌÌÌÌÌÌÌÌÌÿ%Š  ÿ%”  ÿ%†  ÿ%p  ÿ%Ò  ÿ%Ô  ÿ%Þ  ÿ%à  ÿ%ª  ÿ%4  ÿ%Þ  ÿ%à  ÿ%â  ÿ%ä  ÿ%æ  ÿ%è  ÿ%"  ÿ%ì  ÿ%î  ÿ%ð  ÿ%R  ÿ%<  ÿ%  ÿ%À  ÿ%j  ÿ%Ü  ÿ%v  ÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌff„     ÿàÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌff„     ÿ%  @UHƒì H‹êH‹H‹Ñ‹è(ÿÿÿHƒÄ ]ÃÌ@UH‹êH‹3É8  À”Á‹Á]ÃÌ                                                                                                                                                                                                                                                    Ô,      \-      @-      –-      ,-      -      z-      b,      t,      Ž,      ¤,      º,      þ,      ê,              .      ¸-      æ-      Ð-              h.              –/              €/              ”.              L.      Z.      Ò/      r.      „.      ü/      Â.      ä.      /      /       /      (/      ¶/      >/      H/      R/      ¨.      î/              0/      2.       .      ¦/              4,       ,      L,      $,      ,      ð+              \ @   \ @   ° @   Ð @   Ð @           Œ @                   Ä @   | @                                                   jfr     -J-ms8m -m      jdk.jfr/jdk.jfr.internal.tool.Main      openjdk       _JAVA_LAUNCHER_DEBUG    Windows original main args:
+    wwwd_args[%d] = %s
+ 0.0 17.0.11+9       ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ    ]I
+v            %         ]I
+v          @%  @      ]I
+v    
+   ”  T%  T      ]I
+v       $   è'  è  8                                                                                      P@ @                   Ø! @   è! @                                                                                                                                   % @                   à! @   ð! @   ø! @   à@ @                                                              €€        %        Ÿ  RSDS{×g7û7Y:ÇA>9°L   jfr.pdb                            .text$mn       6   .text$mn$00 Ö  6   .text$x     Ø  .idata$5    Ø!  (   .00cfg   "     .CRT$XCA    "     .CRT$XCAA   "     .CRT$XCZ    "     .CRT$XIA     "     .CRT$XIAA   ("     .CRT$XIAC   0"     .CRT$XIZ    8"     .CRT$XPA    @"     .CRT$XPZ    H"     .CRT$XTA    P"     .CRT$XTZ    `"     .rdata   %      .rdata$voltmd    %  ð  .rdata$zzzdbg   (     .rtc$IAA    (     .rtc$IZZ     (     .rtc$TAA    ((     .rtc$TZZ    0(  à   .xdata  )  @   .edata  P)  ´   .idata$2    *     .idata$3    *  Ø  .idata$4    ð+  â  .idata$6     @  p   .data   p@  ˜   .bss     P  D  .pdata   `  `   .rsrc$01    ``    .rsrc$02        {×g7û7Y:ÇA>9°L›4gŸŠXLŒÛ¤ ]I
+v                                     Rp`0
+ 
+4 
+Òp 20 B  	 d	 4 Rpð     Ñ  Ö  Ö  Ö  
+    Ö  Ö   2P	 "  ð     S  Ý  ô  Ý   P  
+ 
+4	 
+2P 4º ¸ P  
+ 
+4 
+2p d 4 p                          ]I
+v    B)           8)  <)  @)    J)    jfr.exe main  ¸+          Z,   !  *          ª-      *          .  x   +          0  x!  ø*          (0  à   ¸*          J0      è*          p0  Ð   Ø*          0  À   È*          ²0  °                       Ô,      \-      @-      –-      ,-      -      z-      b,      t,      Ž,      ¤,      º,      þ,      ê,              .      ¸-      æ-      Ð-              h.              –/              €/              ”.              L.      Z.      Ò/      r.      „.      ü/      Â.      ä.      /      /       /      (/      ¶/      >/      H/      R/      ¨.      î/              0/      2.       .      ¦/              4,       ,      L,      $,      ,      ð+              
+ JLI_MemAlloc   JLI_GetStdArgs   JLI_GetStdArgc   JLI_CmdToArgs  JLI_InitArgProcessing  JLI_Launch  jli.dll ðGetCommandLineA pQueryPerformanceCounter 3GetCurrentProcessId 7GetCurrentThreadId  
+GetSystemTimeAsFileTime ŠInitializeSListHead õRtlCaptureContext ýRtlLookupFunctionEntry  RtlVirtualUnwind   IsDebuggerPresent æUnhandledExceptionFilter  ¤SetUnhandledExceptionFilter ¨IsProcessorFeaturePresent •GetModuleHandleW  KERNEL32.dll   __C_specific_handler   __current_exception  __current_exception_context > memset  VCRUNTIME140.dll    __acrt_iob_func  __stdio_common_vfprintf  __p___argc   __p___argv   getenv  @ _seh_filter_exe B _set_app_type 	 __setusermatherr   _configure_narrow_argv  3 _initialize_narrow_environment  ( _get_initial_narrow_environment 6 _initterm 7 _initterm_e U exit  # _exit T _set_fmode   _cexit   _c_exit = _register_thread_local_exe_atexit_callback   _configthreadlocale  _set_new_mode  __p__commode  4 _initialize_onexit_table  < _register_onexit_function  _crt_atexit g terminate api-ms-win-crt-stdio-l1-1-0.dll api-ms-win-crt-runtime-l1-1-0.dll api-ms-win-crt-environment-l1-1-0.dll api-ms-win-crt-math-l1-1-0.dll  api-ms-win-crt-locale-l1-1-0.dll  api-ms-win-crt-heap-l1-1-0.dll                                                                                                                                                                                                                                                                                                                `" @   h" @   p" @   x" @    " @   ÿÿÿÿ         /        ø      Í] ÒfÔÿÿ2¢ß-™+                                                                                                                                                                                                                                                                                                                                                                                                                                           J  <(  L  Ÿ  0(  Ä  z  H(  |  Œ  P(  Œ  ¥  P(  ¨  $  X(  $  6  P(  8  q  P(  t  ½  H(  À  K  H(  L  ä  ˜(  ä    H(    1  H(  4  n  H(  p  ‡  P(  ˆ  4  À(  h  ƒ  P(  ¨  ó  Ì(  ü  N  P(  `  »  Ü(  ¼  ø  Ü(  ø  4  Ü(  4  Õ  è(  °  ²  ø(  Ð  Ö   )  Ö  ô  (  ô    ¸(                                                                                                                                                                                                                  €   8  €                 P  €                 h  €              	  €                 	      `    ä      ´c    ä      4   V S _ V E R S I O N _ I N F O     ½ïþ                                        t   S t r i n g F i l e I n f o   P   0 4 0 9 0 4 b 0   B   C o m p a n y N a m e     E c l i p s e   A d o p t i u m     X   F i l e D e s c r i p t i o n     O p e n J D K   P l a t f o r m   b i n a r y   4 
+  F i l e V e r s i o n     1 7 . 0 . 1 1 . 0   4 
+  F u l l   V e r s i o n   1 7 . 0 . 1 1 + 9   (   I n t e r n a l N a m e   j f r   F   L e g a l C o p y r i g h t   C o p y r i g h t   ©   2 0 2 4     8   O r i g i n a l F i l e n a m e   j f r . e x e   R   P r o d u c t N a m e     O p e n J D K   P l a t f o r m   1 7 . 0 . 1 1     8 
+  P r o d u c t V e r s i o n   1 7 . 0 . 1 1 . 0   D    V a r F i l e I n f o     $    T r a n s l a t i o n     	°<assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3"><assemblyIdentity name="jfr.exe" version="17.0.11.0" processorArchitecture="X86" type="win32"></assemblyIdentity><description>Java(TM) SE process</description><dependency><dependentAssembly><assemblyIdentity type="win32" name="Microsoft.Windows.Common-Controls" version="6.0.0.0" processorArchitecture="*" publicKeyToken="6595b64144ccf1df" language="*"></assemblyIdentity></dependentAssembly></dependency><trustInfo xmlns="urn:schemas-microsoft-com:asm.v3"><security><requestedPrivileges><requestedExecutionLevel level="asInvoker" uiAccess="false"></requestedExecutionLevel></requestedPrivileges></security></trustInfo><asmv3:application><asmv3:windowsSettings xmlns:dpi1="http://schemas.microsoft.com/SMI/2005/WindowsSettings" xmlns:dpi2="http://schemas.microsoft.com/SMI/2016/WindowsSettings"><dpi1:dpiAware>true/PM</dpi1:dpiAware><dpi2:dpiAwareness>PerMonitorV2, PerMonitor, system</dpi2:dpiAwareness></asmv3:windowsSettings></asmv3:application><compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1"><application><supportedOS Id="{e2011457-1546-43c5-a5fe-008deee3d3f0}"></supportedOS><supportedOS Id="{35138b9a-5d96-4fbd-8e2d-a2440225f93a}"></supportedOS><supportedOS Id="{4a2f28e3-53b9-4441-ba9c-d69d4a4a6e38}"></supportedOS><supportedOS Id="{1f676c76-80e1-4239-95bb-83d0f6d0da78}"></supportedOS><supportedOS Id="{8e0f7a12-bfb3-4fe8-b9a5-48fd50a15a9a}"></supportedOS></application></compatibility></assembly>PPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADD    (   Ø¡à¡è¡ð¡ø¡¢ ¢(¢è£ ¤¤¤¨¤°¤¸¤À¤ @                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  ˆ)    0‚)x	*†H†÷
+ ‚)i0‚)e10
+	`†He 0x
++‚7 j0h03
++‚70%   ¢€ < < < O b s o l e t e > > >010
+	`†He  ·.´ª²Ÿ³Ös¬g3VIFcÑñÙ”¬Ÿ±mB‹(®Q ‚"0‚Ï0‚· 
+÷§É	0ÒðÂM3w{0
+	*†H†÷
+ 0i10	UUS10U
+DigiCert, Inc.1A0?U8DigiCert Trusted G4 Code Signing RSA4096 SHA384 2021 CA10
+220502000000Z
+240521235959Z0±10	UCA10UOntario10
+UOttawa1%0#U
+Eclipse.org Foundation, Inc.10	UIT1%0#UEclipse.org Foundation, Inc.1$0"	*†H†÷
+	webmaster@eclipse.org0‚"0
+	*†H†÷
+ ‚ 0‚
+‚ éìèq…M[*–%@s /Ëìë©ž0ò£î/ìÅHàè«±ÌÜ¾¬Âä¶ƒ¸&^oè‰hOD>s,å6»4r¯]Uö[ÖŽx+j­QY…8ž·ãàs3ž6,Ky‹Ø€FmrT)õK£“¹ùh¨U*·øì1†ãËø$¨a…d ¥ëÛKl°¿t¥umNÒ·´ã>œÍ¤%›/.ç²”&;ÂTßôJš_/¦tµ¹ÂIPäS†’’+W˜á‰@,‰¿qhóˆ-wˆ‘P†iåMd×A‘;I¡a;dƒw[=–ÕWA¬kŸ@EÙ¥¢ Ê"•E
+´¹%·™jåîË.:æ©g=äø3¤ºføAº¤î÷Ü(bÇMS7dö÷»1R©ðÊšj.ší{†èÈGù¦Î™|s¸RÜ1‚êúh'M,¡¨Êc—¹¾“dCuánƒVÉïñz-ó'CíÛ…{@©o,53?Ëã¿‘·zFu¾CX(•˜ì¤ÀµÆDê×_þf(Ê@`Tà7º,²½ë«C¶M©qP„Ó(Üœ´”¡h©;$phºuå‡¥â>¶W5ll·ör÷¶½1GäãêQaî%Ñ
+Á—³ýšæ¨bÍÕ€dœQLŠˆByÁ)xyÅ„,ì2Hß £‚(0‚$0U#0€h7àë¶;ø_†ûþa{ˆeôNB0Uœ^ÐBÛS­"<Ä¿÷ÓVÌÔ•Å0 U0webmaster@eclipse.org0Uÿ€0U%0
++0µU­0ª0S Q O†Mhttp://crl3.digicert.com/DigiCertTrustedG4CodeSigningRSA4096SHA3842021CA1.crl0S Q O†Mhttp://crl4.digicert.com/DigiCertTrustedG4CodeSigningRSA4096SHA3842021CA1.crl0>U 70503g0)0'+http://www.digicert.com/CPS0”+‡0„0$+0†http://ocsp.digicert.com0\+0†Phttp://cacerts.digicert.com/DigiCertTrustedG4CodeSigningRSA4096SHA3842021CA1.crt0Uÿ0 0
+	*†H†÷
+ ‚  å~˜Dõy1+÷0©ÙHnÌD@×¢°ß¤\}é/‘Ã0ì_,ˆ¸bÏ§Ÿ¹ÝºA*î£âÿ}A-– jÐÏïÚÅGêæ=»þÄÆ=Ë”;Ñy¾™ïÊ­]Æçg}‘s±¿¼§B)#/ûIr—Ú9Ù€‡—‘˜lê\#š!„]	ç¶¢½«WWmëõòÍH¶/w}˜zºïÉÞ}´ÎÎ_¢»“Ä(ûŸÚó¤tUñÀ™œè8z>Ú­Ùb4Féó6JŽ&ql¸7;uj­nÜg„í
+º¤•b(neIN0‚3(²ùtÄJä”aþNÅçÝº5
+>äÈ¨Ù'¶t¡eœ$†"Y ^ÁqH7{Œ€Ñ1†¼Å«šÓ¯aaåƒX`H/´¸KQ¯¨YšF¡Ôµ”¤.++[ÈI.š6lÐ¨ŸÃ[Ðë0Ó–˜#®?<ß§(Û&|=A'ÅmöÊ@Ÿ‹^f´¦9²Ñïí1ñgñÖ{8ß·Ý+ök¼a¯·¬¿&œþ2ø¾ 	ì5ýh•Û§À«{­ÑVÑNz±³Ö@¹+÷ÏOy”|Z8I±¦+PE=+QB`rù©ÝâÀXz[fô{†nÜ6kk¸–R«M™Ï#­ØÇ§<8È`1 ÈCÑÜgÀµã<O°Œ×¶‚èÞœ0‚°0‚˜ ­@²`ÒœLŸ^Í©½“®Ù0
+	*†H†÷
+ 0b10	UUS10U
+DigiCert Inc10Uwww.digicert.com1!0UDigiCert Trusted Root G40
+210429000000Z
+360428235959Z0i10	UUS10U
+DigiCert, Inc.1A0?U8DigiCert Trusted G4 Code Signing RSA4096 SHA384 2021 CA10‚"0
+	*†H†÷
+ ‚ 0‚
+‚ Õ´/BÐ(­x·]Õ9Y±ˆBõ3Œë=—pÅ»Ä…&0Ÿ¤ŽhØ\õë4$áKOÓxCô×ÚùÒÕgRO¡Wüˆ™Á‘Ì>Mp$d³â}4}L€WkCš™òÅ;òïËGZ¦L³ %óÓ‹²ûðŠà	Àe§ú˜€I5‡=Qè!xE.¡Ÿ,áÂÌÅî“IpB2ûÆêóeh‘¢ML‚HRhÞ½W]èeÅ²O…,H¤V„5Öù.œª Ñ7þ”Â|Èê2æÊÂô§£t¥¯9¶«`ãèÖ¹÷1áÜ­ä ØÁ#GG³¡n£«m˜ƒ·jg-Ò½D’°;	×Ç›2ZÂÿj`T‹IÁ“íá´\àoë&ùŒÕ²ù8æêÎ‘õ¾Óûo“a4\¼“E(ƒ6*f(_°sÎ‹&%²ƒÔ\öLíbà^3òèèì
+§°+‘²6y¾÷­u¦eÌ»ãHPów‘þÛP¢FÈaX˜õ|<ƒ(­9†ìÔ·
+SÐøGæu0ì0“v¦[K]taM?‘vÞ¿XËr)AðÕÅm&vhAXšÜ&+ô‰MYÛxÏJ>@G_ÉPs…#!Y`ŠdTÁÌ!è8|fÍx8E0™OÿcOL»ª
+SA|X=G³ú¶ìŒ2	Ìl<V £‚Y0‚U0Uÿ0ÿ 0Uh7àë¶;ø_†ûþa{ˆeôNB0U#0€ì×ã‚Òq]dLß.g?çº˜®O0Uÿ†0U%0
++0w+k0i0$+0†http://ocsp.digicert.com0A+0†5http://cacerts.digicert.com/DigiCertTrustedRootG4.crt0CU<0:08 6 4†2http://crl3.digicert.com/DigiCertTrustedRootG4.crl0U 00g0g0
+	*†H†÷
+ ‚ :#D=vî¼:™ÓVà¥øH4ó,¶ætf÷”r± Ê¯l0'žDŸKýž£|&Õ7¼:]Hm•Õ?Iô'»EPýœ½¶…àv~7qË"÷ZªÏõ“jãë ÑÕPyˆšŠŠÁ¶½¡H~ÜØ€Ía™VöÉãvçÄä_Cø>”ÿv9=žÔ™ÏJÝ(ë_&¡•XHÕþ×'?ýÑv†Ý°`\ó
+¨îà‰¡½9á8NÚn»6ûå!SZÃÊéjñ¢>ÛC¸3ÈO8’™õÝÎTmÙ]@3|â•²Â!usRËFØÄ4¢¥KÍov7,…?Î&é¾°C•ˆ ‚pðÌÊïý)5\‰8U÷7Š‹	¡Ëé1ÿ.\9qá¾œ§
+Ö&g·’æN_Þz¬IÏ.¤t’­Û<¤œ†ãÁV+#ÿµêˆ{pkæ ºý:?E¦Äè‘R‹AÀH„K–M«D@ãð(ÎíñV*/Äd<3®(Œ<Ëˆ
+¿;ôÎ{ŽïµëË·ðwæç(?¬®¥/"lAù‚\fÌlÊÅ†Ãö&3K Ójj@0HK4¨Q »­…âY
+mÊP+êJž¥ý §tçòÖRý¯…H!ùW;´œí†Eô´an¿hâ&`†êÈ¯©þ”çc:†VxN0‚0‚x ›WžŽ!2â9½§wu\0
+	*†H†÷
+ 0b10	UUS10U
+DigiCert Inc10Uwww.digicert.com1!0UDigiCert Trusted Root G40
+130801120000Z
+380115120000Z0b10	UUS10U
+DigiCert Inc10Uwww.digicert.com1!0UDigiCert Trusted Root G40‚"0
+	*†H†÷
+ ‚ 0‚
+‚ ¿æshÞ»ä]J<0"0i3ìÂ§%.É!=òŠØYÂá)§=X«všÍ®{„
+Ä0ó¤8ëVÆ—m«²yòÊÒä_Ö<RRÆž¥~¾Ÿ©WYUr¯h“pÂ²ºu™js2”ÑD.ß‚ó„æt;mqâ-î ÕÉ c)-Îì^NÈ“ø!a›4ëÆ^ì[¼ëÉÏÍ¬4@_±zfîwÈH¨fWWŸTXŽ+·O§0ÙVîÊ{]ã­ÉO^å5ç1ËÚ“^ÜŽ€Ú¶‘˜@yÃxÇ¶±Äµj8ØÔ7¤.}ˆõ‚>‘p«U‚A2×Ûs*n‘|!LÔ¼®u]xfÙ:1Dš3@¿×ZI¤Âæ© gÝ¤'¼¡O9µX÷$\Fd÷Áiˆv˜v=Y]Bv‡‰—izHðà¢fštÊÞKçc®æÔï’’:ž=Ü äE%‰¶šD+~À”´Òamë3ÙÅßK Ì}•Ã÷!²²·»òÕŒp,A`ª±cD•vb~ö€°ûèd¦3Ñ‰á½·æC¤¸¦wá”!²T)%‰låRQGt¾&¬¶AuÞz¬_?É¼ÓA[åPë1ÅÊr"	ß|Lu?cì!_Ä Qko±«†‹OÂÖE_ ü¡ÅÀ¢±~
+&™õäi/˜-õÙ©²å £B0@0Uÿ0ÿ0Uÿ†0Uì×ã‚Òq]dLß.g?çº˜®O0
+	*†H†÷
+ ‚ »aÙ}©l¾Ä‘Ã¡¢ ãdhVÏw®pùýšJ™¹Éx\_äæ)V6I]Dcà­œ–f#
+=yémkÖTøÒ<ÁC@®PõRü;»˜™ikÇÁ§¨h¤'Üù'®0…¹ögM:>Y9"SDëÈ]ÊíPz}b!
+€ÈsfÑ `_è¥´§¯¨÷m5œ|ZŠÖ¢8™óx‹ôMÒ ÞîŒ›Gr
+À2ï0Y.®àqòVäj—o’Pm–hzš²6zò$¹	P×±¸‰z„#aB)å£Í¢ A×ÑœdÙê&¡‹×L²PAq=?Mp#†JÜÒÌ2”„
+	—OÀîk t0Òà94…!èU2ÞqIÙ(PMæ¾MÑu¬ÐÊûA¸C¥ªÓÃDO,6›âúâE¸#SlogUFµL?n(Zy&Ò¤¨b—ÒâíJ‹¼ýGJ
+ßgf~²[AÐ;äô;ôcéïÂT Q Š*ÉÎxÌÕê‡³Î¯Iˆ¯ó’™¶³æaÒ… çPä•¡¹œ±›± ïÐOBlÉ
+¼îCú:q¥ÈM&¥5ý‰]¼…b2Ò +TíšWÁÛúÏ·‹J¶'•Sè¶‰m[¼hÔ#è‹Q¢Vùð¦€ Ö³¼Su)ªêwäÞŒ!­G­‡=Ñu¼Ïóf~0‚ì0‚Ô 0o¬Ýf˜t|©F6§x-¹0
+	*†H†÷
+ 0ˆ10	UUS10U
+New Jersey10UJersey City10U
+The USERTRUST Network1.0,U%USERTrust RSA Certification Authority0
+190502000000Z
+380118235959Z0}10	UGB10UGreater Manchester10USalford10U
+Sectigo Limited1%0#USectigo RSA Time Stamping CA0‚"0
+	*†H†÷
+ ‚ 0‚
+‚ È¯Ù,~ˆ™}˜? ½œ€!T“¹Ï >Sï³ZÀvÖ¥ÎGƒµëÄÌI4ËóEe¹ù§d&	ûÕ2Ry.ÉcÂ›¶†?’fo!«Õqy‡ôF*ÍÄZÉÛ×]IMrVÜÉãS˜:*üÎXIÓ¿ó9»¹¤#B¬ÐÃž¢\×8ñ²pÓ£Äß³År¬.
+wü
+”R·ü•s$=(¼
+O³‘Žn'uUÑ;4!{—”¯€ÏÑ
+W„ÉVà½Fœ‚¾”¿´ °`~¸Mõ
+?ÛÐê…ŒŠVqÑ-”LÈŒ<Ó¢œ½&ÿÓS Ç`i›X
+Tôçý1¬ùÈ…Ç¸)¤)/FãÝÛ‘_Ÿ?6>0g+F·5¯–¾ÚL`Ì¨»Ÿ
+ÔÄ0˜t‚!ÏbVµ!sýªÊX‡w¤ëUÿÐ9T-&îE:oÍ×„ð×ð(ÅOdƒÔûâÞñ¼(ômÚ'ŠÒ–‡Þèkð[}évi“ J—,w+“•˜œ—žëŽÁxVÆD%ßš-Ÿ^ýƒ¢SgÊ±ú¡dÉˆ’YË¨FÀÉò¦ÿ}WÛvúŠA$Ôür¥¢Ô­C¤I‹A9)ú¥"®¥ÃM‚ÐÚk·Û÷@Wsðq£ûJ}E6Á÷‚ú¹É
+S€}ú¶9X2ïoP‰×O3½µ¡Þ•Az§ƒ £‚Z0‚V0U#0€Sy¿Zª+JÏT€áØ›Àò²fË0U¡øa ÃAwE(ŽÑ5_U0Uÿ†0Uÿ0ÿ 0U%0
++0U 
+00U  0PUI0G0E C A†?http://crl.usertrust.com/USERTrustRSACertificationAuthority.crl0v+j0h0?+0†3http://crt.usertrust.com/USERTrustRSAAddTrustCA.crt0%+0†http://ocsp.usertrust.com0
+	*†H†÷
+ ‚ mT¥3]áµS‘ußz2-%„²°Û*}*õ¼;'ôZ ¹IY)laËµPÛâ}ùŸ ï@Ã­ÓâäVùXAÏñBå}ÿ°tÆ\	ù3^ê &X\ó´ÕÕÃâ¼ÕXx¿HváDgm°Cäù8b¿Å…£LÅÌ²S0•¤Öô–V¸Í\–¾rRj;B7|x9““”›±Ü²mAmgÍÉo=ErÁ#ÖÂU„fä³ÅföóÖK^­£+BŠ!’þ¨oZ%pbsc^ »ØÜ×JÓ=¯ƒ8$‡-äüÖ>w¼6µçwËœ.#¹£ÂGð]Ö¡sWhš§É7e¾ê¼ØBƒC¥‹¦	ÿÑ¡”¦Nª=	õl·ÒdZØ*"ÂKñ9^LÞH=›4–š	_Žý÷±R‘Î?‰ö¡µ©uq¿[C]e=Pn«ðÐÓü²³¶™–&ô<y‹\dÌÍî'šå Àr‡ÁnMZÓêðDæ2oëN”Ãxe ;Aªé¡Aþ±¸ e*4àÞ¨ù<æÁ0»À c,ü\ ¨ÐÄêÆ¦m2]´8	+Iªýì0Úñ§/Ï·ýúÐ£„Ù'žûfw¹Vá nÆ®±ù¶ºÈ5]3vŽñ| *w®µ¢†º)î´Z ±Œ«ãù
+ÉT]Ô¹jtž½H®˜0‚õ0‚Ý 9L%á| m'¨eâ;Ù"Ô0
+	*†H†÷
+ 0}10	UGB10UGreater Manchester10USalford10U
+Sectigo Limited1%0#USectigo RSA Time Stamping CA0
+230503000000Z
+340802235959Z0j10	UGB10U
+Manchester10U
+Sectigo Limited1,0*U#Sectigo RSA Time Stamping Signer #40‚"0
+	*†H†÷
+ ‚ 0‚
+‚ ¤“(RKÏ'‡v¤)™8ÀçÔÑìhËdäŠÍw°qe‚¼Ÿü‹»»•˜û%ŽZˆ	fX²º"[æö2ñ]-Àz¢ààVdí¡å r dAlÇÃúó}]ï!šÂ~×,Ãº˜üÓ B³_¿ˆX2«0³ØŒz–J\¬üç«é.°°8•JÏ…P«g%¡»8éo©Zš‘(5¹ó=á$Èk±™è
+ï»Må=ŒT‘Ðü-ÏU38z	Ñ"àc†§¾ýÒƒs›šL	F½4¼áKP{rà[ý»<j{n»-D*¾<LÌ¬Š“ÆW† s6+—ú›~ˆ‡ØRy‰þnw7×»PŸú%Oò^|©± Z)«£B‡wàôLHÝX¥S¦£ í–e)Åí30%æ–ƒšö`fX€ÍBu¬û´‘ÐÅÝ@j¶¨îöz·žu¯Ó¥K¡ŸW°^%G‘tÍuÑœoä^
+›ìu&îþÓõ’/R…èÚDQ*¢Ì Ê‡fC£ ï¢µ–b­'òJÉÃ”B7ˆ „¨‡®Ãº#r{øTïøk'°…õ§C…Ø+9tÛZwÑ¤úõÍœ=Ì®QÐ{lØ-BSqtÂå5ª-RÙ%ÏðÓÐ‘C×2}˜lãwAÈÿ$Tïn­Æ>U{ñ\‡:dñ`KOï¹/ì	 £‚‚0‚~0U#0€¡øa ÃAwE(ŽÑ5_U0U1È‘*“½cóÑ]M¤4Ò•0UÿÀ0Uÿ0 0U%ÿ0
++0JU C0A05+²10%0#+https://sectigo.com/CPS0g0DU=0;09 7 5†3http://crl.sectigo.com/SectigoRSATimeStampingCA.crl0t+h0f0?+0†3http://crt.sectigo.com/SectigoRSATimeStampingCA.crt0#+0†http://ocsp.sectigo.com0
+	*†H†÷
+ ‚ L›eXúàyÏïÃ2mÞ3‘ëwXâë½ËJ<uÞ~”mÃ"Ç•ßeiaöžõ‰ ^Á‡Ç$ÊÇ¥ð&ßøø1e
+àëmQW¦Œ„RF*ÂÞòÚŠEó¾÷ö.Ä~íøíh¿zVHéaåš9w¼¾º‘dˆuÿ]…4'Ò)Ëÿí-Úÿ¾“ìm¢
+ÌÃñn½!‘# R­—Ôbx*„y¨×=¬!pÃ$y:—ñ
+££[SØ« ºXû5€O_(ql^Âƒr®àÆØò™ûê´’e||5D­XkbûÞlÄ
+©lÓ!FpÜ/uL#ÂAÐz–;ÃKÝÍ’&tv\7 š$žN_NÓåOYDeKCdÏHøgg¹M¿Ì
+±:0Ð¡=H­zeäìßàð³*J9¬Á¤ù©}5Ð2@ ±*!²È}qK'6ªà˜ƒuçÇ~K„CÍCû—v*¬@Áp[™
+@ú€m”a{Èn¹Ègg$\P Þ÷Ôø.ÍƒåøÊ%D='å°†G*„v}{hO·÷´í -îsÙº™,|×uÄ”æ~$å•JˆŒ'Ö…fù®dv‘èHþÈU
+í)ÃÞ8¦Àû2=ø©ƒb6ÈÃ¾ ‡«úJB‰Üõ\|pÙ]xNîŸ^ æ	j|+£HõüOßÍ!zåõŽÔ¹@1‚Ë0‚Ç0}0i10	UUS10U
+DigiCert, Inc.1A0?U8DigiCert Trusted G4 Code Signing RSA4096 SHA384 2021 CA1
+÷§É	0ÒðÂM3w{0
+	`†He  Ñ0	*†H†÷
+	1
++‚70	*†H†÷
+	1
+240417071635Z0
++‚710
++‚70/	*†H†÷
+	1" j‰ŸâÛ:Ò×<Y²¤NÅªõ1tYÎÓñˆ­Æ¶º0G
++‚71907 Eclipse Foundation, Inc.¡€http://www.eclipse.org/0
+	*†H†÷
+ ‚ ’¶Ñû1…i_æ´tùªå™Í ê8Smq4"ÌV é¤ÉFe¹O«çùáqž¹n|/°fÈw¨K1@ë“UB¡yŒè6rj†}€Dõ¾§7LÒâ^+äãRs‰¥y{wÆM;‘ž€1š‡K	¸×¾÷9èÑ|EƒMÈÖy:HÜx7óSïo!½«’^ãå]ùæ):as’p£ï¢€Á/zw#Î™+ÏË‡\°ïÙ]ÉÉËˆDÍRïJŽ3æ÷°¨Æ’Ð#ÐÖÀ1uÛêì÷K€ŸÏæ#ÂwàXèÉû‡Å—{ÒÿRh“;Q7³	n¨ùm3e^_.-79âå-¥sÿßóÒœ/Aòn¿’¬²Z~Pã­;ÕìœazWñ
+Ìƒoaì¨YhcqGí[“ÈÅñf[ý_)`Ü¦ å€aÎv$@{¸ã‘àž‰]`s
+V½Gó•ñ‹1?Mº-f£92fü=`Hè 7-–|åm¥2ÓÊ|¡ÖáHØÉifìÁ/°­ºß‚Ðú²Iýu,÷ºv­ƒ	_›¥I&ÎÎ¥Ê¥}¦Ln*´š&–â)ËUÙÕ/W[ì€·‚‚È)ò!íÁc&î¼…7A›äX°FžúP/bà5àii†kqé+Z¤‡ELx×äƒV
+ºà™`_î>[-¡‚K0‚G	*†H†÷
+	1‚80‚40‘0}10	UGB10UGreater Manchester10USalford10U
+Sectigo Limited1%0#USectigo RSA Time Stamping CA9L%á| m'¨eâ;Ù"Ô0
+	`†He  y0	*†H†÷
+	1	*†H†÷
+0	*†H†÷
+	1
+240417071638Z0?	*†H†÷
+	120ŽFÚºØ™[ì—å¬.ç\¸voKº1vÇÅŠ^æ5/KÖ)Íð©›dm,¯0
+	*†H†÷
+ ‚ 1ƒ¬Q°4\è†¢û(x¬Mm Bûûž5$}‡yß]u¯SÊÀËnâÔ­:ºÛ?œ£ŠxéàGiî6ž]©ÅëÇ]ÅÝêìµ#73ò*C·ÉNæñÝüÃOïFöh}EÀRªEN¡Â¯ÐŒd-$½ñ‹†í}^–Ã4lõ‘«‡4·KÿY„‚gÕxÓ©L¥ð”º£Y²%;ÜDpØjq9*x7ëtóán@ƒ›UC%2ØÁÓÈžŸzƒpèm¦c&‘•Òi„‰âjGìþ¦Ó0Æe‘­µf)„¦á!ÜŽÕ}™Zu¬
+ƒN£šªa™ÊÄæ³cX‡A·ÿ´N/TÆ*Ú‘ÊäïEìµ.5wZéÃ€´^d>ioˆÅË‡emÇiöŽS©al-ÀYjnKiÑi^Æ®\õ¸b1u‡?ÒP¾•/C «‚&Ž“R¾ÿÕžÎHì©“ŽhQOn
+Þnn-À÷brÃõÔ6œoPÒ°
+$*Å42ëa
+åí$th±u³Ê]ÉÇ4¥-S¡Ì¨rãR]¹2‘ëYù1õ½ËBÚjÀQBŸb#-[àcŒ½aßºz>cüÙþÏuƒîW«ÔŽ~ÉÛê^ Q‰·aÝÇ\ªç­òxë›„|å©öV€Ø)(­;ºù"¯Y²ˆ    </confidentiality>
+					<informationStatus>real</informationStatus>
+				</headerInformation>
+				<parkingFacilityTable>
+					<parkingFacilityTableVersionTime>2024-03-01T10:29:11.309+01:00</parkingFacilityTableVersionTime>
+					<parkingFacility id="102263" version="1.0">
+						<parkingFacilityLayout>singleLevel</parkingFacilityLayout>
+						<parkingFacilityName>
+							<values>
+								<value>Allach</value>
+							</values>
+						</parkingFacilityName>
+						<parkingFacilityRecordVersionTime>2024-03-01T10:29:11.309+01:00</parkingFacilityRecordVersionTime>
+						<totalParkingCapacityLongTerm>0</totalParkingCapacityLongTerm>
+						<totalParkingCapacityShortTerm>124</totalParkingCapacityShortTerm>
+						<totalParkingCapacity>124</totalParkingCapacity>
+						<openingTimes>
+							<period>
+								<startOfPeriod>2024-03-07T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-07T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Thursday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-04T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-04T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Monday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-02T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-02T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Saturday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-01T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-01T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Friday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-06T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-06T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Wednesday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-05T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-05T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Tuesday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-03T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-03T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Sunday</value>
+									</values>
+								</periodName>
+							</period>
+						</openingTimes>
+						<facilityLocation xsi:type="Area">
+							<locationForDisplay>
+								<latitude>48.189407</latitude>
+								<longitude>11.467538</longitude>
+							</locationForDisplay>
+						</facilityLocation>
+						<owner>
+							<contactName/>
+						</owner>
+						<assignedParkingSpaces index="1">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>124</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<parkingDuration>shortTerm</parkingDuration>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="4">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<personTypeForWhichSpacesAssigned>disabled</personTypeForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="16">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<personTypeForWhichSpacesAssigned>families</personTypeForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="2">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<parkingDuration>longTerm</parkingDuration>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="8">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<personTypeForWhichSpacesAssigned>women</personTypeForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="32">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<characteristicsOfVehiclesForWhichSpacesAssigned>
+										<fuelType>battery</fuelType>
+									</characteristicsOfVehiclesForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+					</parkingFacility>
+					<parkingFacility id="100481" version="1.0">
+						<parkingFacilityLayout>singleLevel</parkingFacilityLayout>
+						<parkingFacilityName>
+							<values>
+								<value>Fröttmaning</value>
+							</values>
+						</parkingFacilityName>
+						<parkingFacilityRecordVersionTime>2024-03-01T10:29:11.309+01:00</parkingFacilityRecordVersionTime>
+						<totalParkingCapacityLongTerm>0</totalParkingCapacityLongTerm>
+						<totalParkingCapacityShortTerm>941</totalParkingCapacityShortTerm>
+						<totalParkingCapacity>941</totalParkingCapacity>
+						<openingTimes>
+							<period>
+								<startOfPeriod>2024-03-07T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-07T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Thursday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-04T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-04T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Monday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-02T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-02T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Saturday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-01T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-01T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Friday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-06T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-06T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Wednesday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-05T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-05T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Tuesday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-03T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-03T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Sunday</value>
+									</values>
+								</periodName>
+							</period>
+						</openingTimes>
+						<facilityLocation xsi:type="Area">
+							<locationForDisplay>
+								<latitude>48.210674</latitude>
+								<longitude>11.619329</longitude>
+							</locationForDisplay>
+						</facilityLocation>
+						<owner>
+							<contactName/>
+						</owner>
+						<assignedParkingSpaces index="1">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>941</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<parkingDuration>shortTerm</parkingDuration>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="4">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<personTypeForWhichSpacesAssigned>disabled</personTypeForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="16">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<personTypeForWhichSpacesAssigned>families</personTypeForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="2">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<parkingDuration>longTerm</parkingDuration>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="8">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<personTypeForWhichSpacesAssigned>women</personTypeForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="32">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<characteristicsOfVehiclesForWhichSpacesAssigned>
+										<fuelType>battery</fuelType>
+									</characteristicsOfVehiclesForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+					</parkingFacility>
+					<parkingFacility id="474458" version="1.0">
+						<parkingFacilityLayout>singleLevel</parkingFacilityLayout>
+						<parkingFacilityName>
+							<values>
+								<value>Westfriedhof PP</value>
+							</values>
+						</parkingFacilityName>
+						<parkingFacilityRecordVersionTime>2024-03-01T10:29:11.309+01:00</parkingFacilityRecordVersionTime>
+						<totalParkingCapacityLongTerm>0</totalParkingCapacityLongTerm>
+						<totalParkingCapacityShortTerm>113</totalParkingCapacityShortTerm>
+						<totalParkingCapacity>113</totalParkingCapacity>
+						<openingTimes>
+							<period>
+								<startOfPeriod>2024-03-07T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-07T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Thursday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-04T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-04T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Monday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-02T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-02T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Saturday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-01T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-01T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Friday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-06T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-06T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Wednesday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-05T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-05T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Tuesday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-03T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-03T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Sunday</value>
+									</values>
+								</periodName>
+							</period>
+						</openingTimes>
+						<facilityLocation xsi:type="Area">
+							<locationForDisplay>
+								<latitude>48.170322</latitude>
+								<longitude>11.530323</longitude>
+							</locationForDisplay>
+						</facilityLocation>
+						<owner>
+							<contactName/>
+						</owner>
+						<assignedParkingSpaces index="1">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>113</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<parkingDuration>shortTerm</parkingDuration>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="4">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<personTypeForWhichSpacesAssigned>disabled</personTypeForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="16">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<personTypeForWhichSpacesAssigned>families</personTypeForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="2">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<parkingDuration>longTerm</parkingDuration>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="8">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<personTypeForWhichSpacesAssigned>women</personTypeForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="32">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<characteristicsOfVehiclesForWhichSpacesAssigned>
+										<fuelType>battery</fuelType>
+									</characteristicsOfVehiclesForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+					</parkingFacility>
+					<parkingFacility id="474425" version="1.0">
+						<parkingFacilityLayout>singleLevel</parkingFacilityLayout>
+						<parkingFacilityName>
+							<values>
+								<value>Neuperlach Süd</value>
+							</values>
+						</parkingFacilityName>
+						<parkingFacilityRecordVersionTime>2024-03-01T10:29:11.309+01:00</parkingFacilityRecordVersionTime>
+						<totalParkingCapacityLongTerm>0</totalParkingCapacityLongTerm>
+						<totalParkingCapacityShortTerm>0</totalParkingCapacityShortTerm>
+						<totalParkingCapacity>0</totalParkingCapacity>
+						<openingTimes>
+							<period>
+								<startOfPeriod>2024-03-07T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-07T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Thursday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-04T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-04T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Monday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-02T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-02T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Saturday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-01T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-01T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Friday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-06T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-06T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Wednesday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-05T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-05T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Tuesday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-03T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-03T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Sunday</value>
+									</values>
+								</periodName>
+							</period>
+						</openingTimes>
+						<facilityLocation xsi:type="Area">
+							<locationForDisplay>
+								<latitude>48.086594</latitude>
+								<longitude>11.646431</longitude>
+							</locationForDisplay>
+						</facilityLocation>
+						<owner>
+							<contactName/>
+						</owner>
+						<assignedParkingSpaces index="1">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<parkingDuration>shortTerm</parkingDuration>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="4">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<personTypeForWhichSpacesAssigned>disabled</personTypeForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="16">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<personTypeForWhichSpacesAssigned>families</personTypeForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="2">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<parkingDuration>longTerm</parkingDuration>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="8">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<personTypeForWhichSpacesAssigned>women</personTypeForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="32">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<characteristicsOfVehiclesForWhichSpacesAssigned>
+										<fuelType>battery</fuelType>
+									</characteristicsOfVehiclesForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+					</parkingFacility>
+					<parkingFacility id="474421" version="1.0">
+						<parkingFacilityLayout>singleLevel</parkingFacilityLayout>
+						<parkingFacilityName>
+							<values>
+								<value>Messestadt-Ost</value>
+							</values>
+						</parkingFacilityName>
+						<parkingFacilityRecordVersionTime>2024-03-01T10:29:11.309+01:00</parkingFacilityRecordVersionTime>
+						<totalParkingCapacityLongTerm>0</totalParkingCapacityLongTerm>
+						<totalParkingCapacityShortTerm>1064</totalParkingCapacityShortTerm>
+						<totalParkingCapacity>1064</totalParkingCapacity>
+						<openingTimes>
+							<period>
+								<startOfPeriod>2024-03-07T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-07T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Thursday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-04T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-04T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Monday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-02T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-02T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Saturday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-01T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-01T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Friday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-06T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-06T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Wednesday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-05T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-05T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Tuesday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-03T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-03T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Sunday</value>
+									</values>
+								</periodName>
+							</period>
+						</openingTimes>
+						<facilityLocation xsi:type="Area">
+							<locationForDisplay>
+								<latitude>48.13422</latitude>
+								<longitude>11.705668</longitude>
+							</locationForDisplay>
+						</facilityLocation>
+						<owner>
+							<contactName/>
+						</owner>
+						<assignedParkingSpaces index="1">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>1064</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<parkingDuration>shortTerm</parkingDuration>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="4">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<personTypeForWhichSpacesAssigned>disabled</personTypeForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="16">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<personTypeForWhichSpacesAssigned>families</personTypeForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="2">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<parkingDuration>longTerm</parkingDuration>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="8">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<personTypeForWhichSpacesAssigned>women</personTypeForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="32">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<characteristicsOfVehiclesForWhichSpacesAssigned>
+										<fuelType>battery</fuelType>
+									</characteristicsOfVehiclesForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+					</parkingFacility>
+					<parkingFacility id="25703245" version="1.0">
+						<parkingFacilityLayout>singleLevel</parkingFacilityLayout>
+						<parkingFacilityName>
+							<values>
+								<value>Aidenbachstraße</value>
+							</values>
+						</parkingFacilityName>
+						<parkingFacilityRecordVersionTime>2024-03-01T10:29:11.309+01:00</parkingFacilityRecordVersionTime>
+						<totalParkingCapacityLongTerm>0</totalParkingCapacityLongTerm>
+						<totalParkingCapacityShortTerm>183</totalParkingCapacityShortTerm>
+						<totalParkingCapacity>183</totalParkingCapacity>
+						<openingTimes>
+							<period>
+								<startOfPeriod>2024-03-07T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-07T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Thursday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-02T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-02T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Saturday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-04T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-04T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Monday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-01T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-01T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Friday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-06T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-06T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Wednesday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-05T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-05T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Tuesday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-03T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-03T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Sunday</value>
+									</values>
+								</periodName>
+							</period>
+						</openingTimes>
+						<facilityLocation xsi:type="Area">
+							<locationForDisplay>
+								<latitude>48.09785</latitude>
+								<longitude>11.52502</longitude>
+							</locationForDisplay>
+						</facilityLocation>
+						<owner>
+							<contactName/>
+						</owner>
+						<assignedParkingSpaces index="1">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>183</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<parkingDuration>shortTerm</parkingDuration>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="4">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<personTypeForWhichSpacesAssigned>disabled</personTypeForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="16">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<personTypeForWhichSpacesAssigned>families</personTypeForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="2">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<parkingDuration>longTerm</parkingDuration>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="8">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<personTypeForWhichSpacesAssigned>women</personTypeForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="32">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<characteristicsOfVehiclesForWhichSpacesAssigned>
+										<fuelType>battery</fuelType>
+									</characteristicsOfVehiclesForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+					</parkingFacility>
+					<parkingFacility id="25703296" version="1.0">
+						<parkingFacilityLayout>singleLevel</parkingFacilityLayout>
+						<parkingFacilityName>
+							<values>
+								<value>Studentenstadt</value>
+							</values>
+						</parkingFacilityName>
+						<parkingFacilityRecordVersionTime>2024-03-01T10:29:11.309+01:00</parkingFacilityRecordVersionTime>
+						<totalParkingCapacityLongTerm>0</totalParkingCapacityLongTerm>
+						<totalParkingCapacityShortTerm>405</totalParkingCapacityShortTerm>
+						<totalParkingCapacity>405</totalParkingCapacity>
+						<openingTimes>
+							<period>
+								<startOfPeriod>2024-03-07T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-07T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Thursday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-02T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-02T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Saturday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-04T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-04T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Monday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-01T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-01T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Friday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-06T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-06T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Wednesday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-05T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-05T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Tuesday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-03T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-03T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Sunday</value>
+									</values>
+								</periodName>
+							</period>
+						</openingTimes>
+						<facilityLocation xsi:type="Area">
+							<locationForDisplay>
+								<latitude>48.184162</latitude>
+								<longitude>11.606821</longitude>
+							</locationForDisplay>
+						</facilityLocation>
+						<owner>
+							<contactName/>
+						</owner>
+						<assignedParkingSpaces index="1">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>405</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<parkingDuration>shortTerm</parkingDuration>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="4">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<personTypeForWhichSpacesAssigned>disabled</personTypeForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="16">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<personTypeForWhichSpacesAssigned>families</personTypeForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="2">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<parkingDuration>longTerm</parkingDuration>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="8">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<personTypeForWhichSpacesAssigned>women</personTypeForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="32">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<characteristicsOfVehiclesForWhichSpacesAssigned>
+										<fuelType>battery</fuelType>
+									</characteristicsOfVehiclesForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+					</parkingFacility>
+					<parkingFacility id="474405" version="1.0">
+						<parkingFacilityLayout>singleLevel</parkingFacilityLayout>
+						<parkingFacilityName>
+							<values>
+								<value>Mangfallplatz</value>
+							</values>
+						</parkingFacilityName>
+						<parkingFacilityRecordVersionTime>2024-03-01T10:29:11.309+01:00</parkingFacilityRecordVersionTime>
+						<totalParkingCapacityLongTerm>0</totalParkingCapacityLongTerm>
+						<totalParkingCapacityShortTerm>247</totalParkingCapacityShortTerm>
+						<totalParkingCapacity>247</totalParkingCapacity>
+						<openingTimes>
+							<period>
+								<startOfPeriod>2024-03-07T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-07T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Thursday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-04T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-04T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Monday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-02T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-02T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Saturday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-01T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-01T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Friday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-06T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-06T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Wednesday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-05T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-05T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Tuesday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-03T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-03T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Sunday</value>
+									</values>
+								</periodName>
+							</period>
+						</openingTimes>
+						<facilityLocation xsi:type="Area">
+							<locationForDisplay>
+								<latitude>48.09714</latitude>
+								<longitude>11.572852</longitude>
+							</locationForDisplay>
+						</facilityLocation>
+						<owner>
+							<contactName/>
+						</owner>
+						<assignedParkingSpaces index="1">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>247</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<parkingDuration>shortTerm</parkingDuration>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="4">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<personTypeForWhichSpacesAssigned>disabled</personTypeForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="16">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<personTypeForWhichSpacesAssigned>families</personTypeForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="2">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<parkingDuration>longTerm</parkingDuration>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="8">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<personTypeForWhichSpacesAssigned>women</personTypeForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="32">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<characteristicsOfVehiclesForWhichSpacesAssigned>
+										<fuelType>battery</fuelType>
+									</characteristicsOfVehiclesForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+					</parkingFacility>
+					<parkingFacility id="474385" version="1.0">
+						<parkingFacilityLayout>singleLevel</parkingFacilityLayout>
+						<parkingFacilityName>
+							<values>
+								<value>Heimeranplatz</value>
+							</values>
+						</parkingFacilityName>
+						<parkingFacilityRecordVersionTime>2024-03-01T10:29:11.309+01:00</parkingFacilityRecordVersionTime>
+						<totalParkingCapacityLongTerm>0</totalParkingCapacityLongTerm>
+						<totalParkingCapacityShortTerm>290</totalParkingCapacityShortTerm>
+						<totalParkingCapacity>290</totalParkingCapacity>
+						<openingTimes>
+							<period>
+								<startOfPeriod>2024-03-07T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-07T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Thursday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-04T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-04T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Monday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-02T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-02T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Saturday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-01T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-01T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Friday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-06T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-06T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Wednesday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-05T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-05T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Tuesday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-03T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-03T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Sunday</value>
+									</values>
+								</periodName>
+							</period>
+						</openingTimes>
+						<facilityLocation xsi:type="Area">
+							<locationForDisplay>
+								<latitude>48.13353</latitude>
+								<longitude>11.533456</longitude>
+							</locationForDisplay>
+						</facilityLocation>
+						<owner>
+							<contactName/>
+						</owner>
+						<assignedParkingSpaces index="1">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>290</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<parkingDuration>shortTerm</parkingDuration>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="4">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<personTypeForWhichSpacesAssigned>disabled</personTypeForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="16">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<personTypeForWhichSpacesAssigned>families</personTypeForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="2">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<parkingDuration>longTerm</parkingDuration>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="8">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<personTypeForWhichSpacesAssigned>women</personTypeForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="32">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<characteristicsOfVehiclesForWhichSpacesAssigned>
+										<fuelType>battery</fuelType>
+									</characteristicsOfVehiclesForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+					</parkingFacility>
+					<parkingFacility id="474441" version="1.0">
+						<parkingFacilityLayout>singleLevel</parkingFacilityLayout>
+						<parkingFacilityName>
+							<values>
+								<value>Olympiazentrum</value>
+							</values>
+						</parkingFacilityName>
+						<parkingFacilityRecordVersionTime>2024-03-01T10:29:11.309+01:00</parkingFacilityRecordVersionTime>
+						<totalParkingCapacityLongTerm>0</totalParkingCapacityLongTerm>
+						<totalParkingCapacityShortTerm>264</totalParkingCapacityShortTerm>
+						<totalParkingCapacity>264</totalParkingCapacity>
+						<openingTimes>
+							<period>
+								<startOfPeriod>2024-03-07T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-07T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Thursday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-04T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-04T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Monday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-02T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-02T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Saturday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-01T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-01T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Friday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-06T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-06T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Wednesday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-05T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-05T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Tuesday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-03T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-03T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Sunday</value>
+									</values>
+								</periodName>
+							</period>
+						</openingTimes>
+						<facilityLocation xsi:type="Area">
+							<locationForDisplay>
+								<latitude>48.18075</latitude>
+								<longitude>11.553969</longitude>
+							</locationForDisplay>
+						</facilityLocation>
+						<owner>
+							<contactName/>
+						</owner>
+						<assignedParkingSpaces index="1">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>264</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<parkingDuration>shortTerm</parkingDuration>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="4">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<personTypeForWhichSpacesAssigned>disabled</personTypeForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="16">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<personTypeForWhichSpacesAssigned>families</personTypeForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="2">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<parkingDuration>longTerm</parkingDuration>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="8">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<personTypeForWhichSpacesAssigned>women</personTypeForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="32">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<characteristicsOfVehiclesForWhichSpacesAssigned>
+										<fuelType>battery</fuelType>
+									</characteristicsOfVehiclesForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+					</parkingFacility>
+					<parkingFacility id="474423" version="1.0">
+						<parkingFacilityLayout>singleLevel</parkingFacilityLayout>
+						<parkingFacilityName>
+							<values>
+								<value>Moosach</value>
+							</values>
+						</parkingFacilityName>
+						<parkingFacilityRecordVersionTime>2024-03-01T10:29:11.309+01:00</parkingFacilityRecordVersionTime>
+						<totalParkingCapacityLongTerm>0</totalParkingCapacityLongTerm>
+						<totalParkingCapacityShortTerm>277</totalParkingCapacityShortTerm>
+						<totalParkingCapacity>277</totalParkingCapacity>
+						<openingTimes>
+							<period>
+								<startOfPeriod>2024-03-07T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-07T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Thursday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-04T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-04T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Monday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-02T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-02T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Saturday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-01T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-01T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Friday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-06T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-06T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Wednesday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-05T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-05T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Tuesday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-03T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-03T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Sunday</value>
+									</values>
+								</periodName>
+							</period>
+						</openingTimes>
+						<facilityLocation xsi:type="Area">
+							<locationForDisplay>
+								<latitude>48.181053</latitude>
+								<longitude>11.505647</longitude>
+							</locationForDisplay>
+						</facilityLocation>
+						<owner>
+							<contactName/>
+						</owner>
+						<assignedParkingSpaces index="1">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>277</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<parkingDuration>shortTerm</parkingDuration>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="4">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<personTypeForWhichSpacesAssigned>disabled</personTypeForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="16">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<personTypeForWhichSpacesAssigned>families</personTypeForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="2">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<parkingDuration>longTerm</parkingDuration>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="8">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<personTypeForWhichSpacesAssigned>women</personTypeForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="32">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<characteristicsOfVehiclesForWhichSpacesAssigned>
+										<fuelType>battery</fuelType>
+									</characteristicsOfVehiclesForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+					</parkingFacility>
+					<parkingFacility id="474474" version="1.0">
+						<parkingFacilityLayout>singleLevel</parkingFacilityLayout>
+						<parkingFacilityName>
+							<values>
+								<value>Westfriedhof TG</value>
+							</values>
+						</parkingFacilityName>
+						<parkingFacilityRecordVersionTime>2024-03-01T10:29:11.309+01:00</parkingFacilityRecordVersionTime>
+						<totalParkingCapacityLongTerm>0</totalParkingCapacityLongTerm>
+						<totalParkingCapacityShortTerm>214</totalParkingCapacityShortTerm>
+						<totalParkingCapacity>214</totalParkingCapacity>
+						<openingTimes>
+							<period>
+								<startOfPeriod>2024-03-07T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-07T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Thursday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-04T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-04T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Monday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-02T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-02T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Saturday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-01T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-01T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Friday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-06T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-06T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Wednesday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-05T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-05T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Tuesday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-03T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-03T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Sunday</value>
+									</values>
+								</periodName>
+							</period>
+						</openingTimes>
+						<facilityLocation xsi:type="Area">
+							<locationForDisplay>
+								<latitude>48.17164</latitude>
+								<longitude>11.52792</longitude>
+							</locationForDisplay>
+						</facilityLocation>
+						<owner>
+							<contactName/>
+						</owner>
+						<assignedParkingSpaces index="1">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>214</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<parkingDuration>shortTerm</parkingDuration>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="4">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<personTypeForWhichSpacesAssigned>disabled</personTypeForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="16">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<personTypeForWhichSpacesAssigned>families</personTypeForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="2">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<parkingDuration>longTerm</parkingDuration>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="8">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<personTypeForWhichSpacesAssigned>women</personTypeForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="32">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<characteristicsOfVehiclesForWhichSpacesAssigned>
+										<fuelType>battery</fuelType>
+									</characteristicsOfVehiclesForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+					</parkingFacility>
+					<parkingFacility id="474355" version="1.0">
+						<parkingFacilityLayout>singleLevel</parkingFacilityLayout>
+						<parkingFacilityName>
+							<values>
+								<value>Fürstenried-West TG</value>
+							</values>
+						</parkingFacilityName>
+						<parkingFacilityRecordVersionTime>2024-03-01T10:29:11.309+01:00</parkingFacilityRecordVersionTime>
+						<totalParkingCapacityLongTerm>0</totalParkingCapacityLongTerm>
+						<totalParkingCapacityShortTerm>210</totalParkingCapacityShortTerm>
+						<totalParkingCapacity>210</totalParkingCapacity>
+						<openingTimes>
+							<period>
+								<startOfPeriod>2024-03-07T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-07T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Thursday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-04T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-04T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Monday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-02T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-02T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Saturday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-01T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-01T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Friday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-06T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-06T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Wednesday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-05T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-05T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Tuesday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-03T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-03T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Sunday</value>
+									</values>
+								</periodName>
+							</period>
+						</openingTimes>
+						<facilityLocation xsi:type="Area">
+							<locationForDisplay>
+								<latitude>48.0887</latitude>
+								<longitude>11.476658</longitude>
+							</locationForDisplay>
+						</facilityLocation>
+						<owner>
+							<contactName/>
+						</owner>
+						<assignedParkingSpaces index="1">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>210</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<parkingDuration>shortTerm</parkingDuration>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="4">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<personTypeForWhichSpacesAssigned>disabled</personTypeForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="16">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<personTypeForWhichSpacesAssigned>families</personTypeForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="2">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<parkingDuration>longTerm</parkingDuration>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="8">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<personTypeForWhichSpacesAssigned>women</personTypeForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="32">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<characteristicsOfVehiclesForWhichSpacesAssigned>
+										<fuelType>battery</fuelType>
+									</characteristicsOfVehiclesForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+					</parkingFacility>
+					<parkingFacility id="474403" version="1.0">
+						<parkingFacilityLayout>singleLevel</parkingFacilityLayout>
+						<parkingFacilityName>
+							<values>
+								<value>Kieferngarten</value>
+							</values>
+						</parkingFacilityName>
+						<parkingFacilityRecordVersionTime>2024-03-01T10:29:11.309+01:00</parkingFacilityRecordVersionTime>
+						<totalParkingCapacityLongTerm>0</totalParkingCapacityLongTerm>
+						<totalParkingCapacityShortTerm>143</totalParkingCapacityShortTerm>
+						<totalParkingCapacity>143</totalParkingCapacity>
+						<openingTimes>
+							<period>
+								<startOfPeriod>2024-03-07T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-07T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Thursday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-04T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-04T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Monday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-02T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-02T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Saturday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-01T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-01T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Friday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-06T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-06T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Wednesday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-05T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-05T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Tuesday</value>
+									</values>
+								</periodName>
+							</period>
+							<period>
+								<startOfPeriod>2024-03-03T00:00:00</startOfPeriod>
+								<endOfPeriod>2024-03-03T23:59:00</endOfPeriod>
+								<periodName>
+									<values>
+										<value>Sunday</value>
+									</values>
+								</periodName>
+							</period>
+						</openingTimes>
+						<facilityLocation xsi:type="Area">
+							<locationForDisplay>
+								<latitude>48.20128</latitude>
+								<longitude>11.612463</longitude>
+							</locationForDisplay>
+						</facilityLocation>
+						<owner>
+							<contactName/>
+						</owner>
+						<assignedParkingSpaces index="1">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>143</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<parkingDuration>shortTerm</parkingDuration>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="4">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<personTypeForWhichSpacesAssigned>disabled</personTypeForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="16">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<personTypeForWhichSpacesAssigned>families</personTypeForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="2">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<parkingDuration>longTerm</parkingDuration>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="8">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<personTypeForWhichSpacesAssigned>women</personTypeForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+						<assignedParkingSpaces index="32">
+							<assignedParkingSpaces>
+								<numberOfAssignedParkingSpaces>0</numberOfAssignedParkingSpaces>
+								<descriptionOfAssignedParkingSpaces>
+									<characteristicsOfVehiclesForWhichSpacesAssigned>
+										<fuelType>battery</fuelType>
+									</characteristicsOfVehiclesForWhichSpacesAssigned>
+								</descriptionOfAssignedParkingSpaces>
+							</assignedParkingSpaces>
+						</assignedParkingSpaces>
+					</parkingFacility>
+				</parkingFacilityTable>
+			</parkingFacilityTablePublication>
+		</genericPublicationExtension>
+	</payloadPublication>
+</d2LogicalModel>

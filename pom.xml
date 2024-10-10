@@ -394,6 +394,7 @@
                         <exclude>**/*.txt</exclude>
                         <exclude>**/*.yml</exclude>
                         <exclude>src/test/resources/*.xml</exclude>
+                        <exclude>src/test/resources/testdata/*.*</exclude>
                     </excludes>
                 </configuration>
             </plugin>
