@@ -51,7 +51,8 @@ public class MetricsConfiguration {
     private final Gauge maxFileSize;
     private Timer processingTime;
 
-    public MetricsConfiguration(final MeterRegistry meterRegistry, MetricsNameConfig metricsNameConfig, CamelContext camelContext, FileSizeProcessor fileSizeProcessor) {
+    public MetricsConfiguration(final MeterRegistry meterRegistry, MetricsNameConfig metricsNameConfig, CamelContext camelContext,
+            FileSizeProcessor fileSizeProcessor) {
         this.meterRegistry = meterRegistry;
         this.metricsNameConfig = metricsNameConfig;
         this.camelContext = camelContext;
