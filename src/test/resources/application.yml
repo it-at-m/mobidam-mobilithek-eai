@@ -50,3 +50,4 @@ mobidam:
     warnungen-counter-metric: mobidam.exchanges.ereignis.warnungen.counter
     inflight-exchanges-metric: mobidam.exchanges.inflight
     processing-time-metric: mobidam.exchanges.processingtime
+    max-file-size-metric: mobidam.exchanges.filesize.max
