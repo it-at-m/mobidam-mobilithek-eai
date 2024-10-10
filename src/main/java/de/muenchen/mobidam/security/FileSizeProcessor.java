@@ -20,31 +20,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.muenchen.mobidam.config;
+package de.muenchen.mobidam.security;
 
 import lombok.Getter;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
+import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
+import org.apache.camel.converter.stream.InputStreamCache;
+import org.springframework.stereotype.Service;
 
-@Configuration
+@Service
+@NoArgsConstructor
+@Slf4j
 @Getter
-public class MetricsNameConfig {
+public class FileSizeProcessor implements Processor {
 
-    @Value("${mobidam.metrics.beginn-counter-metric}")
-    private String beginnCounterMetric;
-    @Value("${mobidam.metrics.ende-counter-metric}")
-    private String endCounterMetric;
-    @Value("${mobidam.metrics.erfolg-counter-metric}")
-    private String erfolgCounterMetric;
-    @Value("${mobidam.metrics.fehler-counter-metric}")
-    private String fehlerCounterMetric;
-    @Value("${mobidam.metrics.warnungen-counter-metric}")
-    private String warnungenCounterMetric;
-    @Value("${mobidam.metrics.processing-time-metric}")
-    private String processingTimeMetric;
-    @Value("${mobidam.metrics.inflight-exchanges-metric}")
-    private String inflightExchangesMetric;
-    @Value("${mobidam.metrics.max-file-size-metric}")
-    private String maxFileSizeMetric;
+    private long maxStreamSize = 0L;
+
+    @Override
+    public void process(Exchange exchange) throws Exception {
+        InputStreamCache stream = exchange.getMessage().getBody(InputStreamCache.class);
+        stream.reset();
+        maxStreamSize = Math.max(maxStreamSize, stream.length());
+    }
 
 }

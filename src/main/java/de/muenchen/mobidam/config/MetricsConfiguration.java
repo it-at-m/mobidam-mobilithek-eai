@@ -22,6 +22,7 @@
  */
 package de.muenchen.mobidam.config;
 
+import de.muenchen.mobidam.security.FileSizeProcessor;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
@@ -29,7 +30,6 @@ import io.micrometer.core.instrument.Timer;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.camel.CamelContext;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -40,6 +40,7 @@ public class MetricsConfiguration {
     private final MeterRegistry meterRegistry;
     private final MetricsNameConfig metricsNameConfig;
     private final CamelContext camelContext;
+    private final FileSizeProcessor fileSizeProcessor;
 
     private final Counter beginnCounter;
     private final Counter endeCounter;
@@ -47,12 +48,14 @@ public class MetricsConfiguration {
     private final Counter erfolgCounter;
     private final Counter warnungenCounter;
     private final Gauge inflightExchanges;
+    private final Gauge maxFileSize;
     private Timer processingTime;
 
-    public MetricsConfiguration(final MeterRegistry meterRegistry, MetricsNameConfig metricsNameConfig, CamelContext camelContext) {
+    public MetricsConfiguration(final MeterRegistry meterRegistry, MetricsNameConfig metricsNameConfig, CamelContext camelContext, FileSizeProcessor fileSizeProcessor) {
         this.meterRegistry = meterRegistry;
         this.metricsNameConfig = metricsNameConfig;
         this.camelContext = camelContext;
+        this.fileSizeProcessor = fileSizeProcessor;
         this.beginnCounter = Counter.builder(metricsNameConfig.getBeginnCounterMetric()).register(meterRegistry);
         this.endeCounter = Counter.builder(metricsNameConfig.getEndCounterMetric()).register(meterRegistry);
         this.fehlerCounter = Counter.builder(metricsNameConfig.getFehlerCounterMetric()).register(meterRegistry);
@@ -61,6 +64,7 @@ public class MetricsConfiguration {
         this.inflightExchanges = Gauge.builder(metricsNameConfig.getInflightExchangesMetric(), camelContext, context -> context.getInflightRepository().size())
                 .register(meterRegistry);
         this.processingTime = Timer.builder(metricsNameConfig.getProcessingTimeMetric()).register(meterRegistry);
+        this.maxFileSize = Gauge.builder(metricsNameConfig.getMaxFileSizeMetric(), fileSizeProcessor::getMaxStreamSize).register(meterRegistry);
 
     }
 
