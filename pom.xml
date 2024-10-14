@@ -44,8 +44,8 @@
         <maven.compiler.release>${java.version}</maven.compiler.release>
 
         <!-- Frameworks -->
-        <camel.version>4.1.0</camel.version>
-        <spring.boot.version>3.1.4</spring.boot.version>
+        <camel.version>4.8.0</camel.version>
+        <spring.boot.version>3.3.4</spring.boot.version>
 
         <!-- Other Maven Plugins -->
         <maven-scm-plugin.version>1.13.0</maven-scm-plugin.version>
@@ -144,6 +144,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-quartz</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>de.muenchen.mobidam</groupId>
+            <artifactId>mobidam-eai-commons-starter</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
         <!-- SST Integration -->

@@ -60,21 +60,20 @@ oauth2:
   registration:
     id: ...
 
-de.muenchen.mobidam.integration:
-  baseUrl: ...
-  interfaces:
-    interface-1:
-      mobidam-sst-id:
-      name:
-      mobilithek-url:
-      cron-expression:
-      s3-object-path:
-      s3-date-format:
-      s3-bucket:
-      allowed-mime-types:
-      malicious-code-detection-enabled:
-
-mobidam:
+de.muenchen.mobidam:
+  integration:
+    baseUrl: ...
+    interfaces:
+      interface-1:
+        mobidam-sst-id:
+        name:
+        mobilithek-url:
+        cron-expression:
+        s3-object-path:
+        s3-date-format:
+        s3-bucket:
+        allowed-mime-types:
+        malicious-code-detection-enabled:
   eai:
     cacerts-file: ...
     cacerts-password: ...

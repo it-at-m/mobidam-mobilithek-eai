@@ -22,8 +22,9 @@
  */
 package de.muenchen.mobidam;
 
-import de.muenchen.mobidam.config.EnvironmentReader;
 import de.muenchen.mobidam.config.Interfaces;
+import de.muenchen.mobidam.eai.common.S3Constants;
+import de.muenchen.mobidam.eai.common.config.EnvironmentReader;
 import de.muenchen.mobidam.exception.MobidamSecurityException;
 import de.muenchen.mobidam.integration.client.domain.DatentransferCreateDTO;
 import de.muenchen.mobidam.integration.service.SstManagementIntegrationService;
@@ -121,9 +122,9 @@ class MobilithekRouteS3Test {
         String content = new String(exchange.getIn().getBody(InputStream.class).readAllBytes(), StandardCharsets.UTF_8);
         Assertions.assertTrue(content.contains("<startOfPeriod>2024-05-14T00:00:00</startOfPeriod><endOfPeriod>2024-05-14T23:59:00</endOfPeriod>"));
 
-        Assertions.assertEquals("int-mdasc-mdasdev", exchange.getIn().getHeader(Constants.PARAMETER_BUCKET_NAME));
-        Assertions.assertEquals("foo", exchange.getIn().getHeader(Constants.ACCESS_KEY));
-        Assertions.assertEquals("foo", exchange.getIn().getHeader(Constants.SECRET_KEY));
+        Assertions.assertEquals("int-mdasc-mdasdev", exchange.getIn().getHeader(S3Constants.PARAMETER_BUCKET_NAME));
+        Assertions.assertEquals("foo", exchange.getIn().getHeader(S3Constants.ACCESS_KEY));
+        Assertions.assertEquals("foo", exchange.getIn().getHeader(S3Constants.SECRET_KEY));
         Assertions.assertTrue(exchange.getIn().getHeader(AWS2S3Constants.KEY, String.class).startsWith("MDAS/Mobilithek/PR-statisch/"));
         Assertions.assertTrue(exchange.getIn().getHeader(AWS2S3Constants.KEY, String.class).endsWith("-pr-daten.xml"));
 
