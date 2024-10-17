@@ -34,11 +34,13 @@ management:
     enabled-by-default: false
     web:
       exposure:
-        include: health,info
+        include: health,info,metrics
   endpoint:
     info:
       enabled: true
     health:
+      enabled: true
+    metrics:
       enabled: true
   info:
     env:
@@ -83,3 +85,12 @@ mobidam:
       s3-bucket-1:
         access-key-env-var: ...
         secret-key-env-var: ...
+  metrics:
+    beginn-counter-metric: mobidam.exchanges.ereignis.beginn.counter
+    ende-counter-metric: mobidam.exchanges.ereignis.ende.counter
+    fehler-counter-metric: mobidam.exchanges.ereignis.fehler.counter
+    erfolg-counter-metric: mobidam.exchanges.ereignis.erfolg.counter
+    warnungen-counter-metric: mobidam.exchanges.ereignis.warnungen.counter
+    inflight-exchanges-metric: mobidam.exchanges.inflight
+    processing-time-metric: mobidam.exchanges.processingtime
+    max-file-size-metric: mobidam.exchanges.filesize.max

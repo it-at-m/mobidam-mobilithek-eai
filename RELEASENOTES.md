@@ -1,5 +1,9 @@
 # Release-Notes
 
+## Sprint 18 (01.10.2024 - 22.10.2024)
+## Hinzugefügt
+- Micrometer Metriken
+
 ## Sprint 16 (20.08.2024 - 09.09.2024)
 ### Hinzugefügt
 - Schadcode-Erkennung und Mimetype-Prüfung 

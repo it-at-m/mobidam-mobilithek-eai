@@ -23,6 +23,7 @@
 package de.muenchen.mobidam.mobilithek;
 
 import de.muenchen.mobidam.Constants;
+import de.muenchen.mobidam.config.MetricsConfiguration;
 import de.muenchen.mobidam.integration.client.domain.DatentransferCreateDTO;
 import de.muenchen.mobidam.sstmanagment.EreignisTyp;
 import java.time.LocalDateTime;
@@ -35,7 +36,11 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class InterfaceMessageFactory {
 
+    private MetricsConfiguration metricsConfiguration;
+
     public void mobilithekMessageStart(Exchange exchange) {
+
+        metricsConfiguration.getBeginnCounter().increment();
 
         var dto = new DatentransferCreateDTO();
         dto.setEreignis(EreignisTyp.BEGINN.name());
@@ -46,6 +51,8 @@ public class InterfaceMessageFactory {
     }
 
     public void mobilithekMessageSuccess(Exchange exchange) {
+
+        metricsConfiguration.getErfolgCounter().increment();
 
         var dto = new DatentransferCreateDTO();
         dto.setEreignis(EreignisTyp.ERFOLG.name());
@@ -59,6 +66,8 @@ public class InterfaceMessageFactory {
 
     public void mobilithekMessageError(Exchange exchange) {
 
+        metricsConfiguration.getFehlerCounter().increment();
+
         var dto = new DatentransferCreateDTO();
         dto.setEreignis(EreignisTyp.FEHLER.name());
         dto.setZeitstempel(LocalDateTime.now());
@@ -70,6 +79,8 @@ public class InterfaceMessageFactory {
     }
 
     public void mobilithekMessageEnd(Exchange exchange) {
+
+        metricsConfiguration.getEndeCounter().increment();
 
         var dto = new DatentransferCreateDTO();
         dto.setEreignis(EreignisTyp.ENDE.name());
