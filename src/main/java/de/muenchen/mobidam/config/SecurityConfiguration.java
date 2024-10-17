@@ -22,9 +22,6 @@
  */
 package de.muenchen.mobidam.config;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -41,7 +38,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Profile("!no-security")
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
-@RequiredArgsConstructor
 public class SecurityConfiguration {
 
     @Bean
