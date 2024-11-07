@@ -1,4 +1,7 @@
 # Release-Notes
+## Sprint 19 (22.10.2024 - 12.11.2024)
+### Entfernt
+- Umstellung auf mobidam-eai-commons-starter.
 
 ## Sprint 16 (20.08.2024 - 09.09.2024)
 ### Hinzugefügt
