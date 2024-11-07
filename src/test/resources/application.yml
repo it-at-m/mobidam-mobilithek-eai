@@ -36,8 +36,9 @@ de.muenchen.mobidam:
         - application/xml
         - text/plain
         malicious-code-detection-enabled: true
-  s3:
-    bucket-credential-config:
-      int-mdasc-mdasdev:
-        access-key-env-var: MOBIDAM_INT-MDASC-MDASDEV_ACCESS_KEY
-        secret-key-env-var: MOBIDAM_INT-MDASC-MDASDEV_SECRET_KEY
+  common:
+    s3:
+      bucket-credential-config:
+        int-mdasc-mdasdev:
+          access-key-env-var: MOBIDAM_INT-MDASC-MDASDEV_ACCESS_KEY
+          secret-key-env-var: MOBIDAM_INT-MDASC-MDASDEV_SECRET_KEY
