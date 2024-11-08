@@ -20,22 +20,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.muenchen.mobidam;
+package de.muenchen.mobidam.config;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import de.muenchen.mobidam.mobilithek.InterfaceDTO;
+import java.util.Map;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
-/**
- * Spring Boot Anwendung, die alle Camel Routen startet.
- */
-@SpringBootApplication
-public class Application {
+@Component
+@ConfigurationProperties(prefix = "de.muenchen.mobidam.integration")
+@Getter
+@Setter
+public class Interfaces {
 
-    /**
-     * Startet die Anwendung.
-     */
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
-    }
+    private Map<String, InterfaceDTO> interfaces;
 
 }

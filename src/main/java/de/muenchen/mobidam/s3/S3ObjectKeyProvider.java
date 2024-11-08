@@ -20,22 +20,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.muenchen.mobidam;
+package de.muenchen.mobidam.s3;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import de.muenchen.mobidam.Constants;
+import de.muenchen.mobidam.mobilithek.InterfaceDTO;
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
+import org.apache.camel.component.aws2.s3.AWS2S3Constants;
+import org.springframework.stereotype.Component;
 
-/**
- * Spring Boot Anwendung, die alle Camel Routen startet.
- */
-@SpringBootApplication
-public class Application {
+@Component
+public class S3ObjectKeyProvider implements Processor {
 
-    /**
-     * Startet die Anwendung.
-     */
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+    @Override
+    public void process(Exchange exchange) throws Exception {
+        final String objectPath = S3ObjectPathBuilder.buildFilingPath(exchange.getIn().getHeader(Constants.INTERFACE_TYPE, InterfaceDTO.class));
+        exchange.getIn().setHeader(AWS2S3Constants.KEY, objectPath);
     }
-
 }

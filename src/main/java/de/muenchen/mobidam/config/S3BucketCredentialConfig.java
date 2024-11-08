@@ -20,22 +20,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.muenchen.mobidam;
+package de.muenchen.mobidam.config;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import java.util.Map;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
 /**
- * Spring Boot Anwendung, die alle Camel Routen startet.
+ * This class represents the configuration for S3 bucket credentials.
+ * It contains a map of S3Credentials objects, with the keys being the names of the S3 buckets.
  */
-@SpringBootApplication
-public class Application {
+@Component
+@ConfigurationProperties(prefix = "mobidam.s3")
+@Getter
+@Setter
+public class S3BucketCredentialConfig {
 
-    /**
-     * Startet die Anwendung.
-     */
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+    private Map<String, BucketCredentialConfig> bucketCredentialConfig;
+
+    @Getter
+    @Setter
+    public static class BucketCredentialConfig {
+
+        private String accessKeyEnvVar;
+        private String secretKeyEnvVar;
     }
-
 }

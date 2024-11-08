@@ -20,22 +20,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.muenchen.mobidam;
+package de.muenchen.mobidam.exception;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+public class MobidamSecurityException extends MobidamException {
 
-/**
- * Spring Boot Anwendung, die alle Camel Routen startet.
- */
-@SpringBootApplication
-public class Application {
-
-    /**
-     * Startet die Anwendung.
-     */
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+    public MobidamSecurityException(String message) {
+        super(message);
     }
-
 }

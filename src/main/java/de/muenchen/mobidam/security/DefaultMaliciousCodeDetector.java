@@ -20,22 +20,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.muenchen.mobidam;
+package de.muenchen.mobidam.security;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import java.io.InputStream;
+import org.owasp.encoder.Encode;
+import org.springframework.stereotype.Component;
 
-/**
- * Spring Boot Anwendung, die alle Camel Routen startet.
- */
-@SpringBootApplication
-public class Application {
+@Component
+public class DefaultMaliciousCodeDetector implements MaliciousCodeDetector {
 
-    /**
-     * Startet die Anwendung.
-     */
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+    public boolean isValidData(final InputStream stream) throws Exception {
+        return isValidInput(new String(stream.readAllBytes()));
+    }
+
+    protected boolean isValidInput(final String content) {
+        String clean = Encode.forHtml(content);
+        return content.equals(clean);
     }
 
 }

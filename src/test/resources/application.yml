@@ -9,7 +9,7 @@ management:
 
 spring:
   profiles:
-    active: default
+    active: test
 
 logging:
   level:
@@ -20,4 +20,34 @@ camel:
   springboot:
     tracing: false
 
-output : mock:output
+de.muenchen.mobidam.integration:
+  baseUrl: https://...
+  interfaces:
+    parkRideStaticData:
+      mobidam-sst-id: 999fcf2d-25bb-4fa9-85ff-f7ed12349999
+      name: P+R statisch
+      mobilithek-url: mock:mobilithekInfo
+      cron-expression: '0 0 0 ? * *'
+      s3-object-path: MDAS/Mobilithek/PR-statisch/%s-pr-daten.xml
+      s3-date-format: yyyyMMdd_HHmmss
+      s3-bucket: int-mdasc-mdasdev
+      allowed-mime-types:
+      - application/xml
+      - text/plain
+      malicious-code-detection-enabled: true
+
+mobidam:
+  s3:
+    bucket-credential-config:
+      int-mdasc-mdasdev:
+        access-key-env-var: MOBIDAM_INT-MDASC-MDASDEV_ACCESS_KEY
+        secret-key-env-var: MOBIDAM_INT-MDASC-MDASDEV_SECRET_KEY
+  metrics:
+    beginn-counter-metric: mobidam.exchanges.ereignis.beginn.counter
+    ende-counter-metric: mobidam.exchanges.ereignis.ende.counter
+    fehler-counter-metric: mobidam.exchanges.ereignis.fehler.counter
+    erfolg-counter-metric: mobidam.exchanges.ereignis.erfolg.counter
+    warnungen-counter-metric: mobidam.exchanges.ereignis.warnungen.counter
+    inflight-exchanges-metric: mobidam.exchanges.inflight
+    processing-time-metric: mobidam.exchanges.processingtime
+    max-file-size-metric: mobidam.exchanges.filesize.max

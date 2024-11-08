@@ -1,15 +1,32 @@
 camel:
   springboot:
-#    Sollte sich der Camel Main Thread nach dem Start wieder beenden, folgende Property aktivieren (http://camel.apache.org/spring-boot.html).
+    #    Sollte sich der Camel Main Thread nach dem Start wieder beenden, folgende Property aktivieren (http://camel.apache.org/spring-boot.html).
     main-run-controller: true
     tracing: false
-  servlet:
-    mapping:
-      context-path: /api/*
+  component:
+    aws2-s3:
+      region: ...
+      override-endpoint: ...
+    http:
+      proxy-auth-host: ...
+      proxy-auth-port: ...
+      proxy-auth-scheme: ...
 
 spring:
   application:
-    name: @project.artifactId@
+    name: '@project.artifactId@'
+  security:
+    oauth2:
+      client:
+        registration:
+          custom:
+            provider: ...
+            client-id: ...
+            client-secret: ...
+            authorization-grant-type: ...
+        provider:
+          custom:
+            token-uri: ...
 
 # https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html
 management:
@@ -17,11 +34,13 @@ management:
     enabled-by-default: false
     web:
       exposure:
-        include: health,info
+        include: health,info,metrics
   endpoint:
     info:
       enabled: true
     health:
+      enabled: true
+    metrics:
       enabled: true
   info:
     env:
@@ -31,13 +50,47 @@ management:
 
 info:
   application:
-    name: @project.artifactId@
-    version: @project.version@
+    name: '@project.artifactId@'
+    version: '@project.version@'
 
 logging:
   level:
     org:
       springframework: INFO
 
-#  https://camel.apache.org/components/next/index.html
-output: direct:foo
+oauth2:
+  registration:
+    id: ...
+
+de.muenchen.mobidam.integration:
+  baseUrl: ...
+  interfaces:
+    interface-1:
+      mobidam-sst-id:
+      name:
+      mobilithek-url:
+      cron-expression:
+      s3-object-path:
+      s3-date-format:
+      s3-bucket:
+      allowed-mime-types:
+      malicious-code-detection-enabled:
+
+mobidam:
+  eai:
+    cacerts-file: ...
+    cacerts-password: ...
+  s3:
+    bucket-credential-config:
+      s3-bucket-1:
+        access-key-env-var: ...
+        secret-key-env-var: ...
+  metrics:
+    beginn-counter-metric: mobidam.exchanges.ereignis.beginn.counter
+    ende-counter-metric: mobidam.exchanges.ereignis.ende.counter
+    fehler-counter-metric: mobidam.exchanges.ereignis.fehler.counter
+    erfolg-counter-metric: mobidam.exchanges.ereignis.erfolg.counter
+    warnungen-counter-metric: mobidam.exchanges.ereignis.warnungen.counter
+    inflight-exchanges-metric: mobidam.exchanges.inflight
+    processing-time-metric: mobidam.exchanges.processingtime
+    max-file-size-metric: mobidam.exchanges.filesize.max

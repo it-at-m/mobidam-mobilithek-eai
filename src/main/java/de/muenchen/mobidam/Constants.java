@@ -22,20 +22,15 @@
  */
 package de.muenchen.mobidam;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+public class Constants {
 
-/**
- * Spring Boot Anwendung, die alle Camel Routen startet.
- */
-@SpringBootApplication
-public class Application {
+    public static final String MOBIDAM_LOGGER = "de.muenchen.mobidam";
+    public static final String INTERFACE_TYPE = "MOBILITHEK_INTERFACE_TYPE";
 
-    /**
-     * Startet die Anwendung.
-     */
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
-    }
+    // Headers for s3 bucket credentials
+    public static final String PARAMETER_BUCKET_NAME = "bucketName";
+    public static final String ACCESS_KEY = "accessKey";
+    public static final String SECRET_KEY = "secretKey";
 
+    public static final String QUARANTINE_PREFIX = "quarantine/";
 }

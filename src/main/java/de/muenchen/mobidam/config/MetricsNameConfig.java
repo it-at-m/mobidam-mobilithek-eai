@@ -20,22 +20,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.muenchen.mobidam;
+package de.muenchen.mobidam.config;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import lombok.Getter;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 
-/**
- * Spring Boot Anwendung, die alle Camel Routen startet.
- */
-@SpringBootApplication
-public class Application {
+@Configuration
+@Getter
+public class MetricsNameConfig {
 
-    /**
-     * Startet die Anwendung.
-     */
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
-    }
+    @Value("${mobidam.metrics.beginn-counter-metric}")
+    private String beginnCounterMetric;
+    @Value("${mobidam.metrics.ende-counter-metric}")
+    private String endCounterMetric;
+    @Value("${mobidam.metrics.erfolg-counter-metric}")
+    private String erfolgCounterMetric;
+    @Value("${mobidam.metrics.fehler-counter-metric}")
+    private String fehlerCounterMetric;
+    @Value("${mobidam.metrics.warnungen-counter-metric}")
+    private String warnungenCounterMetric;
+    @Value("${mobidam.metrics.processing-time-metric}")
+    private String processingTimeMetric;
+    @Value("${mobidam.metrics.inflight-exchanges-metric}")
+    private String inflightExchangesMetric;
+    @Value("${mobidam.metrics.max-file-size-metric}")
+    private String maxFileSizeMetric;
 
 }

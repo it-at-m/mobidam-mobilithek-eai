@@ -20,22 +20,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.muenchen.mobidam;
+package de.muenchen.mobidam.security;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.tika.Tika;
+import org.springframework.stereotype.Service;
 
-/**
- * Spring Boot Anwendung, die alle Camel Routen startet.
- */
-@SpringBootApplication
-public class Application {
+@Service
+@Slf4j
+public class MimeTypeChecker {
 
-    /**
-     * Startet die Anwendung.
-     */
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+    private final Tika tika = new Tika();
+
+    public boolean check(final InputStream stream, final List<String> allowedMimeTypes) throws IOException {
+
+        String mimetype = getMimeType(stream);
+        log.debug("File is of mime type: {}", mimetype);
+        return allowedMimeTypes.contains(mimetype);
+    }
+
+    private String getMimeType(final InputStream stream) throws IOException {
+        return tika.detect(stream);
     }
 
 }

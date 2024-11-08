@@ -22,20 +22,14 @@
  */
 package de.muenchen.mobidam;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
 
-/**
- * Spring Boot Anwendung, die alle Camel Routen startet.
- */
-@SpringBootApplication
-public class Application {
+import java.io.FileInputStream;
 
-    /**
-     * Startet die Anwendung.
-     */
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+public class MobilithekInfoMock implements Processor {
+    @Override
+    public void process(Exchange exchange) throws Exception {
+        exchange.getIn().setBody(new FileInputStream("src/test/resources/mobilithek-info-source-pr-daten.xml"));
     }
-
 }
