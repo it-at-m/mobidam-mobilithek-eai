@@ -86,6 +86,7 @@ de.muenchen.mobidam:
           access-key-env-var: ...
           secret-key-env-var: ...
 
+mobidam:
   metrics:
     beginn-counter-metric: mobidam.exchanges.ereignis.beginn.counter
     ende-counter-metric: mobidam.exchanges.ereignis.ende.counter
