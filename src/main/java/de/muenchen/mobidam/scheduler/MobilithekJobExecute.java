@@ -24,6 +24,7 @@ package de.muenchen.mobidam.scheduler;
 
 import de.muenchen.mobidam.Constants;
 import de.muenchen.mobidam.config.Interfaces;
+import de.muenchen.mobidam.config.MetricsConfiguration;
 import de.muenchen.mobidam.mobilithek.MobilithekEaiRouteBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -47,6 +48,8 @@ public class MobilithekJobExecute implements Job {
 
     private Interfaces mobidamInterfaces;
 
+    private MetricsConfiguration metricsConfiguration;
+
     @Produce(MobilithekEaiRouteBuilder.MOBIDAM_S3_ROUTE)
     private ProducerTemplate producer;
 
@@ -55,12 +58,11 @@ public class MobilithekJobExecute implements Job {
         var identifier = context.getJobDetail().getJobDataMap().get(Constants.INTERFACE_TYPE);
         log.info("Scheduler starts mobilithek '{}' request at '{}'.", identifier, context.getFireTime().toString());
 
-        var exchange = ExchangeBuilder.anExchange(getCamelContext())
+        var exchange = metricsConfiguration.getProcessingTime().record(() -> ExchangeBuilder.anExchange(getCamelContext())
                 .withHeader(Constants.INTERFACE_TYPE, getMobidamInterfaces().getInterfaces().get(identifier))
-                .build();
+                .build());
 
         producer.send(exchange);
-
     }
 
 }

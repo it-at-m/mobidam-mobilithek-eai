@@ -42,3 +42,12 @@ de.muenchen.mobidam:
         int-mdasc-mdasdev:
           access-key-env-var: MOBIDAM_INT-MDASC-MDASDEV_ACCESS_KEY
           secret-key-env-var: MOBIDAM_INT-MDASC-MDASDEV_SECRET_KEY
+  metrics:
+    beginn-counter-metric: mobidam.exchanges.ereignis.beginn.counter
+    ende-counter-metric: mobidam.exchanges.ereignis.ende.counter
+    fehler-counter-metric: mobidam.exchanges.ereignis.fehler.counter
+    erfolg-counter-metric: mobidam.exchanges.ereignis.erfolg.counter
+    warnungen-counter-metric: mobidam.exchanges.ereignis.warnungen.counter
+    inflight-exchanges-metric: mobidam.exchanges.inflight
+    processing-time-metric: mobidam.exchanges.processingtime
+    max-file-size-metric: mobidam.exchanges.filesize.max
