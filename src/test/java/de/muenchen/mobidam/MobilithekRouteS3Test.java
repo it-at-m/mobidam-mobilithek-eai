@@ -149,23 +149,23 @@ class MobilithekRouteS3Test {
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void test_RouteMobilithekInfoToS3Deactivated() throws Exception {
 
-             startMobilithekInfoRequest.start();
-            AdviceWith.adviceWith(camelContext, MobilithekEaiRouteBuilder.MOBIDAM_ROUTE_ID,
-                    a -> a.weaveById(MobilithekEaiRouteBuilder.MOBIDAM_ENDPOINT_S3_ID).replace().toD("mock:s3Destination"));
-            camelContext.start();
+        startMobilithekInfoRequest.start();
+        AdviceWith.adviceWith(camelContext, MobilithekEaiRouteBuilder.MOBIDAM_ROUTE_ID,
+                a -> a.weaveById(MobilithekEaiRouteBuilder.MOBIDAM_ENDPOINT_S3_ID).replace().toD("mock:s3Destination"));
+        camelContext.start();
 
-            var mobilithekRequest = ExchangeBuilder.anExchange(camelContext)
-                    .withHeader(Constants.INTERFACE_TYPE, this.interfaces.getInterfaces().get(this.interfaces.getInterfaces().keySet().iterator().next()))
-                    .build();
+        var mobilithekRequest = ExchangeBuilder.anExchange(camelContext)
+                .withHeader(Constants.INTERFACE_TYPE, this.interfaces.getInterfaces().get(this.interfaces.getInterfaces().keySet().iterator().next()))
+                .build();
 
-            Mockito.when(sstService.isActivated("999fcf2d-25bb-4fa9-85ff-f7ed12349999")).thenReturn(false);
+        Mockito.when(sstService.isActivated("999fcf2d-25bb-4fa9-85ff-f7ed12349999")).thenReturn(false);
 
-            startMobilithekInfoRequest.send(mobilithekRequest);
+        startMobilithekInfoRequest.send(mobilithekRequest);
 
-            Mockito.verify(this.sstService, Mockito.times(1)).isActivated("999fcf2d-25bb-4fa9-85ff-f7ed12349999");
-            Mockito.verify(this.sstService, Mockito.times(0)).logDatentransfer(datentransferCaptor.capture());
+        Mockito.verify(this.sstService, Mockito.times(1)).isActivated("999fcf2d-25bb-4fa9-85ff-f7ed12349999");
+        Mockito.verify(this.sstService, Mockito.times(0)).logDatentransfer(datentransferCaptor.capture());
 
-            startMobilithekInfoRequest.stop();
+        startMobilithekInfoRequest.stop();
 
     }
 
@@ -202,29 +202,29 @@ class MobilithekRouteS3Test {
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void test_RouteMobilithekInfoToSecurityException() throws Exception {
 
-            startMobilithekInfoRequest.start();
-            AdviceWith.adviceWith(camelContext, MobilithekEaiRouteBuilder.MOBIDAM_ROUTE_ID,
-                    a -> a.weaveById(MobilithekEaiRouteBuilder.MOBIDAM_ENDPOINT_S3_QUARANTINE_ID).replace().toD("mock:s3Destination"));
-            camelContext.start();
+        startMobilithekInfoRequest.start();
+        AdviceWith.adviceWith(camelContext, MobilithekEaiRouteBuilder.MOBIDAM_ROUTE_ID,
+                a -> a.weaveById(MobilithekEaiRouteBuilder.MOBIDAM_ENDPOINT_S3_QUARANTINE_ID).replace().toD("mock:s3Destination"));
+        camelContext.start();
 
-            var mobilithekRequest = ExchangeBuilder.anExchange(camelContext)
-                    .withHeader(Constants.INTERFACE_TYPE, this.interfaces.getInterfaces().get(this.interfaces.getInterfaces().keySet().iterator().next()))
-                    .build();
+        var mobilithekRequest = ExchangeBuilder.anExchange(camelContext)
+                .withHeader(Constants.INTERFACE_TYPE, this.interfaces.getInterfaces().get(this.interfaces.getInterfaces().keySet().iterator().next()))
+                .build();
 
-            Mockito.when(sstService.isActivated("999fcf2d-25bb-4fa9-85ff-f7ed12349999")).thenReturn(true);
+        Mockito.when(sstService.isActivated("999fcf2d-25bb-4fa9-85ff-f7ed12349999")).thenReturn(true);
 
-            Mockito.doThrow(new MobidamSecurityException("danger!")).when(mimeTypeProcessor).process(isA(Exchange.class));
+        Mockito.doThrow(new MobidamSecurityException("danger!")).when(mimeTypeProcessor).process(isA(Exchange.class));
 
-            startMobilithekInfoRequest.send(mobilithekRequest);
+        startMobilithekInfoRequest.send(mobilithekRequest);
 
-            Mockito.verify(this.sstService, Mockito.times(1)).isActivated("999fcf2d-25bb-4fa9-85ff-f7ed12349999");
-            Mockito.verify(this.sstService, Mockito.times(3)).logDatentransfer(datentransferCaptor.capture());
-            Assertions.assertEquals(EreignisTyp.BEGINN.name(), datentransferCaptor.getAllValues().get(0).getEreignis());
-            Assertions.assertEquals(EreignisTyp.FEHLER.name(), datentransferCaptor.getAllValues().get(1).getEreignis());
-            Assertions.assertEquals(EreignisTyp.ENDE.name(), datentransferCaptor.getAllValues().get(2).getEreignis());
+        Mockito.verify(this.sstService, Mockito.times(1)).isActivated("999fcf2d-25bb-4fa9-85ff-f7ed12349999");
+        Mockito.verify(this.sstService, Mockito.times(3)).logDatentransfer(datentransferCaptor.capture());
+        Assertions.assertEquals(EreignisTyp.BEGINN.name(), datentransferCaptor.getAllValues().get(0).getEreignis());
+        Assertions.assertEquals(EreignisTyp.FEHLER.name(), datentransferCaptor.getAllValues().get(1).getEreignis());
+        Assertions.assertEquals(EreignisTyp.ENDE.name(), datentransferCaptor.getAllValues().get(2).getEreignis());
 
-            s3Destination.expectedMessageCount(1);
-            startMobilithekInfoRequest.stop();
+        s3Destination.expectedMessageCount(1);
+        startMobilithekInfoRequest.stop();
 
     }
 
