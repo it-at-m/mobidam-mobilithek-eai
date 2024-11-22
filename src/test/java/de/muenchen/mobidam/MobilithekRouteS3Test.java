@@ -114,9 +114,9 @@ class MobilithekRouteS3Test {
 
         Mockito.doAnswer(invocation -> {
             Exchange exchange = invocation.getArgument(0);
-            exchange.getMessage().setHeader("accessKey", "foo");
-            exchange.getMessage().setHeader("secretKey", "foo");
-            ;
+            exchange.getMessage().setHeader(CommonConstants.HEADER_ACCESS_KEY, "foo");
+            exchange.getMessage().setHeader(CommonConstants.HEADER_SECRET_KEY, "foo");
+
             return null;
         }).when(s3CredentialProvider).process(any(Exchange.class));
 
