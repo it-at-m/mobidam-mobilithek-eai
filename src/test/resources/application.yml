@@ -38,12 +38,10 @@ de.muenchen.mobidam:
         malicious-code-detection-enabled: true
   common:
     s3:
-      bucket-credential-config:
+      bucket-credential-configs:
         int-mdasc-mdasdev:
           access-key-env-var: MOBIDAM_INT-MDASC-MDASDEV_ACCESS_KEY
           secret-key-env-var: MOBIDAM_INT-MDASC-MDASDEV_SECRET_KEY
-
-mobidam:
   metrics:
     beginn-counter-metric: mobidam.exchanges.ereignis.beginn.counter
     ende-counter-metric: mobidam.exchanges.ereignis.ende.counter

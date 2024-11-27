@@ -24,14 +24,15 @@ package de.muenchen.mobidam;
 
 import de.muenchen.mobidam.config.Interfaces;
 import de.muenchen.mobidam.eai.common.CommonConstants;
-import de.muenchen.mobidam.eai.common.exception.MobidamException;
-import de.muenchen.mobidam.eai.common.s3.S3CredentialProvider;
+import de.muenchen.mobidam.eai.common.config.EnvironmentReader;
 import de.muenchen.mobidam.exception.MobidamSecurityException;
 import de.muenchen.mobidam.integration.client.domain.DatentransferCreateDTO;
 import de.muenchen.mobidam.integration.service.SstManagementIntegrationService;
 import de.muenchen.mobidam.mobilithek.MobilithekEaiRouteBuilder;
 import de.muenchen.mobidam.security.MimeTypeProcessor;
 import de.muenchen.mobidam.sstmanagment.EreignisTyp;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import org.apache.camel.*;
 import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.builder.ExchangeBuilder;
@@ -54,10 +55,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.isA;
 
 @ExtendWith(MockitoExtension.class)
@@ -95,7 +92,7 @@ class MobilithekRouteS3Test {
     private ArgumentCaptor<DatentransferCreateDTO> datentransferCaptor;
 
     @MockBean
-    private S3CredentialProvider s3CredentialProvider;
+    private EnvironmentReader environmentReader;
 
     @Test
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
@@ -111,14 +108,7 @@ class MobilithekRouteS3Test {
                 .build();
 
         Mockito.when(sstService.isActivated("999fcf2d-25bb-4fa9-85ff-f7ed12349999")).thenReturn(true);
-
-        Mockito.doAnswer(invocation -> {
-            Exchange exchange = invocation.getArgument(0);
-            exchange.getMessage().setHeader(CommonConstants.HEADER_ACCESS_KEY, "foo");
-            exchange.getMessage().setHeader(CommonConstants.HEADER_SECRET_KEY, "foo");
-
-            return null;
-        }).when(s3CredentialProvider).process(any(Exchange.class));
+        Mockito.when(environmentReader.getEnvironmentVariable(Mockito.any())).thenReturn("foo");
 
         mobilithekInfo.whenAnyExchangeReceived(new MobilithekInfoMock());
         s3Destination.expectedMessageCount(1);
@@ -183,7 +173,6 @@ class MobilithekRouteS3Test {
                 .build();
 
         Mockito.when(sstService.isActivated("999fcf2d-25bb-4fa9-85ff-f7ed12349999")).thenReturn(true);
-        Mockito.doThrow(new MobidamException("Bucket not configured: int-mdasc-mdasdev")).when(s3CredentialProvider).process(any(Exchange.class));
 
         startMobilithekInfoRequest.send(mobilithekRequest);
 

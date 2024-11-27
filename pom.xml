@@ -30,7 +30,7 @@
 
     <groupId>de.muenchen.mobidam</groupId>
     <artifactId>mobidam-mobilithek-eai</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <name>mobidam-mobilithek-eai</name>
     <description>Mobidam S3 EAI.</description>
 
@@ -147,9 +147,9 @@
         </dependency>
 
         <dependency>
-            <groupId>de.muenchen.mobidam</groupId>
+            <groupId>de.muenchen.oss.mobidam</groupId>
             <artifactId>mobidam-eai-commons-starter</artifactId>
-            <version>0.0.1</version>
+            <version>0.0.2</version>
         </dependency>
 
         <!-- SST Integration -->
