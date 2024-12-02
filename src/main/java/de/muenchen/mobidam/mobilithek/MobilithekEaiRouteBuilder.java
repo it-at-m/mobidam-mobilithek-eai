@@ -23,6 +23,7 @@
 package de.muenchen.mobidam.mobilithek;
 
 import de.muenchen.mobidam.Constants;
+import de.muenchen.mobidam.eai.common.CommonConstants;
 import de.muenchen.mobidam.exception.MobidamSecurityException;
 import de.muenchen.mobidam.s3.S3ObjectPathBuilder;
 import javax.net.ssl.SSLException;
@@ -81,7 +82,7 @@ public class MobilithekEaiRouteBuilder extends RouteBuilder {
                     .setBody(simple("${null}"))
                     .setHeader(Exchange.HTTP_METHOD, constant(HttpMethods.GET))
                     .toD(String.format("${header.%s.mobilithekUrl}", Constants.INTERFACE_TYPE))
-                .setHeader(Constants.PARAMETER_BUCKET_NAME, simple(String.format("${header.%s.s3Bucket}", Constants.INTERFACE_TYPE)))
+                .setHeader(CommonConstants.HEADER_BUCKET_NAME, simple(String.format("${header.%s.s3Bucket}", Constants.INTERFACE_TYPE)))
                 .process("s3CredentialProvider")
                 .process("mimeTypeProcessor")
                 .process("codeDetectionProcessor")

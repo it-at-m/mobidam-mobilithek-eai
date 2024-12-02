@@ -37,10 +37,10 @@ import org.springframework.context.annotation.Profile;
 @Configuration
 public class MobilithekSSLConfig {
 
-    @Value("${mobidam.eai.cacerts-file}")
+    @Value("${de.muenchen.mobidam.eai.cacerts-file}")
     private String cacerts;
 
-    @Value("${mobidam.eai.cacerts-password}")
+    @Value("${de.muenchen.mobidam.eai.cacerts-password}")
     private String keyPass;
 
     @Autowired

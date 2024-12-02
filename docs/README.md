@@ -26,15 +26,16 @@ Der Bezeichner _interfaces-1_ ist frei wählbar und dient der Identifizierung de
 Um aus der mobidam-mobilithek-eai eine Schnittstelle im Mobidam-SST-Management ansprechen zu können muss deren individuelle _mobidam-sst-id_ bekannt sein.
 
 ```
-de.muenchen.mobidam.integration:
-  baseUrl: ...
-  interfaces:
-    interface-1:
-      mobidam-sst-id: ...
-      ...
-   interface-2:
-      mobidam-sst-id: ... 
-      ...  
+de.muenchen.mobidam:
+  integration:
+    baseUrl: ...
+    interfaces:
+      interface-1:
+        mobidam-sst-id: ...
+        ...
+      interface-2:
+        mobidam-sst-id: ... 
+        ...  
 ```
 
 Für den erfolgreichen Mobidam-SST-Management Zugriff muss eine valide OAuth2 Authenthifizierung eingerichtet sein.
@@ -63,13 +64,14 @@ spring:
 Jede Mobilithek Schnittstelle hat eine individuelle _mobilithek-url_.
 
 ```
-de.muenchen.mobidam.integration:
-  ...
-  interfaces:
-    interface-1:
-      ...
-      mobilithek-url: ...
-      ...
+de.muenchen.mobidam:
+  integration:
+    ...
+    interfaces:
+      interface-1:
+        ...
+        mobilithek-url: ...
+        ...
 ```
 
 Für den Zugriff auf die Mobilithek stellt diese ein individuelles Zertifikat _certificate.p12_ zur Verfügung. 
@@ -78,7 +80,8 @@ In der CAP wird dazu in der Pipeline eine entsprechende Datei erstellt deren Abl
 
 Kubernetes/Openshift Secret:
 ```
-mobidam:
+de.muenchen.mobidam:
+  ..
   eai:
     cacerts-file: ...
     cacerts-password: ...
@@ -106,21 +109,21 @@ Der _s3-bucket_ Name aus der Mobidam Schnittstelle muss zu den Angaben in der _b
 
 ```
 
-de.muenchen.mobidam.integration:
-  ...
-  interfaces:
-    interface-1:
-      ...
-      s3-object-path: ...
-      s3-date-format: ...
-      s3-bucket: s3-bucket-1
-
-mobidam:
-  s3:
-    bucket-credential-config:
-      s3-bucket-1:
-        access-key-env-var: ...
-        secret-key-env-var: ...
+de.muenchen.mobidam:
+  integration:
+    ...
+    interfaces:
+      interface-1:
+        ...
+        s3-object-path: ...
+        s3-date-format: ...
+        s3-bucket: s3-bucket-1
+  common:
+    s3:
+      bucket-credential-config:
+        s3-bucket-1:
+          access-key-env-var: ...
+          secret-key-env-var: ...
 
 ```
 
@@ -131,13 +134,14 @@ mobidam:
 Last but not least muss der Cronjob pro Schnittstelle auch noch ausgelöst werden:
 
 ```
-de.muenchen.mobidam.integration:
-  ...
-  interfaces:
-    interface-1:
-      ...
-      cron-expression: ...
-      ...
+de.muenchen.mobidam:
+  integration:
+    ...
+    interfaces:
+      interface-1:
+        ...
+        cron-expression: ...
+        ...
 ```
 
 
@@ -145,13 +149,14 @@ de.muenchen.mobidam.integration:
 ### Schadcode-Erkennung
 Mit der folgenden Konfiguration läßt sich die Schadcode-Erkennung einschalten:
 ```yaml
-de.muenchen.mobidam.integration:
-  interfaces:
-    parkRideStaticData:
-      allowed-mime-types: 
-      - application/xml
-      - text/plain
-      malicious-code-detection-enabled: true
+de.muenchen.mobidam:
+  integration:
+    interfaces:
+      parkRideStaticData:
+        allowed-mime-types: 
+        - application/xml
+        - text/plain
+        malicious-code-detection-enabled: true
 ```
 Anhand des gelieferten Dateiinhalts wird der Mimetype ermittelt und gegen die Liste der erlaubten Typen geprüft. 
 Der erste konfigurierte Mimetype wird dazu verwendet, einen geeigneten Dateiparser bereitzustellen, 
@@ -162,33 +167,43 @@ der den Inhalt der Datei auf unerlaubte Binärzeichen oder XSS-Code durchsucht.
 ### Beispielkonfiguration:
 
 ```
-de.muenchen.mobidam.integration:
-  baseUrl: https://mobidam-sst-management...
-  interfaces:
-    parkRideStaticData:
-      mobidam-sst-id: 999fcf2d-25bb-4fa9-85ff-f7ed12349999
-      name: P+R Statisch
-      mobilithek-url: https://mobilithek.info:8443/mobilithek/api/v1.0/subscription/123456789/clientPullService?subscriptionID=123456789
-      cron-expression: '0 * * ? * *'
-      s3-object-path: MDAS/Mobilithek/PR-static/%s-pr-daten.xml
-      s3-date-format: yyyyMMdd_HHmmss
-      s3-bucket: my-bucket-name
-      allowed-mime-types: 
-        - application/xml
-        - text/plain
-      malicious-code-detection-enabled: true
-    parkRideDynamicData:
-      mobidam-sst-id: 888fcf2d-25bb-4fa9-85ff-f7ed12348888
-      name: P+R Dynamisch
-      mobilithek-url: https://mobilithek.info:8443/mobilithek/api/v1.0/subscription/1234567891/clientPullService?subscriptionID=1234567891
-      cron-expression: '30 * * ? * *'
-      s3-object-path: MDAS/Mobilithek/PR-dynamic/%s-pr-daten.xml
-      s3-date-format: yyyyMMdd_HHmmss
-      s3-bucket: my-bucket-name  
-      allowed-mime-types: 
-       - application/xml
-       - text/plain
-      malicious-code-detection-enabled: true
+de.muenchen.mobidam:
+  integration:
+    baseUrl: https://mobidam-sst-management...
+    interfaces:
+      parkRideStaticData:
+        mobidam-sst-id: 999fcf2d-25bb-4fa9-85ff-f7ed12349999
+        name: P+R Statisch
+        mobilithek-url: https://mobilithek.info:8443/mobilithek/api/v1.0/subscription/123456789/clientPullService?subscriptionID=123456789
+        cron-expression: '0 * * ? * *'
+        s3-object-path: MDAS/Mobilithek/PR-static/%s-pr-daten.xml
+        s3-date-format: yyyyMMdd_HHmmss
+        s3-bucket: my-bucket-name
+        allowed-mime-types: 
+          - application/xml
+          - text/plain
+        malicious-code-detection-enabled: true
+      parkRideDynamicData:
+        mobidam-sst-id: 888fcf2d-25bb-4fa9-85ff-f7ed12348888
+        name: P+R Dynamisch
+        mobilithek-url: https://mobilithek.info:8443/mobilithek/api/v1.0/subscription/1234567891/clientPullService?subscriptionID=1234567891
+        cron-expression: '30 * * ? * *'
+        s3-object-path: MDAS/Mobilithek/PR-dynamic/%s-pr-daten.xml
+        s3-date-format: yyyyMMdd_HHmmss
+        s3-bucket: my-bucket-name  
+        allowed-mime-types: 
+          - application/xml
+          - text/plain
+        malicious-code-detection-enabled: true
+  eai:
+    cacerts-file: 'file:/mnt/cacerts'
+    cacerts-password: my-password
+  common:
+    s3:
+      bucket-credential-config:
+        my-bucket-name:
+          access-key-env-var: MY_ACCESS_KEY
+          secret-key-env-var: MY_SECRET_KEY
 spring:
   security:
     oauth2:
@@ -202,15 +217,5 @@ spring:
         provider:
           custom:
             token-uri: https://.../realms/[my-realm]]/protocol/openid-connect/token
-
-mobidam:
-  eai:
-    cacerts-file: 'file:/mnt/cacerts'
-    cacerts-password: my-password
-  s3:
-    bucket-credential-config:
-      my-bucket-name:
-        access-key-env-var: MY_ACCESS_KEY
-        secret-key-env-var: MY_SECRET_KEY
 
 ```
