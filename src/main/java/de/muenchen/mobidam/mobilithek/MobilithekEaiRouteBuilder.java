@@ -99,6 +99,7 @@ public class MobilithekEaiRouteBuilder extends RouteBuilder {
         ;
 
         from("direct:handleError")
+                .routeId("Error-Handler")
                 .bean("interfaceMessageFactory", "mobilithekMessageError")
                 .bean("sstManagementIntegrationService", "logDatentransfer")
                 .log(LoggingLevel.ERROR, "${exception}")

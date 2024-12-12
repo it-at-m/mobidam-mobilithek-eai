@@ -25,10 +25,13 @@ package de.muenchen.mobidam.security;
 import de.muenchen.mobidam.Constants;
 import de.muenchen.mobidam.exception.MobidamSecurityException;
 import de.muenchen.mobidam.mobilithek.InterfaceDTO;
+import java.io.InputStream;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
+import org.apache.camel.StreamCache;
+import org.apache.camel.converter.stream.FileInputStreamCache;
 import org.apache.camel.converter.stream.InputStreamCache;
 import org.springframework.stereotype.Service;
 
@@ -45,10 +48,12 @@ public class MimeTypeProcessor implements Processor {
         if (mobilithekInterface.getAllowedMimeTypes() == null) {
             return;
         }
-        InputStreamCache stream = exchange.getMessage().getBody(InputStreamCache.class);
-        stream.reset();
+        StreamCache receivedStream = exchange.getIn().getBody(StreamCache.class);
+        receivedStream.reset();
+        InputStream stream = receivedStream instanceof InputStreamCache ? (InputStreamCache) receivedStream : (FileInputStreamCache) receivedStream;
         log.debug("Checking mime type of content for interface {}", mobilithekInterface.getName());
-        boolean result = mimeTypeChecker.check(stream, mobilithekInterface.getAllowedMimeTypes());
+        boolean result = mimeTypeChecker.check(stream, mobilithekInterface.getAllowedMimeTypes(),
+                exchange.getIn().getHeader(Exchange.CONTENT_TYPE, String.class));
         if (!result) {
             throw new MobidamSecurityException("Illegal MIME type detected in interface: " + mobilithekInterface.getName());
         }

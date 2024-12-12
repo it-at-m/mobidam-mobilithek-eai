@@ -25,18 +25,22 @@ package de.muenchen.mobidam.security;
 import de.muenchen.mobidam.Constants;
 import de.muenchen.mobidam.exception.MobidamSecurityException;
 import de.muenchen.mobidam.mobilithek.InterfaceDTO;
-import org.apache.camel.Exchange;
-import org.apache.camel.converter.stream.InputStreamCache;
-import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.support.DefaultExchange;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.springframework.http.MediaType;
-
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import org.apache.camel.Exchange;
+import org.apache.camel.converter.stream.FileInputStreamCache;
+import org.apache.camel.converter.stream.InputStreamCache;
+import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.support.DefaultExchange;
+import org.apache.tika.metadata.Metadata;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
 
+@DirtiesContext
 public class MimeTypeProcessorTest {
 
     private static final String TEXT_CONTENT = "test content with plain text";
@@ -56,6 +60,23 @@ public class MimeTypeProcessorTest {
     public void testCheckWithValidXml() throws Exception {
         Exchange exchange = createExchange(List.of(MediaType.APPLICATION_XML_VALUE));
         InputStreamCache stream = new InputStreamCache(XML_CONTENT.getBytes());
+        exchange.getIn().setBody(stream);
+        processor.process(exchange);
+    }
+
+    @Test
+    public void testCheckWithValidCSVNoContentType() throws Exception {
+        Exchange exchange = createExchange(List.of(MimeTypeChecker.TEXT_CSV_TYPE.toString()));
+        FileInputStreamCache stream = new FileInputStreamCache(new File("src/test/resources/testdata/ladesaulen-example.csv"));
+        exchange.getIn().setBody(stream);
+        processor.process(exchange);
+    }
+
+    @Test
+    public void testCheckWithValidCSVContentTypeAvailable() throws Exception {
+        Exchange exchange = createExchange(List.of(MimeTypeChecker.TEXT_CSV_TYPE.toString()));
+        exchange.getIn().setHeader(Metadata.CONTENT_TYPE, "text/csv;UTF-8");
+        FileInputStreamCache stream = new FileInputStreamCache(new File("src/test/resources/testdata/ladesaulen-less-10-rows-example.csv"));
         exchange.getIn().setBody(stream);
         processor.process(exchange);
     }
@@ -83,6 +104,31 @@ public class MimeTypeProcessorTest {
     public void testCheckWithInvalidMimeType2() {
         Exchange exchange = createExchange(List.of(MediaType.TEXT_PLAIN_VALUE));
         InputStreamCache stream = new InputStreamCache(XML_CONTENT.getBytes());
+        exchange.getIn().setBody(stream);
+        Assertions.assertThrows(MobidamSecurityException.class, () -> processor.process(exchange));
+    }
+
+    @Test
+    public void testCheckWithInvalidMimeTypeCSV() {
+        Exchange exchange = createExchange(List.of(MimeTypeChecker.TEXT_CSV_TYPE.toString()));
+        FileInputStreamCache stream = new FileInputStreamCache(new File("src/test/resources/testdata/valid.xml"));
+        exchange.getIn().setBody(stream);
+        Assertions.assertThrows(MobidamSecurityException.class, () -> processor.process(exchange));
+    }
+
+    @Test
+    public void testCheckWithNotAllowedMimeTypeCSV() {
+        Exchange exchange = createExchange(List.of(MimeTypeChecker.TEXT_CSV_TYPE.toString()));
+        exchange.getIn().setHeader(Metadata.CONTENT_TYPE, "invalid/csv;UTF-8");
+        FileInputStreamCache stream = new FileInputStreamCache(new File("src/test/resources/testdata/ladesaulen-example.csv"));
+        exchange.getIn().setBody(stream);
+        Assertions.assertThrows(MobidamSecurityException.class, () -> processor.process(exchange));
+    }
+
+    @Test
+    public void testCheckWithInvalidCSVFileContentToSmall() throws Exception {
+        Exchange exchange = createExchange(List.of(MimeTypeChecker.TEXT_CSV_TYPE.toString()));
+        FileInputStreamCache stream = new FileInputStreamCache(new File("src/test/resources/testdata/ladesaulen-less-10-rows-example.csv"));
         exchange.getIn().setBody(stream);
         Assertions.assertThrows(MobidamSecurityException.class, () -> processor.process(exchange));
     }

@@ -22,27 +22,19 @@
  */
 package de.muenchen.mobidam.security;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import java.io.InputStream;
+import java.util.regex.Pattern;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.camel.Exchange;
-import org.apache.camel.Processor;
-import org.apache.camel.StreamCache;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
-@NoArgsConstructor
+@Component
 @Slf4j
-@Getter
-public class FileSizeProcessor implements Processor {
+public class MaliciousCSVCodeDetector implements MaliciousCodeDetector {
 
-    private long maxStreamSize = 0L;
+    private static final Pattern EXCEL_FORMULA_PATTERN = Pattern.compile("^[=+-@][A-Za-z0-9]*");
 
-    @Override
-    public void process(Exchange exchange) throws Exception {
-        StreamCache stream = exchange.getMessage().getBody(StreamCache.class);
-        stream.reset();
-        maxStreamSize = Math.max(maxStreamSize, stream.length());
+    public boolean isValidData(final InputStream stream) throws Exception {
+        return true; // TODO : Implement CSV validation.
     }
 
 }

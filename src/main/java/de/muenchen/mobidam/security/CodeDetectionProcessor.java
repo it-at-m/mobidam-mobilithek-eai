@@ -25,10 +25,13 @@ package de.muenchen.mobidam.security;
 import de.muenchen.mobidam.Constants;
 import de.muenchen.mobidam.exception.MobidamSecurityException;
 import de.muenchen.mobidam.mobilithek.InterfaceDTO;
+import java.io.InputStream;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
+import org.apache.camel.StreamCache;
+import org.apache.camel.converter.stream.FileInputStreamCache;
 import org.apache.camel.converter.stream.InputStreamCache;
 import org.springframework.stereotype.Component;
 
@@ -45,8 +48,9 @@ public class CodeDetectionProcessor implements Processor {
         if (!mobilithekInterface.getMaliciousCodeDetectionEnabled()) {
             return;
         }
-        InputStreamCache stream = exchange.getIn().getBody(InputStreamCache.class);
-        stream.reset();
+        StreamCache receivedStream = exchange.getIn().getBody(StreamCache.class);
+        receivedStream.reset();
+        InputStream stream = receivedStream instanceof InputStreamCache ? (InputStreamCache) receivedStream : (FileInputStreamCache) receivedStream;
         MaliciousCodeDetector codeDetector = codeDetectorFactory.getCodeDetector(mobilithekInterface.getAllowedMimeTypes().get(0));
         boolean result = false;
         try {
