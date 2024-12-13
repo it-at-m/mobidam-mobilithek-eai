@@ -30,12 +30,13 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class MaliciousCSVCodeDetector implements MaliciousCodeDetector {
 
-   public boolean isValidData(final InputStream stream) throws Exception {
+    public boolean isValidData(final InputStream stream) throws Exception {
 
-       /*
-            Many .exe files begin with a specific "magic number" or file signature.
-            For .exe files in PE (Portable Executable) format, the file typically begins with bytes 0x4D 0x5A (equivalent to "MZ" in ASCII).
-        */
+        /*
+         * Many .exe files begin with a specific "magic number" or file signature.
+         * For .exe files in PE (Portable Executable) format, the file typically begins with bytes 0x4D 0x5A
+         * (equivalent to "MZ" in ASCII).
+         */
         byte[] magicBytes = new byte[2];
         if (stream.read(magicBytes) != 2) { // Check
             return false;
