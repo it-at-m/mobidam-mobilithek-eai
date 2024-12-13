@@ -23,7 +23,6 @@
 package de.muenchen.mobidam.security;
 
 import java.io.InputStream;
-import java.util.regex.Pattern;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -31,10 +30,17 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class MaliciousCSVCodeDetector implements MaliciousCodeDetector {
 
-    private static final Pattern EXCEL_FORMULA_PATTERN = Pattern.compile("^[=+-@][A-Za-z0-9]*");
+   public boolean isValidData(final InputStream stream) throws Exception {
 
-    public boolean isValidData(final InputStream stream) throws Exception {
-        return true; // TODO : Implement CSV validation.
+       /*
+            Many .exe files begin with a specific "magic number" or file signature.
+            For .exe files in PE (Portable Executable) format, the file typically begins with bytes 0x4D 0x5A (equivalent to "MZ" in ASCII).
+        */
+        byte[] magicBytes = new byte[2];
+        if (stream.read(magicBytes) != 2) { // Check
+            return false;
+        }
+        return !(magicBytes[0] == 0x4D && magicBytes[1] == 0x5A);
     }
 
 }
