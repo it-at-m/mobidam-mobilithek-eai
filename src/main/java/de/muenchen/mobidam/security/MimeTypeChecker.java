@@ -25,25 +25,61 @@ package de.muenchen.mobidam.security;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.camel.converter.stream.FileInputStreamCache;
 import org.apache.tika.Tika;
+import org.apache.tika.metadata.Metadata;
+import org.apache.tika.mime.MediaType;
+import org.apache.tika.parser.ParseContext;
+import org.apache.tika.parser.csv.TextAndCSVParser;
+import org.apache.tika.sax.BodyContentHandler;
 import org.springframework.stereotype.Service;
+import org.xml.sax.ContentHandler;
 
 @Service
 @Slf4j
 public class MimeTypeChecker {
 
+    public static final MediaType TEXT_CSV_TYPE = new MediaType("text", "csv");
+
     private final Tika tika = new Tika();
 
-    public boolean check(final InputStream stream, final List<String> allowedMimeTypes) throws IOException {
+    public boolean check(final InputStream stream, final List<String> allowedMimeTypes, final String contentType) throws IOException {
 
-        String mimetype = getMimeType(stream);
-        log.debug("File is of mime type: {}", mimetype);
-        return allowedMimeTypes.contains(mimetype);
+        log.debug("SST supplied content-type: {}", contentType);
+        String mimetype = contentType != null ? contentType : getMimeType(stream);
+        log.debug("Detected file mime type: {}", mimetype);
+        Optional<String> allowedMimeType = allowedMimeTypes.stream().filter(mimetype::contains).findAny();
+        log.debug("Allowed meme types '{}' found in '{}' : {}", allowedMimeTypes.toString(), mimetype, allowedMimeType.isPresent());
+        return allowedMimeType.isPresent();
     }
 
     private String getMimeType(final InputStream stream) throws IOException {
-        return tika.detect(stream);
+        if (stream instanceof FileInputStreamCache) {
+            return csvTypeCheck(stream);
+        } else {
+            return tika.detect(stream);
+        }
+    }
+
+    private String csvTypeCheck(InputStream stream) throws IOException {
+        ContentHandler handler = new BodyContentHandler(-1);
+        TextAndCSVParser parser = new TextAndCSVParser();
+        Metadata metadata = new Metadata();
+        ParseContext context = new ParseContext();
+        try {
+            parser.parse(stream, handler, metadata, context);
+        } catch (Exception e) {
+            throw new IOException(e);
+        }
+        log.debug("File metadata {}", metadata.toString());
+        if (metadata.get("csv:num_rows") == null)
+            log.warn("Mime type=text/csv check : File content analysis may be incorrect if file content is too small : {}",
+                    metadata.get(Metadata.CONTENT_TYPE));
+
+        return metadata.get(Metadata.CONTENT_TYPE).toLowerCase().contains(TEXT_CSV_TYPE.toString()) ? TEXT_CSV_TYPE.toString()
+                : "invalid csv content type : " + metadata.get(Metadata.CONTENT_TYPE);
     }
 
 }

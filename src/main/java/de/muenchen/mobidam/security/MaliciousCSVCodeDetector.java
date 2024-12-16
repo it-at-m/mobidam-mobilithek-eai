@@ -22,27 +22,20 @@
  */
 package de.muenchen.mobidam.security;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import java.io.InputStream;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.camel.Exchange;
-import org.apache.camel.Processor;
-import org.apache.camel.StreamCache;
-import org.springframework.stereotype.Service;
+import org.apache.tika.Tika;
+import org.springframework.stereotype.Component;
 
-@Service
-@NoArgsConstructor
+@Component
 @Slf4j
-@Getter
-public class FileSizeProcessor implements Processor {
+public class MaliciousCSVCodeDetector implements MaliciousCodeDetector {
 
-    private long maxStreamSize = 0L;
+    private final Tika tika = new Tika();
 
-    @Override
-    public void process(Exchange exchange) throws Exception {
-        StreamCache stream = exchange.getMessage().getBody(StreamCache.class);
-        stream.reset();
-        maxStreamSize = Math.max(maxStreamSize, stream.length());
+    public boolean isValidData(final InputStream stream) throws Exception {
+
+        return tika.detect(stream).startsWith("text");
     }
 
 }

@@ -1,4 +1,8 @@
 # Release-Notes
+## Sprint 21 (03.12.2024 - 17.12.2024)
+## Hinzugefügt
+- Technische Anbindung Ladesaeulen.
+
 ## Sprint 19 (22.10.2024 - 12.11.2024)
 ### Entfernt
 - Umstellung auf mobidam-eai-commons-starter.

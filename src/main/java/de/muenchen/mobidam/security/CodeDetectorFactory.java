@@ -34,6 +34,7 @@ import org.springframework.stereotype.Component;
 public class CodeDetectorFactory {
 
     private final MaliciousXmlCodeDetector maliciousXmlCodeDetector;
+    private final MaliciousCSVCodeDetector maliciousCsvCodeDetector;
     private final DefaultMaliciousCodeDetector defaultMaliciousCodeDetector;
 
     private final Map<String, MaliciousCodeDetector> map = new HashMap<>();
@@ -41,6 +42,8 @@ public class CodeDetectorFactory {
     @PostConstruct
     public void init() {
         map.put(MediaType.APPLICATION_XML_VALUE, maliciousXmlCodeDetector);
+        map.put(MediaType.TEXT_XML_VALUE, maliciousXmlCodeDetector);
+        map.put(MimeTypeChecker.TEXT_CSV_TYPE.toString(), maliciousCsvCodeDetector);
     }
 
     public MaliciousCodeDetector getCodeDetector(final String mimeType) {

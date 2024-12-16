@@ -1,0 +1,10 @@
+Betreiber;Art der Ladeeinrichung;Anzahl Ladepunkte;Steckertypen1;Steckertypen2;Steckertypen3;Steckertypen4;P1 [kW];P2 [kW];P3 [kW];P4 [kW];Nennleistung Ladeeinrichtung [kW];Kreis/kreisfreie Stadt;Ort;Postleitzahl;Straße;Hausnummer;Adresszusatz;Inbetriebnahmedatum;koordinaten
+Pfalzwerke AG;Schnellladeeinrichtung;2.0;AC Kupplung Typ 2;DC Kupplung Combo, DC CHAdeMO;;;43.0;50.0;;;93.0;Landkreis Oberhavel;Velten;16727;Parkallee;10;;;52.670356, 13.215876
+Petrovic Stefan;Normalladeeinrichtung;1.0;AC Steckdose Typ 2;;;;11.0;;;;11.0;Landkreis Oberhavel;Hennigsdorf;16761;Schulzesiedlung;2;;;52.59875, 13.201624
+Fischer Rundum-Service, Ingo Kassanke, Einzelunternehmer;Normalladeeinrichtung;2.0;AC Steckdose Typ 2;AC Steckdose Typ 2;;;22.0;22.0;;;22.0;Landkreis Oberhavel;Hennigsdorf;16761;Franz-Schubert-Str.;5;;;52.624428, 13.196812
+Stadt Kremmen;Normalladeeinrichtung;2.0;AC Steckdose Typ 2;AC Steckdose Typ 2;;;22.0;22.0;;;44.0;Landkreis Oberhavel;Kremmen;16766;Burgweg;1;;;52.75957, 13.02387
+Lidl;Schnellladeeinrichtung;3.0;AC Steckdose Typ 2, AC Kupplung Typ 2;AC Kupplung Typ 2, DC Kupplung Combo;AC Kupplung Typ 2, DC CHAdeMO;;22.0;50.0;50.0;;50.0;Landkreis Oberhavel;Kremmen;16766;Ruppinerstr.;57;LDE_6556_12323900020001;;52.764823, 13.026662
+Christian Heuberger;Schnellladeeinrichtung;1.0;DC Kupplung Combo;;;;75.0;;;;75.0;Landkreis Oberhavel;Gransee;16775;Kraatzerweg;13a;;;53.003053955485, 13.1701379
+DKB Stiftung Liebenberg Gemeinnützige GmbH;Normalladeeinrichtung;2.0;AC Steckdose Typ 2;AC Steckdose Typ 2;;;22.0;22.0;;;44.0;Landkreis Oberhavel;Löwenberger Land;16775;Pareg;1;;;52.895003, 13.258933
+Shell Deutschland GmbH;Schnellladeeinrichtung;2.0;DC Kupplung Combo;DC Kupplung Combo;;;360.0;360.0;;;360.0;Landkreis Oberhavel;Gransee;16775;Oranienburger Str.;35;;;52.999407, 13.154781
+Hotel Zum Birkenhof;Normalladeeinrichtung;2.0;AC Steckdose Typ 2;AC Steckdose Typ 2;;;22.0;22.0;;;22.0;Landkreis Oberhavel;Großwoltersdorf;16775;Waldstraße;1;;;53.112684, 13.104145
