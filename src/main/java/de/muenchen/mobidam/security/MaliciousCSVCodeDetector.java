@@ -24,24 +24,18 @@ package de.muenchen.mobidam.security;
 
 import java.io.InputStream;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tika.Tika;
 import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
 public class MaliciousCSVCodeDetector implements MaliciousCodeDetector {
 
+    private final Tika tika = new Tika();
+
     public boolean isValidData(final InputStream stream) throws Exception {
 
-        /*
-         * Many .exe files begin with a specific "magic number" or file signature.
-         * For .exe files in PE (Portable Executable) format, the file typically begins with bytes 0x4D 0x5A
-         * (equivalent to "MZ" in ASCII).
-         */
-        byte[] magicBytes = new byte[2];
-        if (stream.read(magicBytes) != 2) { // Check
-            return false;
-        }
-        return !(magicBytes[0] == 0x4D && magicBytes[1] == 0x5A);
+        return tika.detect(stream).startsWith("text");
     }
 
 }
