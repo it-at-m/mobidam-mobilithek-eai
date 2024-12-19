@@ -45,22 +45,22 @@ public class CodeDetectionProcessorTest {
 
     @BeforeEach
     public void init() {
-        CodeDetectorFactory factory = new CodeDetectorFactory(new MaliciousXmlCodeDetector(), new MaliciousCSVCodeDetector(),
-                new DefaultMaliciousCodeDetector());
+        CodeDetectorFactory factory = new CodeDetectorFactory(new MaliciousXmlCodeDetector(), new DefaultMaliciousCodeDetector(),
+                new MaliciousCSVCodeDetector());
         factory.init();
         processor = new CodeDetectionProcessor(factory);
     }
 
     @Test
     public void testProcessWithValidTextData() throws Exception {
-        Exchange exchange = createExchange(List.of(MediaType.TEXT_PLAIN_VALUE), true);
+        Exchange exchange = createExchange(List.of(MediaType.TEXT_PLAIN_VALUE));
         exchange.getIn().setBody(new InputStreamCache("test".getBytes()));
         processor.process(exchange);
     }
 
     @Test
     public void testProcessWithValidXmlData() throws Exception {
-        Exchange exchange = createExchange(List.of(MediaType.APPLICATION_XML_VALUE), true);
+        Exchange exchange = createExchange(List.of(MediaType.APPLICATION_XML_VALUE));
         try (InputStream resStream = this.getClass().getResourceAsStream("/testdata/valid.xml")) {
             if (resStream == null) throw new IOException("Resource not found: /testdata/valid.xml");
             InputStreamCache stream = new InputStreamCache(resStream.readAllBytes());
@@ -71,7 +71,7 @@ public class CodeDetectionProcessorTest {
 
     @Test
     public void testProcessWithValidXmlDataAndMultipleAllowedMimeTypes() throws Exception {
-        Exchange exchange = createExchange(List.of(MediaType.APPLICATION_XML_VALUE, MediaType.TEXT_PLAIN_VALUE), true);
+        Exchange exchange = createExchange(List.of(MediaType.APPLICATION_XML_VALUE, MediaType.TEXT_PLAIN_VALUE));
         try (InputStream resStream = this.getClass().getResourceAsStream("/testdata/valid.xml")) {
             if (resStream == null) throw new IOException("Resource not found: /testdata/valid.xml");
             InputStreamCache stream = new InputStreamCache(resStream.readAllBytes());
@@ -81,49 +81,47 @@ public class CodeDetectionProcessorTest {
     }
 
     @Test
-    public void testProcessWithValidCSVData() throws Exception {
-        Exchange exchange = createExchange(List.of(MimeTypeChecker.TEXT_CSV_TYPE.toString()), true);
+    public void testProcessWithValidCSVTestData() throws Exception {
+        Exchange exchange = createExchange(List.of(MimeTypeChecker.TEXT_CSV_TYPE.toString()));
         FileInputStreamCache stream = new FileInputStreamCache(new File("src/test/resources/testdata/ladesaulen-example.csv"));
         exchange.getIn().setBody(stream);
         processor.process(exchange);
     }
 
     @Test
-    public void testProcessWithValidCSVDataMaliciousCodeDetectionFalse() throws Exception {
-        Exchange exchange = createExchange(List.of(MimeTypeChecker.TEXT_CSV_TYPE.toString()), false);
-        FileInputStreamCache stream = new FileInputStreamCache(new File("src/test/resources/testdata/ladesaulen-example.csv"));
-        exchange.getIn().setBody(stream);
-        processor.process(exchange);
+    public void testProcessXmlWithExe() throws Exception {
+        Exchange exchange = createExchange(List.of(MediaType.APPLICATION_XML_VALUE));
+        assertInvalid("/testdata/invalid-exe.xml", exchange);
     }
 
     @Test
-    public void testProcessWithExe() throws Exception {
-        Exchange exchange = createExchange(List.of(MediaType.APPLICATION_XML_VALUE), true);
+    public void testProcessCsvWithExe() throws Exception {
+        Exchange exchange = createExchange(List.of(MimeTypeChecker.TEXT_CSV_TYPE.toString()));
         assertInvalid("/testdata/invalid-exe.xml", exchange);
     }
 
     @Test
     public void testProcessWithExeTag() throws Exception {
-        Exchange exchange = createExchange(List.of(MediaType.APPLICATION_XML_VALUE), true);
+        Exchange exchange = createExchange(List.of(MediaType.APPLICATION_XML_VALUE));
         assertInvalid("/testdata/invalid-exe-tag.xml", exchange);
     }
 
     @Test
     public void testProcessWithXssEval() throws Exception {
-        Exchange exchange = createExchange(List.of(MediaType.APPLICATION_XML_VALUE), true);
+        Exchange exchange = createExchange(List.of(MediaType.APPLICATION_XML_VALUE));
         assertInvalid("/testdata/invalid-xss-eval.xml", exchange);
     }
 
     @Test
     public void testProcessWithXssScript() throws Exception {
-        Exchange exchange = createExchange(List.of(MediaType.APPLICATION_XML_VALUE), true);
+        Exchange exchange = createExchange(List.of(MediaType.APPLICATION_XML_VALUE));
         assertInvalid("/testdata/invalid-xss-script.xml", exchange);
     }
 
-    private Exchange createExchange(List<String> mimeTypes, boolean maliciousCodeDetectionEnabled) {
+    private Exchange createExchange(List<String> mimeTypes) {
         Exchange exchange = new DefaultExchange(new DefaultCamelContext());
         InterfaceDTO interfaceDTO = new InterfaceDTO();
-        interfaceDTO.setMaliciousCodeDetectionEnabled(maliciousCodeDetectionEnabled);
+        interfaceDTO.setMaliciousCodeDetectionEnabled(true);
         interfaceDTO.setAllowedMimeTypes(mimeTypes);
         exchange.getIn().setHeader(Constants.INTERFACE_TYPE, interfaceDTO);
         return exchange;

@@ -22,6 +22,7 @@
  */
 package de.muenchen.mobidam.security;
 
+import de.muenchen.mobidam.mobilithek.InterfaceDTO;
 import java.io.InputStream;
 import org.owasp.encoder.Encode;
 import org.springframework.stereotype.Component;
@@ -29,7 +30,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class DefaultMaliciousCodeDetector implements MaliciousCodeDetector {
 
-    public boolean isValidData(final InputStream stream) throws Exception {
+    public boolean isValidData(final InputStream stream, InterfaceDTO interfaceDTO) throws Exception {
         return isValidInput(new String(stream.readAllBytes()));
     }
 

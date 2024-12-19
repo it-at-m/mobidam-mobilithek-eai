@@ -22,20 +22,49 @@
  */
 package de.muenchen.mobidam.security;
 
+import de.muenchen.mobidam.mobilithek.InterfaceDTO;
 import java.io.InputStream;
+import java.util.regex.Pattern;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tika.Tika;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
+import org.apache.commons.io.input.CharSequenceReader;
 import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
 public class MaliciousCSVCodeDetector implements MaliciousCodeDetector {
 
-    private final Tika tika = new Tika();
+    private static final Pattern EXCEL_FORMULA_PATTERN = Pattern.compile("^[=+-@]^\\w*");
 
-    public boolean isValidData(final InputStream stream) throws Exception {
+    public boolean isValidData(final InputStream stream, InterfaceDTO interfaceDto) throws Exception {
 
-        return tika.detect(stream).startsWith("text");
+        CSVParser records = CSVFormat.newFormat(interfaceDto.getExpectedCsvDelimiter()).parse(new CharSequenceReader(new String(stream.readAllBytes())));
+        CSVRecord record = null;
+        int rowCount = 0;
+        var rows = records.iterator();
+        while (rows.hasNext()) {
+            rowCount++;
+            record = records.iterator().next();
+            var values = record.stream().toList();
+            if (values.size() != interfaceDto.getExpectedCsvColumnCount()) {
+                log.warn("Invalid column count expected/found {}/{} with delimiter '{}' : {}", interfaceDto.getExpectedCsvColumnCount(), record.values().length,
+                        interfaceDto.getExpectedCsvDelimiter(), record);
+                return false;
+            }
+            var columns = values.iterator();
+            while (columns.hasNext()) {
+                var item = columns.next();
+                var valid = EXCEL_FORMULA_PATTERN.matcher(item.trim()).matches();
+                if (valid) {
+                    log.warn("MaliciousCSVCode - Excel Formula : {}", item);
+                    return false;
+                }
+            }
+        }
+        log.info("File row size/read size : {}/{}", records.getRecordNumber(), rowCount);
+        return true;
     }
 
 }

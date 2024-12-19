@@ -22,9 +22,10 @@
  */
 package de.muenchen.mobidam.security;
 
+import de.muenchen.mobidam.mobilithek.InterfaceDTO;
 import java.io.InputStream;
 
 public interface MaliciousCodeDetector {
 
-    boolean isValidData(final InputStream stream) throws Exception;
+    boolean isValidData(final InputStream stream, InterfaceDTO interfaceDto) throws Exception;
 }

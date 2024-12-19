@@ -42,5 +42,7 @@ public class InterfaceDTO {
     private String s3Bucket;
     private List<String> allowedMimeTypes;
     private Boolean maliciousCodeDetectionEnabled;
+    private char expectedCsvDelimiter = ';';
+    private Integer expectedCsvColumnCount = 20;
 
 }

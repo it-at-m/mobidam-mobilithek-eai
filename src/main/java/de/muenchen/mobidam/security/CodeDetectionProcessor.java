@@ -31,8 +31,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.StreamCache;
-import org.apache.camel.converter.stream.FileInputStreamCache;
-import org.apache.camel.converter.stream.InputStreamCache;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -50,11 +48,11 @@ public class CodeDetectionProcessor implements Processor {
         }
         StreamCache receivedStream = exchange.getIn().getBody(StreamCache.class);
         receivedStream.reset();
-        InputStream stream = receivedStream instanceof InputStreamCache ? (InputStreamCache) receivedStream : (FileInputStreamCache) receivedStream;
+        InputStream stream = (InputStream) receivedStream;
         MaliciousCodeDetector codeDetector = codeDetectorFactory.getCodeDetector(mobilithekInterface.getAllowedMimeTypes().get(0));
         boolean result = false;
         try {
-            result = codeDetector.isValidData(stream);
+            result = codeDetector.isValidData(stream, mobilithekInterface);
         } catch (Exception ex) {
             log.warn("Malicious code detection failed", ex);
         }

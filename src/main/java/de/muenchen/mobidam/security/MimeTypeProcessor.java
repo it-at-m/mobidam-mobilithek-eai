@@ -31,8 +31,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.StreamCache;
-import org.apache.camel.converter.stream.FileInputStreamCache;
-import org.apache.camel.converter.stream.InputStreamCache;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -50,10 +48,10 @@ public class MimeTypeProcessor implements Processor {
         }
         StreamCache receivedStream = exchange.getIn().getBody(StreamCache.class);
         receivedStream.reset();
-        InputStream stream = receivedStream instanceof InputStreamCache ? (InputStreamCache) receivedStream : (FileInputStreamCache) receivedStream;
+        InputStream stream = (InputStream) receivedStream;
         log.debug("Checking mime type of content for interface {}", mobilithekInterface.getName());
         boolean result = mimeTypeChecker.check(stream, mobilithekInterface.getAllowedMimeTypes(),
-                exchange.getIn().getHeader(Exchange.CONTENT_TYPE, String.class));
+                exchange.getIn().getHeader(Exchange.CONTENT_TYPE, String.class), mobilithekInterface);
         if (!result) {
             throw new MobidamSecurityException("Illegal MIME type detected in interface: " + mobilithekInterface.getName());
         }
