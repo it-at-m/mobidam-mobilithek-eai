@@ -20,23 +20,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.muenchen.mobidam.security;
+package de.muenchen.mobidam.config;
 
-import java.io.InputStream;
-import org.apache.camel.Exchange;
-import org.owasp.encoder.Encode;
-import org.springframework.stereotype.Component;
+import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Component
-public class DefaultMaliciousCodeDetector implements MaliciousCodeDetector {
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+public class ContentType {
 
-    public boolean isValidData(final InputStream stream, Exchange exchange) throws Exception {
-        return isValidInput(new String(stream.readAllBytes()));
-    }
-
-    protected boolean isValidInput(final String content) {
-        String clean = Encode.forHtml(content);
-        return content.equals(clean);
-    }
+    private List<String> allowedMimeTypes;
 
 }

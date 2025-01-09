@@ -23,6 +23,7 @@
 package de.muenchen.mobidam.security;
 
 import de.muenchen.mobidam.Constants;
+import de.muenchen.mobidam.config.Types;
 import de.muenchen.mobidam.exception.MobidamSecurityException;
 import de.muenchen.mobidam.mobilithek.InterfaceDTO;
 import java.io.InputStream;
@@ -40,18 +41,19 @@ public class MimeTypeProcessor implements Processor {
 
     private final MimeTypeChecker mimeTypeChecker;
 
+    private final Types types;
+
     @Override
     public void process(Exchange exchange) throws Exception {
         var mobilithekInterface = exchange.getIn().getHeader(Constants.INTERFACE_TYPE, InterfaceDTO.class);
-        if (mobilithekInterface.getAllowedMimeTypes() == null) {
+        if (mobilithekInterface.getAllowedTypes() == null) {
             return;
         }
         StreamCache receivedStream = exchange.getIn().getBody(StreamCache.class);
         receivedStream.reset();
         InputStream stream = (InputStream) receivedStream;
         log.debug("Checking mime type of content for interface {}", mobilithekInterface.getName());
-        boolean result = mimeTypeChecker.check(stream, mobilithekInterface.getAllowedMimeTypes(),
-                exchange.getIn().getHeader(Exchange.CONTENT_TYPE, String.class), mobilithekInterface);
+        boolean result = mimeTypeChecker.check(stream, types.getContentMimeTypes(mobilithekInterface.getAllowedTypes()), exchange);
         if (!result) {
             throw new MobidamSecurityException("Illegal MIME type detected in interface: " + mobilithekInterface.getName());
         }

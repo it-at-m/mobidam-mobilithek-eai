@@ -20,23 +20,32 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.muenchen.mobidam.security;
+package de.muenchen.mobidam.config;
 
-import java.io.InputStream;
-import org.apache.camel.Exchange;
-import org.owasp.encoder.Encode;
+import java.util.*;
+import java.util.regex.Pattern;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DefaultMaliciousCodeDetector implements MaliciousCodeDetector {
+@ConfigurationProperties(prefix = "de.muenchen.mobidam.content-review")
+@Getter
+@Setter
+public class MaliciousContentRegex {
 
-    public boolean isValidData(final InputStream stream, Exchange exchange) throws Exception {
-        return isValidInput(new String(stream.readAllBytes()));
+    private Map<String, String> maliciousContentRegex;
+    private Map<String, Pattern> maliciousPatterns;
+
+    public Map<String, Pattern> getMaliciousPatterns() {
+
+        if (maliciousContentRegex != null && maliciousPatterns == null) {
+            maliciousPatterns = new HashMap<>();
+            for (Map.Entry<String, String> entry : maliciousContentRegex.entrySet()) {
+                maliciousPatterns.put(entry.getKey(), Pattern.compile(entry.getValue()));
+            }
+        }
+        return maliciousPatterns;
     }
-
-    protected boolean isValidInput(final String content) {
-        String clean = Encode.forHtml(content);
-        return content.equals(clean);
-    }
-
 }

@@ -22,15 +22,16 @@
  */
 package de.muenchen.mobidam.security;
 
-import ch.qos.logback.classic.jul.LevelChangePropagator;
 import de.muenchen.mobidam.Constants;
-import de.muenchen.mobidam.config.Interfaces;
+import de.muenchen.mobidam.config.ContentType;
+import de.muenchen.mobidam.config.Types;
 import de.muenchen.mobidam.exception.MobidamSecurityException;
 import de.muenchen.mobidam.mobilithek.InterfaceDTO;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 import org.apache.camel.Exchange;
 import org.apache.camel.converter.stream.FileInputStreamCache;
 import org.apache.camel.converter.stream.InputStreamCache;
@@ -48,86 +49,91 @@ public class MimeTypeProcessorTest {
     private static final String TEXT_CONTENT = "test content with plain text";
     private static final String XML_CONTENT = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><root>test content</root>";
 
-    private final MimeTypeProcessor processor = new MimeTypeProcessor(new MimeTypeChecker());
-
     @Test
     public void testCheckWithValidPlainText() throws Exception {
-        Exchange exchange = createExchange(List.of(MediaType.TEXT_PLAIN_VALUE));
+        Exchange exchange = createExchange(List.of(MediaType.TEXT_PLAIN.getSubtype()));
         InputStreamCache stream = new InputStreamCache(TEXT_CONTENT.getBytes());
         exchange.getIn().setBody(stream);
-        processor.process(exchange);
+        createProcessor().process(exchange);
     }
 
     @Test
     public void testCheckWithValidXml() throws Exception {
-        Exchange exchange = createExchange(List.of(MediaType.APPLICATION_XML_VALUE));
+        Exchange exchange = createExchange(List.of(MediaType.APPLICATION_XML.getSubtype()));
         InputStreamCache stream = new InputStreamCache(XML_CONTENT.getBytes());
         exchange.getIn().setBody(stream);
-        processor.process(exchange);
+        createProcessor().process(exchange);
     }
 
     @Test
     public void testCheckWithValidXml2() throws Exception {
-        Exchange exchange = createExchange(List.of(MediaType.TEXT_PLAIN_VALUE, MediaType.APPLICATION_XML_VALUE));
+        Exchange exchange = createExchange(List.of(MediaType.TEXT_PLAIN.getSubtype(), MediaType.APPLICATION_XML.getSubtype()));
         try (InputStream resStream = this.getClass().getResourceAsStream("/testdata/valid.xml")) {
             if (resStream == null) throw new IOException("Resource not found: /testdata/valid.xml");
             InputStreamCache stream = new InputStreamCache(resStream.readAllBytes());
             exchange.getIn().setBody(stream);
-            processor.process(exchange);
+            createProcessor().process(exchange);
         }
     }
 
     @Test
     public void testCheckWithValidCSV() throws Exception {
-        Exchange exchange = createExchange(List.of(MimeTypeChecker.TEXT_CSV_TYPE.toString()));
+        Exchange exchange = createExchange(List.of(MimeTypeChecker.TEXT_CSV_TYPE.getSubtype()));
         exchange.getIn().setHeader(HttpHeaders.CONTENT_TYPE, MimeTypeChecker.TEXT_CSV_TYPE.toString());
         FileInputStreamCache stream = new FileInputStreamCache(new File("src/test/resources/testdata/ladesaulen-example.csv"));
         exchange.getIn().setBody(stream);
-        processor.process(exchange);
+        createProcessor().process(exchange);
     }
 
     @Test
-    public void testCheckWithValidHeaderOnlyCSV() throws Exception {
-        Exchange exchange = createExchange(List.of(MimeTypeChecker.TEXT_CSV_TYPE.toString()));
+    public void testCheckWithValidHeaderOnlyCSV() {
+        Exchange exchange = createExchange(List.of(MimeTypeChecker.TEXT_CSV_TYPE.getSubtype(), MediaType.TEXT_PLAIN.getSubtype()));
         exchange.getIn().setHeader(HttpHeaders.CONTENT_TYPE, MimeTypeChecker.TEXT_CSV_TYPE.toString());
         FileInputStreamCache stream = new FileInputStreamCache(new File("src/test/resources/testdata/ladesaulen-header-example.csv"));
         exchange.getIn().setBody(stream);
-        processor.process(exchange);
+        Assertions.assertThrows(MobidamSecurityException.class, () -> createProcessor().process(exchange));
     }
 
     @Test
-    public void testCheckWithInValidHeaderOnlyCSV() throws Exception {
-        Exchange exchange = createExchange(List.of(MimeTypeChecker.TEXT_CSV_TYPE.toString()));
-        exchange.getIn().getHeader(Constants.INTERFACE_TYPE, InterfaceDTO.class).setExpectedCsvColumnCount(5);
+    public void testCheckWithInValidCSV() {
+        Exchange exchange = createExchange(List.of(MimeTypeChecker.TEXT_CSV_TYPE.getSubtype()));
         exchange.getIn().setHeader(HttpHeaders.CONTENT_TYPE, MimeTypeChecker.TEXT_CSV_TYPE.toString());
-        FileInputStreamCache stream = new FileInputStreamCache(new File("src/test/resources/testdata/ladesaulen-header-example.csv"));
+        FileInputStreamCache stream = new FileInputStreamCache(new File("src/test/resources/testdata/ladesaulen-header-invalid-delimiter-example.csv"));
         exchange.getIn().setBody(stream);
-        Assertions.assertThrows(MobidamSecurityException.class, () -> processor.process(exchange));
+        Assertions.assertThrows(MobidamSecurityException.class, () -> createProcessor().process(exchange));
     }
 
     @Test
     public void testCheckWithInvalidMimeType() {
-        Exchange exchange = createExchange(List.of(MediaType.APPLICATION_XML_VALUE));
+        Exchange exchange = createExchange(List.of(MediaType.APPLICATION_OCTET_STREAM.getSubtype()));
         InputStreamCache stream = new InputStreamCache(TEXT_CONTENT.getBytes());
         exchange.getIn().setBody(stream);
-        Assertions.assertThrows(MobidamSecurityException.class, () -> processor.process(exchange));
+        Assertions.assertThrows(MobidamSecurityException.class, () -> createProcessor().process(exchange));
     }
 
     @Test
     public void testCheckWithInvalidMimeType2() {
-        Exchange exchange = createExchange(List.of(MediaType.TEXT_PLAIN_VALUE));
+        Exchange exchange = createExchange(List.of(MediaType.TEXT_PLAIN.getSubtype()));
         InputStreamCache stream = new InputStreamCache(XML_CONTENT.getBytes());
         exchange.getIn().setBody(stream);
-        Assertions.assertThrows(MobidamSecurityException.class, () -> processor.process(exchange));
+        Assertions.assertThrows(MobidamSecurityException.class, () -> createProcessor().process(exchange));
     }
 
-    private Exchange createExchange(List<String> mimeTypes) {
+    private Exchange createExchange(List<String> expectedTypes) {
         Exchange exchange = new DefaultExchange(new DefaultCamelContext());
         InterfaceDTO interfaceDTO = new InterfaceDTO();
         interfaceDTO.setMaliciousCodeDetectionEnabled(true);
-        interfaceDTO.setAllowedMimeTypes(mimeTypes);
+        interfaceDTO.setAllowedTypes(expectedTypes);
         exchange.getIn().setHeader(Constants.INTERFACE_TYPE, interfaceDTO);
         return exchange;
+    }
+
+    private MimeTypeProcessor createProcessor() {
+        Types types = new Types();
+        types.setTypes(Map.of("xml", new ContentType(List.of("application/xml", "text/plain")),
+                "csv", new ContentType(List.of("text/csv")),
+                "plain", new ContentType(List.of("text/plain"))));
+        return new MimeTypeProcessor(new MimeTypeChecker(), types);
     }
 
 }

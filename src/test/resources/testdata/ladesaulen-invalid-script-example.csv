@@ -1,0 +1,2 @@
+Betreiber;Art der Ladeeinrichung;Anzahl Ladepunkte;Steckertypen1;Steckertypen2;Steckertypen3;Steckertypen4;P1 [kW];P2 [kW];P3 [kW];P4 [kW];Nennleistung Ladeeinrichtung [kW];Kreis/kreisfreie Stadt;Ort;Postleitzahl;Straße;Hausnummer;Adresszusatz;Inbetriebnahmedatum;koordinaten
+  run.exe;Schnellladeeinrichtung;2.0;AC Kupplung Typ 2;DC Kupplung Combo, DC CHAdeMO;;;43.0;50.0;;;93.0;Landkreis Oberhavel;Velten;16727;Parkallee;10;;;52.670356, 13.215876

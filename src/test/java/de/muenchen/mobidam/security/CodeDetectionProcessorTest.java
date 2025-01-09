@@ -23,17 +23,23 @@
 package de.muenchen.mobidam.security;
 
 import de.muenchen.mobidam.Constants;
+import de.muenchen.mobidam.config.ContentType;
+import de.muenchen.mobidam.config.MaliciousContentRegex;
+import de.muenchen.mobidam.config.Types;
 import de.muenchen.mobidam.exception.MobidamSecurityException;
 import de.muenchen.mobidam.mobilithek.InterfaceDTO;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.camel.Exchange;
 import org.apache.camel.converter.stream.FileInputStreamCache;
 import org.apache.camel.converter.stream.InputStreamCache;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.support.DefaultExchange;
+import org.apache.tika.parser.csv.TextAndCSVParser;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -45,33 +51,34 @@ public class CodeDetectionProcessorTest {
 
     @BeforeEach
     public void init() {
+
+        MaliciousContentRegex maliciousPatterns = new MaliciousContentRegex();
+        maliciousPatterns.setMaliciousContentRegex(Map.of(
+                "excel", "^[=]\\w*",
+                "script", ".*\\.(exe)",
+                "sql", "drop\\s.*",
+                "xss", ".*<.*"));
+
         CodeDetectorFactory factory = new CodeDetectorFactory(new MaliciousXmlCodeDetector(), new DefaultMaliciousCodeDetector(),
-                new MaliciousCSVCodeDetector());
+                new MaliciousCSVCodeDetector(maliciousPatterns));
         factory.init();
-        processor = new CodeDetectionProcessor(factory);
+        Types types = new Types();
+        types.setTypes(Map.of("xml", new ContentType(List.of("application/xml", "text/plain")),
+                "csv", new ContentType(List.of("text/csv")),
+                "plain", new ContentType(List.of("text/plain"))));
+        processor = new CodeDetectionProcessor(factory, types);
     }
 
     @Test
     public void testProcessWithValidTextData() throws Exception {
-        Exchange exchange = createExchange(List.of(MediaType.TEXT_PLAIN_VALUE));
+        Exchange exchange = createExchange(List.of(MediaType.TEXT_PLAIN.getSubtype()));
         exchange.getIn().setBody(new InputStreamCache("test".getBytes()));
         processor.process(exchange);
     }
 
     @Test
     public void testProcessWithValidXmlData() throws Exception {
-        Exchange exchange = createExchange(List.of(MediaType.APPLICATION_XML_VALUE));
-        try (InputStream resStream = this.getClass().getResourceAsStream("/testdata/valid.xml")) {
-            if (resStream == null) throw new IOException("Resource not found: /testdata/valid.xml");
-            InputStreamCache stream = new InputStreamCache(resStream.readAllBytes());
-            exchange.getIn().setBody(stream);
-            processor.process(exchange);
-        }
-    }
-
-    @Test
-    public void testProcessWithValidXmlDataAndMultipleAllowedMimeTypes() throws Exception {
-        Exchange exchange = createExchange(List.of(MediaType.APPLICATION_XML_VALUE, MediaType.TEXT_PLAIN_VALUE));
+        Exchange exchange = createExchange(List.of(MediaType.APPLICATION_XML.getSubtype()));
         try (InputStream resStream = this.getClass().getResourceAsStream("/testdata/valid.xml")) {
             if (resStream == null) throw new IOException("Resource not found: /testdata/valid.xml");
             InputStreamCache stream = new InputStreamCache(resStream.readAllBytes());
@@ -82,7 +89,7 @@ public class CodeDetectionProcessorTest {
 
     @Test
     public void testProcessWithValidCSVTestData() throws Exception {
-        Exchange exchange = createExchange(List.of(MimeTypeChecker.TEXT_CSV_TYPE.toString()));
+        Exchange exchange = createExchange(List.of(MimeTypeChecker.TEXT_CSV_TYPE.getSubtype()));
         FileInputStreamCache stream = new FileInputStreamCache(new File("src/test/resources/testdata/ladesaulen-example.csv"));
         exchange.getIn().setBody(stream);
         processor.process(exchange);
@@ -90,40 +97,59 @@ public class CodeDetectionProcessorTest {
 
     @Test
     public void testProcessXmlWithExe() throws Exception {
-        Exchange exchange = createExchange(List.of(MediaType.APPLICATION_XML_VALUE));
+        Exchange exchange = createExchange(List.of(MediaType.APPLICATION_XML.getSubtype()));
         assertInvalid("/testdata/invalid-exe.xml", exchange);
     }
 
     @Test
-    public void testProcessCsvWithExe() throws Exception {
-        Exchange exchange = createExchange(List.of(MimeTypeChecker.TEXT_CSV_TYPE.toString()));
-        assertInvalid("/testdata/invalid-exe.xml", exchange);
+    public void testProcessCsvWithExtensionExe() throws Exception {
+        Exchange exchange = createExchange(List.of(MimeTypeChecker.TEXT_CSV_TYPE.getSubtype()));
+        assertInvalid("/testdata/ladesaulen-invalid-script-example.csv", exchange);
     }
 
     @Test
     public void testProcessWithExeTag() throws Exception {
-        Exchange exchange = createExchange(List.of(MediaType.APPLICATION_XML_VALUE));
+        Exchange exchange = createExchange(List.of(MediaType.APPLICATION_XML.getSubtype()));
         assertInvalid("/testdata/invalid-exe-tag.xml", exchange);
     }
 
     @Test
     public void testProcessWithXssEval() throws Exception {
-        Exchange exchange = createExchange(List.of(MediaType.APPLICATION_XML_VALUE));
+        Exchange exchange = createExchange(List.of(MediaType.APPLICATION_XML.getSubtype()));
         assertInvalid("/testdata/invalid-xss-eval.xml", exchange);
     }
 
     @Test
     public void testProcessWithXssScript() throws Exception {
-        Exchange exchange = createExchange(List.of(MediaType.APPLICATION_XML_VALUE));
+        Exchange exchange = createExchange(List.of(MediaType.APPLICATION_XML.getSubtype()));
         assertInvalid("/testdata/invalid-xss-script.xml", exchange);
     }
 
-    private Exchange createExchange(List<String> mimeTypes) {
+    @Test
+    public void testProcessCsvWithSQL() throws Exception {
+        Exchange exchange = createExchange(List.of(MimeTypeChecker.TEXT_CSV_TYPE.getSubtype()));
+        assertInvalid("/testdata/ladesaulen-invalid-sql-example.csv", exchange);
+    }
+
+    @Test
+    public void testProcessCsvWithXssScript() throws Exception {
+        Exchange exchange = createExchange(List.of(MimeTypeChecker.TEXT_CSV_TYPE.getSubtype()));
+        assertInvalid("/testdata/ladesaulen-invalid-xss-example.csv", exchange);
+    }
+
+    @Test
+    public void testProcessCsvWithExe() throws Exception {
+        Exchange exchange = createExchange(List.of(MimeTypeChecker.TEXT_CSV_TYPE.getSubtype()));
+        assertInvalid("/testdata/ladesaulen-invalid-script-example.csv", exchange);
+    }
+
+    private Exchange createExchange(List<String> allowedTypes) {
         Exchange exchange = new DefaultExchange(new DefaultCamelContext());
         InterfaceDTO interfaceDTO = new InterfaceDTO();
         interfaceDTO.setMaliciousCodeDetectionEnabled(true);
-        interfaceDTO.setAllowedMimeTypes(mimeTypes);
+        interfaceDTO.setAllowedTypes(allowedTypes);
         exchange.getIn().setHeader(Constants.INTERFACE_TYPE, interfaceDTO);
+        exchange.getIn().setHeader(TextAndCSVParser.DELIMITER_PROPERTY.getName(), "semicolon");
         return exchange;
     }
 

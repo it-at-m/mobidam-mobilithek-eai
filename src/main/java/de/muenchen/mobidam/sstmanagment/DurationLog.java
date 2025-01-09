@@ -20,23 +20,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.muenchen.mobidam.security;
+package de.muenchen.mobidam.sstmanagment;
 
-import java.io.InputStream;
-import org.apache.camel.Exchange;
-import org.owasp.encoder.Encode;
-import org.springframework.stereotype.Component;
+import lombok.extern.slf4j.Slf4j;
 
-@Component
-public class DefaultMaliciousCodeDetector implements MaliciousCodeDetector {
+@Slf4j
+public class DurationLog {
 
-    public boolean isValidData(final InputStream stream, Exchange exchange) throws Exception {
-        return isValidInput(new String(stream.readAllBytes()));
+    Long startParse;
+    String logDescription;
+
+    public DurationLog(String logDescription) {
+        this.logDescription = logDescription;
     }
 
-    protected boolean isValidInput(final String content) {
-        String clean = Encode.forHtml(content);
-        return content.equals(clean);
+    public void startLog() {
+        startParse = System.currentTimeMillis();
+        log.debug("{} - Start point {} ... ", logDescription, startParse);
     }
 
+    public void endLog() {
+        Long endParse = System.currentTimeMillis();
+        log.debug("{} - End point   {}. Duration : {} ms", logDescription, endParse, endParse - startParse);
+    }
 }

@@ -22,10 +22,10 @@
  */
 package de.muenchen.mobidam.security;
 
-import de.muenchen.mobidam.mobilithek.InterfaceDTO;
 import java.io.InputStream;
+import org.apache.camel.Exchange;
 
 public interface MaliciousCodeDetector {
 
-    boolean isValidData(final InputStream stream, InterfaceDTO interfaceDto) throws Exception;
+    boolean isValidData(final InputStream stream, Exchange exchange) throws Exception;
 }

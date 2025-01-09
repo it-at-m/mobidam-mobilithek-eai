@@ -22,49 +22,67 @@
  */
 package de.muenchen.mobidam.security;
 
-import de.muenchen.mobidam.mobilithek.InterfaceDTO;
+import de.muenchen.mobidam.config.MaliciousContentRegex;
+import de.muenchen.mobidam.sstmanagment.DurationLog;
 import java.io.InputStream;
+import java.util.Map;
 import java.util.regex.Pattern;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.camel.Exchange;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.io.input.CharSequenceReader;
+import org.apache.tika.parser.csv.TextAndCSVConfig;
+import org.apache.tika.parser.csv.TextAndCSVParser;
 import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
 public class MaliciousCSVCodeDetector implements MaliciousCodeDetector {
 
-    private static final Pattern EXCEL_FORMULA_PATTERN = Pattern.compile("^[=+-@]^\\w*");
+    private final MaliciousContentRegex maliciousPatterns;
+    private final TextAndCSVConfig textAndCSVConfig = new TextAndCSVConfig();
+    private final DurationLog durationCSVParser = new DurationLog("CSV-Parser");
+    private final DurationLog durationMaliciousCodeDetection = new DurationLog("CSV-Malicious-Code-Detection");
 
-    public boolean isValidData(final InputStream stream, InterfaceDTO interfaceDto) throws Exception {
+    public MaliciousCSVCodeDetector(MaliciousContentRegex maliciousPatterns) {
+        this.maliciousPatterns = maliciousPatterns;
+    }
 
-        CSVParser records = CSVFormat.newFormat(interfaceDto.getExpectedCsvDelimiter()).parse(new CharSequenceReader(new String(stream.readAllBytes())));
+    public boolean isValidData(final InputStream stream, Exchange exchange) throws Exception {
+
+        durationCSVParser.startLog();
+        CSVParser records = CSVFormat.newFormat(selectTikaCsvDelimiter(exchange)).parse(new CharSequenceReader(new String(stream.readAllBytes())));
+        durationCSVParser.endLog();
         CSVRecord record = null;
         int rowCount = 0;
         var rows = records.iterator();
+        durationMaliciousCodeDetection.startLog();
         while (rows.hasNext()) {
             rowCount++;
             record = records.iterator().next();
-            var values = record.stream().toList();
-            if (values.size() != interfaceDto.getExpectedCsvColumnCount()) {
-                log.warn("Invalid column count expected/found {}/{} with delimiter '{}' : {}", interfaceDto.getExpectedCsvColumnCount(), record.values().length,
-                        interfaceDto.getExpectedCsvDelimiter(), record);
-                return false;
-            }
-            var columns = values.iterator();
-            while (columns.hasNext()) {
-                var item = columns.next();
-                var valid = EXCEL_FORMULA_PATTERN.matcher(item.trim()).matches();
-                if (valid) {
-                    log.warn("MaliciousCSVCode - Excel Formula : {}", item);
-                    return false;
+            var columns = record.stream().toList();
+            for (var column : columns) {
+                var cell = column.trim();
+                if (!cell.isEmpty()) {
+                    for (Map.Entry<String, Pattern> entry : maliciousPatterns.getMaliciousPatterns().entrySet()) {
+                        var match = entry.getValue().matcher(cell).matches();
+                        if (match) {
+                            log.warn("MaliciousCSVCode - {} ({}) : {}", entry.getKey(), maliciousPatterns.getMaliciousContentRegex().get(entry.getKey()), cell);
+                            return false;
+                        }
+                    }
                 }
             }
         }
+        durationMaliciousCodeDetection.endLog();
         log.info("File row size/read size : {}/{}", records.getRecordNumber(), rowCount);
         return true;
+    }
+
+    private char selectTikaCsvDelimiter(Exchange exchange) {
+        return textAndCSVConfig.getNameToDelimiterMap().get(exchange.getIn().getHeader(TextAndCSVParser.DELIMITER_PROPERTY.getName(), String.class));
     }
 
 }

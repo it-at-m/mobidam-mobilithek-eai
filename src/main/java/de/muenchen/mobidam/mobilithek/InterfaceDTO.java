@@ -40,9 +40,7 @@ public class InterfaceDTO {
     private String s3ObjectPath;
     private String s3DateFormat;
     private String s3Bucket;
-    private List<String> allowedMimeTypes;
+    private List<String> allowedTypes;
     private Boolean maliciousCodeDetectionEnabled;
-    private char expectedCsvDelimiter = ';';
-    private Integer expectedCsvColumnCount = 20;
 
 }

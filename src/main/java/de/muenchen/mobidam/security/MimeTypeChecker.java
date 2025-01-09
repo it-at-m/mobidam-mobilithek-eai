@@ -22,14 +22,12 @@
  */
 package de.muenchen.mobidam.security;
 
-import de.muenchen.mobidam.mobilithek.InterfaceDTO;
+import de.muenchen.mobidam.sstmanagment.DurationLog;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVRecord;
-import org.apache.commons.io.input.CharSequenceReader;
+import org.apache.camel.Exchange;
 import org.apache.tika.Tika;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.mime.MediaType;
@@ -47,52 +45,48 @@ public class MimeTypeChecker {
 
     private final Tika tika = new Tika();
 
-    public boolean check(final InputStream stream, final List<String> allowedMimeTypes, final String contentType, final InterfaceDTO interfaceDto)
+    private final DurationLog parseDuration = new DurationLog("Tika-Mime-Type-Detection");
+
+    public boolean check(final InputStream stream, final List<String> allowedMimeTypes, final Exchange exchange)
             throws IOException {
 
-        String mimetype = getMimeType(stream, contentType, interfaceDto);
-        log.debug("File is of mime type: {}", mimetype);
-        return allowedMimeTypes.contains(mimetype);
+        var contentType = exchange.getIn().getHeader(Exchange.CONTENT_TYPE, String.class);
+        if (contentType != null && allowedMimeTypes.stream().filter(contentType::contains).findAny().isEmpty()) {
+            log.error("Mimetype is not allowed: { }", contentType);
+            return false;
+        }
+        String detectedMimeType = getMimeType(stream, contentType, exchange);
+        if (detectedMimeType != null && allowedMimeTypes.stream().filter(detectedMimeType::contains).findAny().isEmpty()) {
+            log.error("Mimetype is not allowed: {}", detectedMimeType);
+            return false;
+        }
+        return true;
+
     }
 
-    private String getMimeType(final InputStream stream, String contentType, InterfaceDTO interfaceDto) throws IOException {
+    private String getMimeType(final InputStream stream, String contentType, Exchange exchange) throws IOException {
 
-        if (contentType != null && contentType.equals("text/csv")) {
-
+        if (contentType != null && contentType.contains(TEXT_CSV_TYPE.toString())) {
             ContentHandler handler = new BodyContentHandler(-1);
             TextAndCSVParser parser = new TextAndCSVParser();
             Metadata metadata = new Metadata();
             ParseContext context = new ParseContext();
             try {
+                parseDuration.startLog();
                 parser.parse(stream, handler, metadata, context);
+                parseDuration.endLog();
             } catch (Exception e) {
                 throw new IOException(e);
             }
-            log.debug("Tika file metadata {}", metadata.toString());
+            log.debug("Tika file metadata {}", metadata);
             var tikaContentType = metadata.get(Metadata.CONTENT_TYPE);
-            if (tikaContentType.toLowerCase().contains(TEXT_CSV_TYPE.toString()))
+            if (tikaContentType.toLowerCase().contains(TEXT_CSV_TYPE.toString())) {
+                exchange.getIn().setHeader(TextAndCSVParser.DELIMITER_PROPERTY.getName(), metadata.get(TextAndCSVParser.DELIMITER_PROPERTY));
                 return TEXT_CSV_TYPE.toString();
-            else if (tikaContentType.toLowerCase().contains(org.springframework.http.MediaType.TEXT_PLAIN_VALUE)) {
+            } else {
                 log.warn("File content too small, Tika heuristic cannot determine 'text/csv' with the necessary certainty.");
-                stream.reset();
-                Iterable<CSVRecord> records = CSVFormat.newFormat(interfaceDto.getExpectedCsvDelimiter())
-                        .parse(new CharSequenceReader(new String(stream.readAllBytes())));
-                var iterator = records.iterator();
-                if (iterator.hasNext()) {
-                    while (iterator.hasNext()) {
-                        var record = iterator.next();
-                        if (record.values().length != interfaceDto.getExpectedCsvColumnCount()) {
-                            log.warn("Invalid column count expected/found {}/{} with delimiter '{}' : {}", interfaceDto.getExpectedCsvColumnCount(),
-                                    record.values().length, interfaceDto.getExpectedCsvDelimiter(), record);
-                            return org.springframework.http.MediaType.TEXT_PLAIN_VALUE;
-                        }
-                    }
-                    return TEXT_CSV_TYPE.toString();
-                } else
-                    return tikaContentType;
-            } else
-                return tikaContentType;
-
+                return "file-content-too-small";
+            }
         } else
             return tika.detect(stream);
     }

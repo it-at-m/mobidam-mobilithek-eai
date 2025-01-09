@@ -20,23 +20,34 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.muenchen.mobidam.security;
+package de.muenchen.mobidam.config;
 
-import java.io.InputStream;
-import org.apache.camel.Exchange;
-import org.owasp.encoder.Encode;
+import de.muenchen.mobidam.exception.MobidamException;
+import java.util.List;
+import java.util.Map;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DefaultMaliciousCodeDetector implements MaliciousCodeDetector {
+@ConfigurationProperties(prefix = "de.muenchen.mobidam")
+@Getter
+@Setter
+public class Types {
 
-    public boolean isValidData(final InputStream stream, Exchange exchange) throws Exception {
-        return isValidInput(new String(stream.readAllBytes()));
+    private Map<String, ContentType> types;
+
+    public List<String> getContentMimeTypes(List<String> expectedTypes) throws MobidamException {
+
+        if (getTypes() == null) {
+            throw new MobidamException("Invalid configuration of types.");
+        }
+
+        if (expectedTypes.isEmpty() || getTypes().isEmpty())
+            return List.of();
+
+        return expectedTypes.stream().flatMap(type -> getTypes().entrySet().stream().filter(entrySet -> entrySet.getKey().equals(type)))
+                .flatMap(entrySet -> entrySet.getValue().getAllowedMimeTypes().stream()).distinct().toList();
     }
-
-    protected boolean isValidInput(final String content) {
-        String clean = Encode.forHtml(content);
-        return content.equals(clean);
-    }
-
 }

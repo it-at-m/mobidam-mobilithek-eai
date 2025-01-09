@@ -23,6 +23,7 @@
 package de.muenchen.mobidam.security;
 
 import de.muenchen.mobidam.Constants;
+import de.muenchen.mobidam.config.Types;
 import de.muenchen.mobidam.exception.MobidamSecurityException;
 import de.muenchen.mobidam.mobilithek.InterfaceDTO;
 import java.io.InputStream;
@@ -40,6 +41,8 @@ public class CodeDetectionProcessor implements Processor {
 
     private final CodeDetectorFactory codeDetectorFactory;
 
+    private final Types types;
+
     @Override
     public void process(Exchange exchange) throws Exception {
         var mobilithekInterface = exchange.getIn().getHeader(Constants.INTERFACE_TYPE, InterfaceDTO.class);
@@ -49,10 +52,10 @@ public class CodeDetectionProcessor implements Processor {
         StreamCache receivedStream = exchange.getIn().getBody(StreamCache.class);
         receivedStream.reset();
         InputStream stream = (InputStream) receivedStream;
-        MaliciousCodeDetector codeDetector = codeDetectorFactory.getCodeDetector(mobilithekInterface.getAllowedMimeTypes().get(0));
+        MaliciousCodeDetector codeDetector = codeDetectorFactory.getCodeDetector(types.getContentMimeTypes(mobilithekInterface.getAllowedTypes()).get(0));
         boolean result = false;
         try {
-            result = codeDetector.isValidData(stream, mobilithekInterface);
+            result = codeDetector.isValidData(stream, exchange);
         } catch (Exception ex) {
             log.warn("Malicious code detection failed", ex);
         }
