@@ -52,7 +52,8 @@ public class CodeDetectionProcessor implements Processor {
         StreamCache receivedStream = exchange.getIn().getBody(StreamCache.class);
         receivedStream.reset();
         InputStream stream = (InputStream) receivedStream;
-        MaliciousCodeDetector codeDetector = codeDetectorFactory.getCodeDetector(resourceTypes.getResourceTypes(mobilithekInterface.getAllowedResourceTypes()).get(0));
+        MaliciousCodeDetector codeDetector = codeDetectorFactory
+                .getCodeDetector(resourceTypes.getResourceTypes(mobilithekInterface.getAllowedResourceTypes()).get(0));
         boolean result = false;
         try {
             result = codeDetector.isValidData(stream, exchange);

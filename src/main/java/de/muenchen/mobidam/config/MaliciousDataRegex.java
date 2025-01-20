@@ -24,12 +24,11 @@ package de.muenchen.mobidam.config;
 
 import java.util.*;
 import java.util.regex.Pattern;
+import javax.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
 
 @Component
 @ConfigurationProperties(prefix = "de.muenchen.mobidam.data.review-specification")
