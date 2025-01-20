@@ -34,12 +34,12 @@ public class DurationLog {
         this.logDescription = logDescription;
     }
 
-    public void startLog() {
+    public void startDebug() {
         startParse = System.currentTimeMillis();
         log.debug("{} - Start point {} ... ", logDescription, startParse);
     }
 
-    public void endLog() {
+    public void endDebug() {
         Long endParse = System.currentTimeMillis();
         log.debug("{} - End point   {}. Duration : {} ms", logDescription, endParse, endParse - startParse);
     }

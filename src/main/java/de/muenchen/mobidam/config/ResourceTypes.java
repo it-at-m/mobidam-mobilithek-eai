@@ -22,30 +22,32 @@
  */
 package de.muenchen.mobidam.config;
 
-import java.util.*;
-import java.util.regex.Pattern;
+import de.muenchen.mobidam.exception.MobidamException;
+import java.util.List;
+import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties(prefix = "de.muenchen.mobidam.content-review")
+@ConfigurationProperties(prefix = "de.muenchen.mobidam.data.allowed-resource-types")
 @Getter
 @Setter
-public class MaliciousContentRegex {
+public class ResourceTypes {
 
-    private Map<String, String> maliciousContentRegex;
-    private Map<String, Pattern> maliciousPatterns;
+    private Map<String, ResourceType> resourceTypes;
 
-    public Map<String, Pattern> getMaliciousPatterns() {
+    public List<String> getResourceTypes(List<String> expectedTypes) throws MobidamException {
 
-        if (maliciousContentRegex != null && maliciousPatterns == null) {
-            maliciousPatterns = new HashMap<>();
-            for (Map.Entry<String, String> entry : maliciousContentRegex.entrySet()) {
-                maliciousPatterns.put(entry.getKey(), Pattern.compile(entry.getValue()));
-            }
+        if (getResourceTypes() == null) {
+            throw new MobidamException("Invalid configuration of types.");
         }
-        return maliciousPatterns;
+
+        if (expectedTypes.isEmpty() || getResourceTypes().isEmpty())
+            return List.of();
+
+        return expectedTypes.stream().flatMap(type -> getResourceTypes().entrySet().stream().filter(entrySet -> entrySet.getKey().equals(type)))
+                .flatMap(entrySet -> entrySet.getValue().getAllowedResourceTypes().stream()).distinct().toList();
     }
 }

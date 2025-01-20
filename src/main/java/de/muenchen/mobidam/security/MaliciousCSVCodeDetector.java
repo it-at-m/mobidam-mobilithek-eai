@@ -22,7 +22,7 @@
  */
 package de.muenchen.mobidam.security;
 
-import de.muenchen.mobidam.config.MaliciousContentRegex;
+import de.muenchen.mobidam.config.MaliciousDataRegex;
 import de.muenchen.mobidam.sstmanagment.DurationLog;
 import java.io.InputStream;
 import java.util.Map;
@@ -41,24 +41,24 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class MaliciousCSVCodeDetector implements MaliciousCodeDetector {
 
-    private final MaliciousContentRegex maliciousPatterns;
+    private final MaliciousDataRegex maliciousPatterns;
     private final TextAndCSVConfig textAndCSVConfig = new TextAndCSVConfig();
     private final DurationLog durationCSVParser = new DurationLog("CSV-Parser");
     private final DurationLog durationMaliciousCodeDetection = new DurationLog("CSV-Malicious-Code-Detection");
 
-    public MaliciousCSVCodeDetector(MaliciousContentRegex maliciousPatterns) {
+    public MaliciousCSVCodeDetector(MaliciousDataRegex maliciousPatterns) {
         this.maliciousPatterns = maliciousPatterns;
     }
 
     public boolean isValidData(final InputStream stream, Exchange exchange) throws Exception {
 
-        durationCSVParser.startLog();
+        durationCSVParser.startDebug();
         CSVParser records = CSVFormat.newFormat(selectTikaCsvDelimiter(exchange)).parse(new CharSequenceReader(new String(stream.readAllBytes())));
-        durationCSVParser.endLog();
+        durationCSVParser.endDebug();
         CSVRecord record = null;
         int rowCount = 0;
         var rows = records.iterator();
-        durationMaliciousCodeDetection.startLog();
+        durationMaliciousCodeDetection.startDebug();
         while (rows.hasNext()) {
             rowCount++;
             record = records.iterator().next();
@@ -66,18 +66,18 @@ public class MaliciousCSVCodeDetector implements MaliciousCodeDetector {
             for (var column : columns) {
                 var cell = column.trim();
                 if (!cell.isEmpty()) {
-                    for (Map.Entry<String, Pattern> entry : maliciousPatterns.getMaliciousPatterns().entrySet()) {
+                    for (Map.Entry<String, Pattern> entry : maliciousPatterns.getMaliciousDataPatterns().entrySet()) {
                         var match = entry.getValue().matcher(cell).matches();
                         if (match) {
-                            log.warn("MaliciousCSVCode - {} ({}) : {}", entry.getKey(), maliciousPatterns.getMaliciousContentRegex().get(entry.getKey()), cell);
+                            log.warn("MaliciousCSVCode - {} ({}) : {}", entry.getKey(), maliciousPatterns.getMaliciousDataRegex().get(entry.getKey()), cell);
                             return false;
                         }
                     }
                 }
             }
         }
-        durationMaliciousCodeDetection.endLog();
-        log.info("File row size/read size : {}/{}", records.getRecordNumber(), rowCount);
+        durationMaliciousCodeDetection.endDebug();
+        log.debug("File row size/read size : {}/{}", records.getRecordNumber(), rowCount);
         return true;
     }
 

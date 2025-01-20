@@ -39,7 +39,7 @@ import org.xml.sax.ContentHandler;
 
 @Service
 @Slf4j
-public class MimeTypeChecker {
+public class ResourceTypeChecker {
 
     public static final MediaType TEXT_CSV_TYPE = new MediaType("text", "csv");
 
@@ -55,7 +55,7 @@ public class MimeTypeChecker {
             log.error("Mimetype is not allowed: { }", contentType);
             return false;
         }
-        String detectedMimeType = getMimeType(stream, contentType, exchange);
+        String detectedMimeType = getResourceType(stream, contentType, exchange);
         if (detectedMimeType != null && allowedMimeTypes.stream().filter(detectedMimeType::contains).findAny().isEmpty()) {
             log.error("Mimetype is not allowed: {}", detectedMimeType);
             return false;
@@ -64,7 +64,7 @@ public class MimeTypeChecker {
 
     }
 
-    private String getMimeType(final InputStream stream, String contentType, Exchange exchange) throws IOException {
+    private String getResourceType(final InputStream stream, String contentType, Exchange exchange) throws IOException {
 
         if (contentType != null && contentType.contains(TEXT_CSV_TYPE.toString())) {
             ContentHandler handler = new BodyContentHandler(-1);
@@ -72,14 +72,14 @@ public class MimeTypeChecker {
             Metadata metadata = new Metadata();
             ParseContext context = new ParseContext();
             try {
-                parseDuration.startLog();
+                parseDuration.startDebug();
                 parser.parse(stream, handler, metadata, context);
-                parseDuration.endLog();
+                parseDuration.endDebug();
             } catch (Exception e) {
                 throw new IOException(e);
             }
             log.debug("Tika file metadata {}", metadata);
-            var tikaContentType = metadata.get(Metadata.CONTENT_TYPE);
+            String tikaContentType = metadata.get(Metadata.CONTENT_TYPE);
             if (tikaContentType.toLowerCase().contains(TEXT_CSV_TYPE.toString())) {
                 exchange.getIn().setHeader(TextAndCSVParser.DELIMITER_PROPERTY.getName(), metadata.get(TextAndCSVParser.DELIMITER_PROPERTY));
                 return TEXT_CSV_TYPE.toString();

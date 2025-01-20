@@ -151,69 +151,88 @@ de.muenchen.mobidam:
   integration:
     interfaces:
       parkRideStaticData:
-        allowed-types: xml
+        allowed-resource-types: xml
         malicious-code-detection-enabled: true
   ...
-  types:
-    xml:
-      allowed-mime-types: application/xml, text/plain
-    plain:
-      allowed-mime-types: text/plain
-    csv:
-      allowed-mime-types: text/csv
+  data:
+    allowed-resource-types:
+      resource-types:
+        xml:
+          allowed-resource-types: application/xml, text/plain
+        plain:
+          allowed-resource-types: text/plain
+        csv:
+          allowed-resource-types: text/csv
 ```
+#### Begriffsklärung 'Resource-Typ'
+Der Begriff _**Resource-Typ**_ wird benutzt um sich von den Begriffen _MimeType_ und _ContentType_ abzugrenzen und keine 
+Irritationen bei den Inhalten der Resource-Typen Bezeichner entstehen, die sowohl 'type' und 'type/subtype' Kombinatinen ohne zusätzlichen Parameter enthalten können. 
 
-#### Mime-Type Prüfung
-Mit der Kombination aus _allowed-types_ und _types.[allowed-types]_ werden die für die Schnittstelle zugelassenen _Mime-Types_ konfiguriert. 
-Dazu wird in jeder Schnittstelle mindestens ein erlaubtes Dateiformat als _allowed-types_ spezifiziert. Der _allowed-types_ braucht eine Entsprechung in den _types.[allowed-types]_, der wiederum alle erlaubten Mime-Types spezifiziert. 
-Im Bsp. findet der _allowed-types: xml_ die erlaubten Mime-Types _types.xml.allowed-mime-types: application/xml, text/plain_.
+* _Mime-Type / Media-Type_:  Mime-Type kommt ursprünglich aus der EMail Welt um von ASCII abweichende Dateninhalte zu unterstützen.
+Der Mime-Type wird in RFCs auch gerne durch die Bezeichnung Media-Type ersetzt. Er hat ein Multipart Format : type/subtype z. Bsp. text/plain, image/jpg.
+* _Content-Type_: Content-Type ist ein HTTP-Header. Er gibt den Media-Type an und kann eine Erweiterung enthalten. Er hat ein Multipart Format mit optionalen Parameter : type/subtype; parameter=value z.Bsp. text/html; charset=UTF-8 oder auch nur application/json.
+Ist kein optionaler Charset Parameter angegeben ist von einem Standard UTF-8 Charset auszugehen.
 
-Der Mime-Type Check durchläuft zwei Prüfungen. 
-- Prüfung ob der von der Datenquelle gelieferte [HTTP ContentType](https://developer.mozilla.org/de/docs/Web/HTTP/Headers/Content-Type) als _allowed-mime-type_ gelistet ist.
-- Mit [Tika](https://tika.apache.org/) wird der Inhalt der Datei auf seinen Mime-Type untersucht und geprüft ob der von Tika ermittelte Mime-Type als _allowed-mime-type_ gelistet ist. 
+Die Resource-Typen werden verwendet das von den Datenquellen erhaltenen Datenformat zu Prüfen und auf Schadcode zu untersuchen. 
+Die Inhalte _interfaces.[interface].__**allowed-resource-types**_ und _data.allowed-resource-types.resource-types.[resource-type]_ 
+sind frei wählbar während die Inhalte in _data.allowed-resource-types.resource-types.[resource-type].**allowed-resource-types**_ sich 
+an die gängigen Konventionen halten müssen.
+In ihrer Kombination lassen für beliebige _type/subtype_-Kombinationen eigene Schadcode-Parser konfigurieren.
 
-Es lassen sich auch mehrere _allowed-types_ spezifizieren. 
-- Die _allowed-mime-types_ werden dann in der Reihenfolge der _allowed-types_ konkateniert. Im Beispiel unten sind die _allowed-mime-types: csv, plain_ in der Reihenfolge _text/csv, text/plain_ erlaubt. 
-- Doppelte MimeTypes werden entfernt. Beispielsweise werden aus der Kombination _allowed-types: plain, xml_ die _allowed-mime-types: text/plain, application/xml_.
+#### Resource-Typ Prüfung
+Mit der Kombination aus _interfaces.[interface].__**allowed-resource-types**_ und _data.allowed-resource-types.resource-types.[resource-type].**allowed-resource-types**_ werden die für die Schnittstelle zugelassenen _Resource-Types_ konfiguriert. 
+Dazu wird in jeder Schnittstelle mindestens ein erlaubter _type_ als _allowed-resource-types_ spezifiziert. Der _**allowed-resource-types**_ braucht eine Entsprechung in _data.allowed-resource-types.resource-types.[**resource-type**]_, der wiederum alle erlaubten _type/subtype_ spezifiziert. 
+Im Bsp. findet der Ressource-Typ _interfaces.[interface].allowed-resource-types: **xml**_ die erlaubten Types _data.allowed-resource-types.resource-types.**xml**: application/xml, text/plain_.
+
+Der Resource-Type Check durchläuft zwei Prüfungen. 
+- Prüfung ob der von der Datenquelle gelieferte [HTTP ContentType](https://developer.mozilla.org/de/docs/Web/HTTP/Headers/Content-Type) als _allowed-resource-type_ gelistet ist.
+- Mit [Tika](https://tika.apache.org/) wird der Inhalt der Datei auf seinen Content-Type untersucht und geprüft ob der von Tika ermittelte Type als _allowed-resource-type_ gelistet ist. 
+
+Es lassen sich auch mehrere _allowed-resource-types_ spezifizieren. 
+- Die Resources von _interfaces.[interface].allowed-resource-types_ werden dann in der Reihenfolge der _data.allowed-resource-types.resource-types.[...]_ konkateniert. Im Beispiel unten sind die _allowed-resource-types: csv, plain_ in der Reihenfolge _text/csv, text/plain_ erlaubt. 
+- Doppelte Resource-Types werden entfernt. Beispielsweise werden aus der Kombination _allowed-resource-types: plain, xml_ die _allowed-resource-types: text/plain, application/xml_.
 
 ```yaml
 de.muenchen.mobidam:
   integration:
     interfaces:
       parkRideStaticData:
-        allowed-types: 
+        allowed-data-types: 
           - csv
           - plain
         malicious-code-detection-enabled: true
   ...
-  types:
-    xml:
-      allowed-mime-types: application/xml, text/plain
-    plain:
-      allowed-mime-types: text/plain
-    csv:
-      allowed-mime-types: text/csv
+  data:
+    allowed-resource-types:
+      resource-types:
+        xml:
+          allowed-resource-types: application/xml, text/plain
+        plain:
+          allowed-resource-types: text/plain
+        csv:
+          allowed-resource-types: text/csv
 ```
 
 #### Schadcode Prüfung
-Durch die Kombination aus _allowed-types_ und _types.[allowed-types].allowed-mime-types_ lässt sich die Schadcode Analyse konfigurieren.
+Durch die Kombination aus _allowed-resource-types_ und _data.allowed-resource-types.resource-types.[resource-type].allowed-resource-types_ lässt sich die Schadcode Analyse konfigurieren.
 
-Der erste konfigurierte _allowed-mime-types_ wird dazu verwendet, einen geeigneten Dateiparser bereitzustellen.
+Der erste konfigurierte _allowed-resource-types_ im Format _type/subtype_ wird dazu verwendet, einen geeigneten Dateiparser bereitzustellen.
 Aktuell stehen ein XML (_application/xml_), CSV (_text/csv_) und Default Dateiparser zur Verfügung, die den Dateiinhalt auf Schadcode wie z.Bsp. unerlaubte Binärzeichen, XSS-Code, etc. durchsucht.
 
-Soll mit der Beispielkonfiguration eine XML Datei mit dem XML-Parser auf Schadcode untersucht werden muss der _allowed-types: xml_ als erstes stehen. In der Beispiel Konfiguration würde auch eine XML Datei mit dem [HTTP ContentType](https://developer.mozilla.org/de/docs/Web/HTTP/Headers/Content-Type) text/plain mit dem XML-Parser untersucht werden.
+Soll mit der Beispielkonfiguration eine XML Datei mit dem XML-Parser auf Schadcode untersucht werden muss der _allowed-resource-types: xml_ als erstes stehen. In der Beispiel Konfiguration würde auch eine XML Datei mit dem [HTTP ContentType](https://developer.mozilla.org/de/docs/Web/HTTP/Headers/Content-Type) text/plain mit dem XML-Parser untersucht werden.
 
-_content-review.malicious-content-regex_ : Für die Analyse von CSV Dateien können beliebige viele Regex-Ausdrücke unter einem eindeutigen beschreibenden Bezeichner wie z.Bsp. _excel, script, sql etc._ definiert werden.
+_review-specification.malicious-data-regex_ : Für die Analyse von CSV Dateien können beliebige viele Regex-Ausdrücke unter einem eindeutigen beschreibenden Bezeichner wie z.Bsp. _excel, script, sql etc._ definiert werden.
 Alle Regex-Ausdrücke werden auf jeden Zellinhalt der CSV Datei angewendet. 
 
 ```yaml
 de.muenchen.mobidam:
   ...
-  content-review:
-    malicious-content-regex:
-      excel: [Regex Ausdruck]
-      script: [Regex Ausdruck]
-      sql: [Regex Ausdruck]
+  data:
+    review-specification:
+      malicious-data-regex:
+        excel: [Regex Ausdruck]
+        script: [Regex Ausdruck]
+        sql: [Regex Ausdruck]
   ...
 ```
 
@@ -232,7 +251,7 @@ de.muenchen.mobidam:
         s3-object-path: MDAS/Mobilithek/PR-static/%s-pr-daten.xml
         s3-date-format: yyyyMMdd_HHmmss
         s3-bucket: my-bucket-name
-        allowed-mime-types: 
+        allowed-resource-types: 
           - xml
           - plain
         malicious-code-detection-enabled: true
@@ -244,22 +263,24 @@ de.muenchen.mobidam:
         s3-object-path: MDAS/Mobilithek/PR-dynamic/%s-pr-daten.xml
         s3-date-format: yyyyMMdd_HHmmss
         s3-bucket: my-bucket-name  
-        allowed-mime-types: 
+        allowed-resource-types: 
           - xml
           - plain
         malicious-code-detection-enabled: true
-    types:
-      xml:
-        allowed-mime-types: application/xml, text/plain
-      plain:
-        allowed-mime-types: text/plain
-      csv:
-        allowed-mime-types: text/csv
-    content-review:
-      malicious-content-regex:
-        excel: ^[=]\w*
-        script: .*\.(exe)
-        sql: drop\s.*
+    data:
+      allowed-resource-types:
+        resource-types:
+          xml:
+            allowed-resource-types: application/xml, text/plain
+          plain:
+            allowed-resource-types: text/plain
+          csv:
+            allowed-resource-types: text/csv
+      review-specification:
+        malicious-data-regex:
+          excel: ^[=]\w*
+          script: .*\.(exe)
+          sql: drop\s.*
   eai:
     cacerts-file: 'file:/mnt/cacerts'
     cacerts-password: my-password

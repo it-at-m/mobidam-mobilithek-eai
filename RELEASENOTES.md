@@ -1,5 +1,5 @@
 # Release-Notes
-## Sprint 21 (03.12.2024 - 17.12.2024)
+## Sprint 23 (14.01.2025 - 04.02.2025)
 ## Hinzugefügt
 - Technische Anbindung Ladesaeulen.
 

@@ -23,9 +23,9 @@
 package de.muenchen.mobidam.security;
 
 import de.muenchen.mobidam.Constants;
-import de.muenchen.mobidam.config.ContentType;
-import de.muenchen.mobidam.config.MaliciousContentRegex;
-import de.muenchen.mobidam.config.Types;
+import de.muenchen.mobidam.config.ResourceType;
+import de.muenchen.mobidam.config.MaliciousDataRegex;
+import de.muenchen.mobidam.config.ResourceTypes;
 import de.muenchen.mobidam.exception.MobidamSecurityException;
 import de.muenchen.mobidam.mobilithek.InterfaceDTO;
 import java.io.File;
@@ -52,8 +52,8 @@ public class CodeDetectionProcessorTest {
     @BeforeEach
     public void init() {
 
-        MaliciousContentRegex maliciousPatterns = new MaliciousContentRegex();
-        maliciousPatterns.setMaliciousContentRegex(Map.of(
+        MaliciousDataRegex maliciousPatterns = new MaliciousDataRegex();
+        maliciousPatterns.setMaliciousDataRegex(Map.of(
                 "excel", "^[=]\\w*",
                 "script", ".*\\.(exe)",
                 "sql", "drop\\s.*",
@@ -62,11 +62,11 @@ public class CodeDetectionProcessorTest {
         CodeDetectorFactory factory = new CodeDetectorFactory(new MaliciousXmlCodeDetector(), new DefaultMaliciousCodeDetector(),
                 new MaliciousCSVCodeDetector(maliciousPatterns));
         factory.init();
-        Types types = new Types();
-        types.setTypes(Map.of("xml", new ContentType(List.of("application/xml", "text/plain")),
-                "csv", new ContentType(List.of("text/csv")),
-                "plain", new ContentType(List.of("text/plain"))));
-        processor = new CodeDetectionProcessor(factory, types);
+        ResourceTypes resourceTypes = new ResourceTypes();
+        resourceTypes.setResourceTypes(Map.of("xml", new ResourceType(List.of("application/xml", "text/plain")),
+                "csv", new ResourceType(List.of("text/csv")),
+                "plain", new ResourceType(List.of("text/plain"))));
+        processor = new CodeDetectionProcessor(factory, resourceTypes);
     }
 
     @Test
@@ -89,7 +89,7 @@ public class CodeDetectionProcessorTest {
 
     @Test
     public void testProcessWithValidCSVTestData() throws Exception {
-        Exchange exchange = createExchange(List.of(MimeTypeChecker.TEXT_CSV_TYPE.getSubtype()));
+        Exchange exchange = createExchange(List.of(ResourceTypeChecker.TEXT_CSV_TYPE.getSubtype()));
         FileInputStreamCache stream = new FileInputStreamCache(new File("src/test/resources/testdata/ladesaulen-example.csv"));
         exchange.getIn().setBody(stream);
         processor.process(exchange);
@@ -103,7 +103,7 @@ public class CodeDetectionProcessorTest {
 
     @Test
     public void testProcessCsvWithExtensionExe() throws Exception {
-        Exchange exchange = createExchange(List.of(MimeTypeChecker.TEXT_CSV_TYPE.getSubtype()));
+        Exchange exchange = createExchange(List.of(ResourceTypeChecker.TEXT_CSV_TYPE.getSubtype()));
         assertInvalid("/testdata/ladesaulen-invalid-script-example.csv", exchange);
     }
 
@@ -127,19 +127,19 @@ public class CodeDetectionProcessorTest {
 
     @Test
     public void testProcessCsvWithSQL() throws Exception {
-        Exchange exchange = createExchange(List.of(MimeTypeChecker.TEXT_CSV_TYPE.getSubtype()));
+        Exchange exchange = createExchange(List.of(ResourceTypeChecker.TEXT_CSV_TYPE.getSubtype()));
         assertInvalid("/testdata/ladesaulen-invalid-sql-example.csv", exchange);
     }
 
     @Test
     public void testProcessCsvWithXssScript() throws Exception {
-        Exchange exchange = createExchange(List.of(MimeTypeChecker.TEXT_CSV_TYPE.getSubtype()));
+        Exchange exchange = createExchange(List.of(ResourceTypeChecker.TEXT_CSV_TYPE.getSubtype()));
         assertInvalid("/testdata/ladesaulen-invalid-xss-example.csv", exchange);
     }
 
     @Test
     public void testProcessCsvWithExe() throws Exception {
-        Exchange exchange = createExchange(List.of(MimeTypeChecker.TEXT_CSV_TYPE.getSubtype()));
+        Exchange exchange = createExchange(List.of(ResourceTypeChecker.TEXT_CSV_TYPE.getSubtype()));
         assertInvalid("/testdata/ladesaulen-invalid-script-example.csv", exchange);
     }
 
@@ -147,7 +147,7 @@ public class CodeDetectionProcessorTest {
         Exchange exchange = new DefaultExchange(new DefaultCamelContext());
         InterfaceDTO interfaceDTO = new InterfaceDTO();
         interfaceDTO.setMaliciousCodeDetectionEnabled(true);
-        interfaceDTO.setAllowedTypes(allowedTypes);
+        interfaceDTO.setAllowedResourceTypes(allowedTypes);
         exchange.getIn().setHeader(Constants.INTERFACE_TYPE, interfaceDTO);
         exchange.getIn().setHeader(TextAndCSVParser.DELIMITER_PROPERTY.getName(), "semicolon");
         return exchange;

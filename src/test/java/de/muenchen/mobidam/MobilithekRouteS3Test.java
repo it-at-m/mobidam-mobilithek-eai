@@ -23,14 +23,14 @@
 package de.muenchen.mobidam;
 
 import de.muenchen.mobidam.config.Interfaces;
-import de.muenchen.mobidam.config.Types;
+import de.muenchen.mobidam.config.ResourceTypes;
 import de.muenchen.mobidam.eai.common.CommonConstants;
 import de.muenchen.mobidam.eai.common.config.EnvironmentReader;
 import de.muenchen.mobidam.exception.MobidamSecurityException;
 import de.muenchen.mobidam.integration.client.domain.DatentransferCreateDTO;
 import de.muenchen.mobidam.integration.service.SstManagementIntegrationService;
 import de.muenchen.mobidam.mobilithek.MobilithekEaiRouteBuilder;
-import de.muenchen.mobidam.security.MimeTypeProcessor;
+import de.muenchen.mobidam.security.ResourceTypeProcessor;
 import de.muenchen.mobidam.sstmanagment.EreignisTyp;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -88,10 +88,10 @@ class MobilithekRouteS3Test {
     private SstManagementIntegrationService sstService;
 
     @MockBean
-    private MimeTypeProcessor mimeTypeProcessor;
+    private ResourceTypeProcessor resourceTypeProcessor;
 
     @MockBean
-    private Types types;
+    private ResourceTypes resourceTypes;
 
     @Captor
     private ArgumentCaptor<DatentransferCreateDTO> datentransferCaptor;
@@ -114,7 +114,7 @@ class MobilithekRouteS3Test {
 
         Mockito.when(sstService.isActivated("999fcf2d-25bb-4fa9-85ff-f7ed12349999")).thenReturn(true);
         Mockito.when(environmentReader.getEnvironmentVariable(Mockito.any())).thenReturn("foo");
-        Mockito.when(types.getContentMimeTypes(Mockito.any())).thenReturn(List.of("application/xml", "text/plain"));
+        Mockito.when(resourceTypes.getResourceTypes(Mockito.any())).thenReturn(List.of("application/xml", "text/plain"));
 
         mobilithekInfo.whenAnyExchangeReceived(new MobilithekInfoMock());
         s3Destination.expectedMessageCount(1);
@@ -208,7 +208,7 @@ class MobilithekRouteS3Test {
 
         Mockito.when(sstService.isActivated("999fcf2d-25bb-4fa9-85ff-f7ed12349999")).thenReturn(true);
 
-        Mockito.doThrow(new MobidamSecurityException("danger!")).when(mimeTypeProcessor).process(isA(Exchange.class));
+        Mockito.doThrow(new MobidamSecurityException("danger!")).when(resourceTypeProcessor).process(isA(Exchange.class));
 
         startMobilithekInfoRequest.send(mobilithekRequest);
 

@@ -22,16 +22,33 @@
  */
 package de.muenchen.mobidam.config;
 
-import java.util.List;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.util.*;
+import java.util.regex.Pattern;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
-public class ContentType {
+import javax.annotation.PostConstruct;
 
-    private List<String> allowedMimeTypes;
+@Component
+@ConfigurationProperties(prefix = "de.muenchen.mobidam.data.review-specification")
+@Getter
+@Setter
+public class MaliciousDataRegex {
 
+    private Map<String, String> maliciousDataRegex;
+    private Map<String, Pattern> maliciousDataPatterns;
+
+    @PostConstruct
+    public Map<String, Pattern> getMaliciousDataPatterns() {
+
+        if (maliciousDataRegex != null && maliciousDataPatterns == null) {
+            maliciousDataPatterns = new HashMap<>();
+            for (Map.Entry<String, String> entry : maliciousDataRegex.entrySet()) {
+                maliciousDataPatterns.put(entry.getKey(), Pattern.compile(entry.getValue()));
+            }
+        }
+        return maliciousDataPatterns;
+    }
 }

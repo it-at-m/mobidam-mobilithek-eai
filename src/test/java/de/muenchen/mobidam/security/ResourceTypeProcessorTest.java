@@ -23,8 +23,8 @@
 package de.muenchen.mobidam.security;
 
 import de.muenchen.mobidam.Constants;
-import de.muenchen.mobidam.config.ContentType;
-import de.muenchen.mobidam.config.Types;
+import de.muenchen.mobidam.config.ResourceType;
+import de.muenchen.mobidam.config.ResourceTypes;
 import de.muenchen.mobidam.exception.MobidamSecurityException;
 import de.muenchen.mobidam.mobilithek.InterfaceDTO;
 import java.io.File;
@@ -44,7 +44,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 
 @DirtiesContext
-public class MimeTypeProcessorTest {
+public class ResourceTypeProcessorTest {
 
     private static final String TEXT_CONTENT = "test content with plain text";
     private static final String XML_CONTENT = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><root>test content</root>";
@@ -78,8 +78,8 @@ public class MimeTypeProcessorTest {
 
     @Test
     public void testCheckWithValidCSV() throws Exception {
-        Exchange exchange = createExchange(List.of(MimeTypeChecker.TEXT_CSV_TYPE.getSubtype()));
-        exchange.getIn().setHeader(HttpHeaders.CONTENT_TYPE, MimeTypeChecker.TEXT_CSV_TYPE.toString());
+        Exchange exchange = createExchange(List.of(ResourceTypeChecker.TEXT_CSV_TYPE.getSubtype()));
+        exchange.getIn().setHeader(HttpHeaders.CONTENT_TYPE, ResourceTypeChecker.TEXT_CSV_TYPE.toString());
         FileInputStreamCache stream = new FileInputStreamCache(new File("src/test/resources/testdata/ladesaulen-example.csv"));
         exchange.getIn().setBody(stream);
         createProcessor().process(exchange);
@@ -87,8 +87,8 @@ public class MimeTypeProcessorTest {
 
     @Test
     public void testCheckWithValidHeaderOnlyCSV() {
-        Exchange exchange = createExchange(List.of(MimeTypeChecker.TEXT_CSV_TYPE.getSubtype(), MediaType.TEXT_PLAIN.getSubtype()));
-        exchange.getIn().setHeader(HttpHeaders.CONTENT_TYPE, MimeTypeChecker.TEXT_CSV_TYPE.toString());
+        Exchange exchange = createExchange(List.of(ResourceTypeChecker.TEXT_CSV_TYPE.getSubtype(), MediaType.TEXT_PLAIN.getSubtype()));
+        exchange.getIn().setHeader(HttpHeaders.CONTENT_TYPE, ResourceTypeChecker.TEXT_CSV_TYPE.toString());
         FileInputStreamCache stream = new FileInputStreamCache(new File("src/test/resources/testdata/ladesaulen-header-example.csv"));
         exchange.getIn().setBody(stream);
         Assertions.assertThrows(MobidamSecurityException.class, () -> createProcessor().process(exchange));
@@ -96,8 +96,8 @@ public class MimeTypeProcessorTest {
 
     @Test
     public void testCheckWithInValidCSV() {
-        Exchange exchange = createExchange(List.of(MimeTypeChecker.TEXT_CSV_TYPE.getSubtype()));
-        exchange.getIn().setHeader(HttpHeaders.CONTENT_TYPE, MimeTypeChecker.TEXT_CSV_TYPE.toString());
+        Exchange exchange = createExchange(List.of(ResourceTypeChecker.TEXT_CSV_TYPE.getSubtype()));
+        exchange.getIn().setHeader(HttpHeaders.CONTENT_TYPE, ResourceTypeChecker.TEXT_CSV_TYPE.toString());
         FileInputStreamCache stream = new FileInputStreamCache(new File("src/test/resources/testdata/ladesaulen-header-invalid-delimiter-example.csv"));
         exchange.getIn().setBody(stream);
         Assertions.assertThrows(MobidamSecurityException.class, () -> createProcessor().process(exchange));
@@ -123,17 +123,17 @@ public class MimeTypeProcessorTest {
         Exchange exchange = new DefaultExchange(new DefaultCamelContext());
         InterfaceDTO interfaceDTO = new InterfaceDTO();
         interfaceDTO.setMaliciousCodeDetectionEnabled(true);
-        interfaceDTO.setAllowedTypes(expectedTypes);
+        interfaceDTO.setAllowedResourceTypes(expectedTypes);
         exchange.getIn().setHeader(Constants.INTERFACE_TYPE, interfaceDTO);
         return exchange;
     }
 
-    private MimeTypeProcessor createProcessor() {
-        Types types = new Types();
-        types.setTypes(Map.of("xml", new ContentType(List.of("application/xml", "text/plain")),
-                "csv", new ContentType(List.of("text/csv")),
-                "plain", new ContentType(List.of("text/plain"))));
-        return new MimeTypeProcessor(new MimeTypeChecker(), types);
+    private ResourceTypeProcessor createProcessor() {
+        ResourceTypes resourceTypes = new ResourceTypes();
+        resourceTypes.setResourceTypes(Map.of("xml", new ResourceType(List.of("application/xml", "text/plain")),
+                "csv", new ResourceType(List.of("text/csv")),
+                "plain", new ResourceType(List.of("text/plain"))));
+        return new ResourceTypeProcessor(new ResourceTypeChecker(), resourceTypes);
     }
 
 }

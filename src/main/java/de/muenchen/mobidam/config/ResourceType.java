@@ -22,32 +22,16 @@
  */
 package de.muenchen.mobidam.config;
 
-import de.muenchen.mobidam.exception.MobidamException;
 import java.util.List;
-import java.util.Map;
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Component
-@ConfigurationProperties(prefix = "de.muenchen.mobidam")
-@Getter
-@Setter
-public class Types {
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+public class ResourceType {
 
-    private Map<String, ContentType> types;
+    private List<String> allowedResourceTypes;
 
-    public List<String> getContentMimeTypes(List<String> expectedTypes) throws MobidamException {
-
-        if (getTypes() == null) {
-            throw new MobidamException("Invalid configuration of types.");
-        }
-
-        if (expectedTypes.isEmpty() || getTypes().isEmpty())
-            return List.of();
-
-        return expectedTypes.stream().flatMap(type -> getTypes().entrySet().stream().filter(entrySet -> entrySet.getKey().equals(type)))
-                .flatMap(entrySet -> entrySet.getValue().getAllowedMimeTypes().stream()).distinct().toList();
-    }
 }
