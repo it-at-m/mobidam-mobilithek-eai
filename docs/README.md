@@ -174,13 +174,13 @@ Der Mime-Type wird in RFCs auch gerne durch die Bezeichnung Media-Type ersetzt. 
 Ist kein optionaler Charset Parameter angegeben ist von einem Standard UTF-8 Charset auszugehen.
 
 Die Resource-Typen werden verwendet das von den Datenquellen erhaltenen Datenformat zu Prüfen und auf Schadcode zu untersuchen. 
-Die Inhalte _interfaces.[interface].__**allowed-resource-types**_ und _data.allowed-resource-types.resource-types.[resource-type]_ 
+Die Inhalte _interfaces.[interface].**allowed-resource-types**_ und _data.allowed-resource-types.resource-types.**[resource-type]**_ 
 sind frei wählbar während die Inhalte in _data.allowed-resource-types.resource-types.[resource-type].**allowed-resource-types**_ sich 
 an die gängigen Konventionen halten müssen.
-In ihrer Kombination lassen für beliebige _type/subtype_-Kombinationen eigene Schadcode-Parser konfigurieren.
+In ihrer Kombination lassen sich mit den _type/subtype_-Kombinationen eigene Schadcode-Parser konfigurieren.
 
 #### Resource-Typ Prüfung
-Mit der Kombination aus _interfaces.[interface].__**allowed-resource-types**_ und _data.allowed-resource-types.resource-types.[resource-type].**allowed-resource-types**_ werden die für die Schnittstelle zugelassenen _Resource-Types_ konfiguriert. 
+Mit der Kombination aus _interfaces.[interface].**allowed-resource-types**_ und _data.allowed-resource-types.resource-types.[resource-type].**allowed-resource-types**_ werden die für die Schnittstelle zugelassenen _Resource-Types_ konfiguriert. 
 Dazu wird in jeder Schnittstelle mindestens ein erlaubter _type_ als _allowed-resource-types_ spezifiziert. Der _**allowed-resource-types**_ braucht eine Entsprechung in _data.allowed-resource-types.resource-types.[**resource-type**]_, der wiederum alle erlaubten _type/subtype_ spezifiziert. 
 Im Bsp. findet der Ressource-Typ _interfaces.[interface].allowed-resource-types: **xml**_ die erlaubten Types _data.allowed-resource-types.resource-types.**xml**: application/xml, text/plain_.
 
