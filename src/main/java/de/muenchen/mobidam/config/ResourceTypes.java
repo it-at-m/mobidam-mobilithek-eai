@@ -31,7 +31,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties(prefix = "de.muenchen.mobidam.data.allowed-resource-types")
+@ConfigurationProperties(prefix = "de.muenchen.mobidam.data.defined-resource-types")
 @Getter
 @Setter
 public class ResourceTypes {

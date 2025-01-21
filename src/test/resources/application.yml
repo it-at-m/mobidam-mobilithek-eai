@@ -37,7 +37,7 @@ de.muenchen.mobidam:
           - plain
         malicious-code-detection-enabled: true
   data:
-    allowed-resource-types:
+    defined-resource-types:
       resource-types:
         xml:
           allowed-mime-types: application/xml, text/plain
