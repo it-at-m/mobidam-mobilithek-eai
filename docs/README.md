@@ -158,15 +158,15 @@ de.muenchen.mobidam:
     allowed-resource-types:
       resource-types:
         xml:
-          allowed-resource-types: application/xml, text/plain
+          allowed-mime-types: application/xml, text/plain
         plain:
-          allowed-resource-types: text/plain
+          allowed-mime-types: text/plain
         csv:
-          allowed-resource-types: text/csv
+          allowed-mime-types: text/csv
 ```
 #### Begriffsklärung 'Resource-Typ'
 Der Begriff _**Resource-Typ**_ wird benutzt um sich von den Begriffen _MimeType_ und _ContentType_ abzugrenzen und keine 
-Irritationen bei den Inhalten der Resource-Typen Bezeichner entstehen, die sowohl 'type' und 'type/subtype' Kombinatinen ohne zusätzlichen Parameter enthalten können. 
+Irritationen bei den Inhalten der Resource-Typen Bezeichner entstehen. 
 
 * _Mime-Type / Media-Type_:  Mime-Type kommt ursprünglich aus der EMail Welt um von ASCII abweichende Dateninhalte zu unterstützen.
 Der Mime-Type wird in RFCs auch gerne durch die Bezeichnung Media-Type ersetzt. Er hat ein Multipart Format : type/subtype z. Bsp. text/plain, image/jpg.
@@ -175,14 +175,14 @@ Ist kein optionaler Charset Parameter angegeben ist von einem Standard UTF-8 Cha
 
 Die Resource-Typen werden verwendet das von den Datenquellen erhaltenen Datenformat zu Prüfen und auf Schadcode zu untersuchen. 
 Die Inhalte _interfaces.[interface].**allowed-resource-types**_ und _data.allowed-resource-types.resource-types.**[resource-type]**_ 
-sind frei wählbar während die Inhalte in _data.allowed-resource-types.resource-types.[resource-type].**allowed-resource-types**_ sich 
+sind frei wählbar während die Inhalte in _data.allowed-resource-types.resource-types.[resource-type].**allowed-mime-types**_ sich 
 an die gängigen Konventionen halten müssen.
 In ihrer Kombination lassen sich mit den _type/subtype_-Kombinationen eigene Schadcode-Parser konfigurieren.
 
 #### Resource-Typ Prüfung
-Mit der Kombination aus _interfaces.[interface].**allowed-resource-types**_ und _data.allowed-resource-types.resource-types.[resource-type].**allowed-resource-types**_ werden die für die Schnittstelle zugelassenen _Resource-Types_ konfiguriert. 
+Mit der Kombination aus _interfaces.[interface].**allowed-resource-types**_ und _data.allowed-resource-types.resource-types.[resource-type].**allowed-mime-types**_ werden die für die Schnittstelle zugelassenen _Resource-Types_ konfiguriert. 
 Dazu wird in jeder Schnittstelle mindestens ein erlaubter _type_ als _allowed-resource-types_ spezifiziert. Der _**allowed-resource-types**_ braucht eine Entsprechung in _data.allowed-resource-types.resource-types.[**resource-type**]_, der wiederum alle erlaubten _type/subtype_ spezifiziert. 
-Im Bsp. findet der Ressource-Typ _interfaces.[interface].allowed-resource-types: **xml**_ die erlaubten Types _data.allowed-resource-types.resource-types.**xml**: application/xml, text/plain_.
+Im Bsp. findet der Ressource-Typ _interfaces.[interface].allowed-resource-types: **xml**_ die erlaubten Mime-Types _data.allowed-resource-types.resource-types.**xml**: application/xml, text/plain_.
 
 Der Resource-Type Check durchläuft zwei Prüfungen. 
 - Prüfung ob der von der Datenquelle gelieferte [HTTP ContentType](https://developer.mozilla.org/de/docs/Web/HTTP/Headers/Content-Type) als _allowed-resource-type_ gelistet ist.
@@ -190,7 +190,7 @@ Der Resource-Type Check durchläuft zwei Prüfungen.
 
 Es lassen sich auch mehrere _allowed-resource-types_ spezifizieren. 
 - Die Resources von _interfaces.[interface].allowed-resource-types_ werden dann in der Reihenfolge der _data.allowed-resource-types.resource-types.[...]_ konkateniert. Im Beispiel unten sind die _allowed-resource-types: csv, plain_ in der Reihenfolge _text/csv, text/plain_ erlaubt. 
-- Doppelte Resource-Types werden entfernt. Beispielsweise werden aus der Kombination _allowed-resource-types: plain, xml_ die _allowed-resource-types: text/plain, application/xml_.
+- Doppelte Resource-Types werden entfernt. Beispielsweise werden aus der Kombination _allowed-resource-types: plain, xml_ die _allowed-mime-types: text/plain, application/xml_.
 
 ```yaml
 de.muenchen.mobidam:
@@ -206,11 +206,11 @@ de.muenchen.mobidam:
     allowed-resource-types:
       resource-types:
         xml:
-          allowed-resource-types: application/xml, text/plain
+          allowed-mime-types: application/xml, text/plain
         plain:
-          allowed-resource-types: text/plain
+          allowed-mime-types: text/plain
         csv:
-          allowed-resource-types: text/csv
+          allowed-mime-types: text/csv
 ```
 
 #### Schadcode Prüfung
@@ -271,11 +271,11 @@ de.muenchen.mobidam:
       allowed-resource-types:
         resource-types:
           xml:
-            allowed-resource-types: application/xml, text/plain
+            allowed-mime-types: application/xml, text/plain
           plain:
-            allowed-resource-types: text/plain
+            allowed-mime-types: text/plain
           csv:
-            allowed-resource-types: text/csv
+            allowed-mime-types: text/csv
       review-specification:
         malicious-data-regex:
           excel: ^[=]\w*

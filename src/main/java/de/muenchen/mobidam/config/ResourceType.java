@@ -32,6 +32,6 @@ import lombok.NoArgsConstructor;
 @Data
 public class ResourceType {
 
-    private List<String> allowedResourceTypes;
+    private List<String> allowedMimeTypes;
 
 }

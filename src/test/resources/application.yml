@@ -40,9 +40,9 @@ de.muenchen.mobidam:
     allowed-resource-types:
       resource-types:
         xml:
-          allowed-resource-types: application/xml, text/plain
+          allowed-mime-types: application/xml, text/plain
         csv:
-          allowed-resource-types: text/csv, text/plain
+          allowed-mime-types: text/csv, text/plain
   common:
     s3:
       bucket-credential-configs:

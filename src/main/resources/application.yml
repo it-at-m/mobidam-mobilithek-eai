@@ -83,9 +83,9 @@ de.muenchen.mobidam:
     allowed-resource-types:
       resource-types:
         xml:
-          allowed-resource-types:
+          allowed-mime-types:
         csv:
-          allowed-resource-types:
+          allowed-mime-types:
   eai:
     cacerts-file: ...
     cacerts-password: ...

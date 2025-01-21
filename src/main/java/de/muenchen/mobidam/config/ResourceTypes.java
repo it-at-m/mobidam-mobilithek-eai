@@ -48,6 +48,6 @@ public class ResourceTypes {
             return List.of();
 
         return expectedTypes.stream().flatMap(type -> getResourceTypes().entrySet().stream().filter(entrySet -> entrySet.getKey().equals(type)))
-                .flatMap(entrySet -> entrySet.getValue().getAllowedResourceTypes().stream()).distinct().toList();
+                .flatMap(entrySet -> entrySet.getValue().getAllowedMimeTypes().stream()).distinct().toList();
     }
 }
