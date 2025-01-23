@@ -74,8 +74,18 @@ de.muenchen.mobidam:
         s3-object-path:
         s3-date-format:
         s3-bucket:
-        allowed-mime-types:
+        allowed-resource-types:
         malicious-code-detection-enabled:
+  data:
+    review-specification:
+      malicious-data-regex:
+        key:
+    defined-resource-types:
+      resource-types:
+        xml:
+          allowed-mime-types:
+        csv:
+          allowed-mime-types:
   eai:
     cacerts-file: ...
     cacerts-password: ...

@@ -25,7 +25,7 @@ Der Bezeichner _interfaces-1_ ist frei wählbar und dient der Identifizierung de
 
 Um aus der mobidam-mobilithek-eai eine Schnittstelle im Mobidam-SST-Management ansprechen zu können muss deren individuelle _mobidam-sst-id_ bekannt sein.
 
-```
+```yaml
 de.muenchen.mobidam:
   integration:
     baseUrl: ...
@@ -41,7 +41,7 @@ de.muenchen.mobidam:
 Für den erfolgreichen Mobidam-SST-Management Zugriff muss eine valide OAuth2 Authenthifizierung eingerichtet sein.
 Die Angaben sind für eine erfolgreiche Initialisierung der [Integrationskomponente](https://github.com/it-at-m/mobidam-sst-management/tree/sprint/mobidam-sst-management-integration) erforderlich.
 
-```
+```yaml
 spring:
   ...
   security:
@@ -63,7 +63,7 @@ spring:
 
 Jede Mobilithek Schnittstelle hat eine individuelle _mobilithek-url_.
 
-```
+```yaml
 de.muenchen.mobidam:
   integration:
     ...
@@ -79,7 +79,7 @@ Das Zertifikat muss zusammen mit den anderen LHM Zertifikaten, z.Bsp. für den Z
 In der CAP wird dazu in der Pipeline eine entsprechende Datei erstellt deren Ablageort und ihr Passwort in den nachfolgenden Attributen angegeben werden muss.
 
 Kubernetes/Openshift Secret:
-```
+```yaml
 de.muenchen.mobidam:
   ..
   eai:
@@ -107,8 +107,7 @@ Der _s3-bucket_ Name aus der Mobidam Schnittstelle muss zu den Angaben in der _b
 
 
 
-```
-
+```yaml
 de.muenchen.mobidam:
   integration:
     ...
@@ -124,7 +123,6 @@ de.muenchen.mobidam:
         s3-bucket-1:
           access-key-env-var: ...
           secret-key-env-var: ...
-
 ```
 
 
@@ -133,7 +131,7 @@ de.muenchen.mobidam:
 ### Cronjob
 Last but not least muss der Cronjob pro Schnittstelle auch noch ausgelöst werden:
 
-```
+```yaml
 de.muenchen.mobidam:
   integration:
     ...
@@ -147,26 +145,100 @@ de.muenchen.mobidam:
 
 
 ### Schadcode-Erkennung
-Mit der folgenden Konfiguration läßt sich die Schadcode-Erkennung einschalten:
+Mit der Konfiguration _malicious-code-detection-enabled_ läßt sich die Schadcode-Erkennung einschalten:
 ```yaml
 de.muenchen.mobidam:
   integration:
     interfaces:
       parkRideStaticData:
-        allowed-mime-types: 
-        - application/xml
-        - text/plain
+        allowed-resource-types: xml
         malicious-code-detection-enabled: true
+  ...
+  data:
+    defined-resource-types:
+      resource-types:
+        xml:
+          allowed-mime-types: application/xml, text/plain
+        plain:
+          allowed-mime-types: text/plain
+        csv:
+          allowed-mime-types: text/csv
 ```
-Anhand des gelieferten Dateiinhalts wird der Mimetype ermittelt und gegen die Liste der erlaubten Typen geprüft. 
-Der erste konfigurierte Mimetype wird dazu verwendet, einen geeigneten Dateiparser bereitzustellen, 
-der den Inhalt der Datei auf unerlaubte Binärzeichen oder XSS-Code durchsucht. 
+#### Begriffsklärung 'Resource-Typ'
+Der Begriff _**Resource-Typ**_ wird benutzt um sich von den Begriffen _MimeType_ und _ContentType_ abzugrenzen und keine 
+Irritationen bei den Inhalten der Resource-Typen Bezeichner entstehen. 
 
+* _Mime-Type / Media-Type_:  Mime-Type kommt ursprünglich aus der EMail Welt um von ASCII abweichende Dateninhalte zu unterstützen.
+Der Mime-Type wird in RFCs auch gerne durch die Bezeichnung Media-Type ersetzt. Er hat ein Multipart Format : type/subtype z. Bsp. text/plain, image/jpg.
+* _Content-Type_: Content-Type ist ein HTTP-Header. Er gibt den Media-Type an und kann eine Erweiterung enthalten. Er hat ein Multipart Format mit optionalen Parameter : type/subtype; parameter=value z.Bsp. text/html; charset=UTF-8 oder auch nur application/json.
+Ist kein optionaler Charset Parameter angegeben ist von einem Standard UTF-8 Charset auszugehen.
 
+Die Resource-Typen werden verwendet das von den Datenquellen erhaltenen Datenformat zu Prüfen und auf Schadcode zu untersuchen. 
+Die Inhalte _interfaces.[interface].**allowed-resource-types**_ und _data.defined-resource-types.resource-types.**[resource-type]**_ 
+sind frei wählbar während die Inhalte in _data.defined-resource-types.resource-types.[resource-type].**allowed-mime-types**_ sich 
+an die gängigen Konventionen halten müssen.
+In ihrer Kombination lassen sich mit den _type/subtype_-Kombinationen eigene Schadcode-Parser konfigurieren.
+
+#### Resource-Typ Prüfung
+Mit der Kombination aus _interfaces.[interface].**allowed-resource-types**_ und _data.defined-resource-types.resource-types.[resource-type].**allowed-mime-types**_ werden die für die Schnittstelle zugelassenen _Resource-Types_ konfiguriert. 
+Dazu wird in jeder Schnittstelle mindestens ein erlaubter _type_ als _allowed-resource-types_ spezifiziert. Der _**allowed-resource-types**_ braucht eine Entsprechung in _data.defined-resource-types.resource-types.[**resource-type**]_, der wiederum alle erlaubten _type/subtype_ spezifiziert. 
+Im Bsp. findet der Ressource-Typ _interfaces.[interface].allowed-resource-types: **xml**_ die definierten Mime-Types _data.defined-resource-types.resource-types.**xml**: application/xml, text/plain_.
+
+Der Resource-Type Check durchläuft zwei Prüfungen. 
+- Prüfung ob der von der Datenquelle gelieferte [HTTP ContentType](https://developer.mozilla.org/de/docs/Web/HTTP/Headers/Content-Type) als _defined-resource-type_ gelistet ist.
+- Mit [Tika](https://tika.apache.org/) wird der Inhalt der Datei auf seinen Content-Type untersucht und geprüft ob der von Tika ermittelte Type als _defined-resource-type_ gelistet ist. 
+
+Es lassen sich auch mehrere _allowed-resource-types_ spezifizieren. 
+- Die Resources von _interfaces.[interface].allowed-resource-types_ werden dann in der Reihenfolge der _data.defined-resource-types.resource-types.[...]_ konkateniert. Im Beispiel unten sind die _allowed-resource-types: csv, plain_ in der Reihenfolge _text/csv, text/plain_ erlaubt. 
+- Doppelte Resource-Types werden entfernt. Beispielsweise werden aus der Kombination _allowed-resource-types: plain, xml_ die _allowed-mime-types: text/plain, application/xml_.
+
+```yaml
+de.muenchen.mobidam:
+  integration:
+    interfaces:
+      parkRideStaticData:
+        allowed-data-types: 
+          - csv
+          - plain
+        malicious-code-detection-enabled: true
+  ...
+  data:
+    defined-resource-types:
+      resource-types:
+        xml:
+          allowed-mime-types: application/xml, text/plain
+        plain:
+          allowed-mime-types: text/plain
+        csv:
+          allowed-mime-types: text/csv
+```
+
+#### Schadcode Prüfung
+Durch die Kombination aus _allowed-resource-types_ und _data.defined-resource-types.resource-types.[resource-type].allowed-mime-types_ lässt sich die Schadcode Analyse konfigurieren.
+
+Der erste konfigurierte _allowed-mime-types_ im Format _type/subtype_ wird dazu verwendet, einen geeigneten Dateiparser bereitzustellen.
+Aktuell stehen ein XML (_application/xml_), CSV (_text/csv_) und Default Dateiparser zur Verfügung, die den Dateiinhalt auf Schadcode wie z.Bsp. unerlaubte Binärzeichen, XSS-Code, etc. durchsucht.
+
+Soll mit der Beispielkonfiguration eine XML Datei mit dem XML-Parser auf Schadcode untersucht werden muss der _allowed-resource-types: xml_ als erstes stehen. In der Beispiel Konfiguration würde auch eine XML Datei mit dem [HTTP ContentType](https://developer.mozilla.org/de/docs/Web/HTTP/Headers/Content-Type) text/plain mit dem XML-Parser untersucht werden.
+
+_review-specification.malicious-data-regex_ : Für die Analyse von CSV Dateien können beliebige viele Regex-Ausdrücke unter einem eindeutigen beschreibenden Bezeichner wie z.Bsp. _excel, script, sql etc._ definiert werden.
+Alle Regex-Ausdrücke werden auf jeden Zellinhalt der CSV Datei angewendet. 
+
+```yaml
+de.muenchen.mobidam:
+  ...
+  data:
+    review-specification:
+      malicious-data-regex:
+        excel: [Regex Ausdruck]
+        script: [Regex Ausdruck]
+        sql: [Regex Ausdruck]
+  ...
+```
 
 ### Beispielkonfiguration:
 
-```
+```yaml
 de.muenchen.mobidam:
   integration:
     baseUrl: https://mobidam-sst-management...
@@ -179,9 +251,9 @@ de.muenchen.mobidam:
         s3-object-path: MDAS/Mobilithek/PR-static/%s-pr-daten.xml
         s3-date-format: yyyyMMdd_HHmmss
         s3-bucket: my-bucket-name
-        allowed-mime-types: 
-          - application/xml
-          - text/plain
+        allowed-resource-types: 
+          - xml
+          - plain
         malicious-code-detection-enabled: true
       parkRideDynamicData:
         mobidam-sst-id: 888fcf2d-25bb-4fa9-85ff-f7ed12348888
@@ -191,10 +263,24 @@ de.muenchen.mobidam:
         s3-object-path: MDAS/Mobilithek/PR-dynamic/%s-pr-daten.xml
         s3-date-format: yyyyMMdd_HHmmss
         s3-bucket: my-bucket-name  
-        allowed-mime-types: 
-          - application/xml
-          - text/plain
+        allowed-resource-types: 
+          - xml
+          - plain
         malicious-code-detection-enabled: true
+    data:
+      defined-resource-types:
+        resource-types:
+          xml:
+            allowed-mime-types: application/xml, text/plain
+          plain:
+            allowed-mime-types: text/plain
+          csv:
+            allowed-mime-types: text/csv
+      review-specification:
+        malicious-data-regex:
+          excel: ^[=]\w*
+          script: .*\.(exe)
+          sql: drop\s.*
   eai:
     cacerts-file: 'file:/mnt/cacerts'
     cacerts-password: my-password

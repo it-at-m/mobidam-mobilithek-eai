@@ -35,12 +35,14 @@ public class CodeDetectorFactory {
 
     private final MaliciousXmlCodeDetector maliciousXmlCodeDetector;
     private final DefaultMaliciousCodeDetector defaultMaliciousCodeDetector;
+    private final MaliciousCSVCodeDetector maliciousCSVCodeDetector;
 
     private final Map<String, MaliciousCodeDetector> map = new HashMap<>();
 
     @PostConstruct
     public void init() {
         map.put(MediaType.APPLICATION_XML_VALUE, maliciousXmlCodeDetector);
+        map.put(ResourceTypeChecker.TEXT_CSV_TYPE.toString(), maliciousCSVCodeDetector);
     }
 
     public MaliciousCodeDetector getCodeDetector(final String mimeType) {
