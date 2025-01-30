@@ -12,17 +12,17 @@ public class EndpointSecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests.requestMatchers("/**",
-                                // allow access to /actuator/info
-                                "/actuator/info",
-                                // allow access to /actuator/health for OpenShift Health Check
-                                "/actuator/health",
-                                // allow access to /actuator/health/liveness for OpenShift Liveness Check
-                                "/actuator/health/liveness",
-                                // allow access to /actuator/health/readiness for OpenShift Readiness Check
-                                "/actuator/health/readiness",
-                                // allow access to /actuator/metrics for Prometheus monitoring in OpenShift
-                                "/actuator/metrics",
-                                "/actuator/prometheus")
+                        // allow access to /actuator/info
+                        "/actuator/info",
+                        // allow access to /actuator/health for OpenShift Health Check
+                        "/actuator/health",
+                        // allow access to /actuator/health/liveness for OpenShift Liveness Check
+                        "/actuator/health/liveness",
+                        // allow access to /actuator/health/readiness for OpenShift Readiness Check
+                        "/actuator/health/readiness",
+                        // allow access to /actuator/metrics for Prometheus monitoring in OpenShift
+                        "/actuator/metrics",
+                        "/actuator/prometheus")
                         .permitAll().anyRequest().authenticated());
 
         return http.build();
