@@ -135,6 +135,11 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.camel.springboot</groupId>
+            <artifactId>camel-observation-starter</artifactId>
+        </dependency>
+
         <!-- Camel -->
         <dependency>
             <groupId>org.apache.camel.springboot</groupId>
