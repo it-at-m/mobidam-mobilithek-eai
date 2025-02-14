@@ -32,6 +32,7 @@ import org.apache.camel.Exchange;
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.aws2.s3.AWS2S3Constants;
+import org.apache.camel.component.micrometer.MicrometerConstants;
 import org.apache.camel.http.common.HttpMethods;
 import org.apache.camel.impl.engine.DefaultStreamCachingStrategy;
 import org.apache.camel.spi.StreamCachingStrategy;
@@ -74,40 +75,45 @@ public class MobilithekEaiRouteBuilder extends RouteBuilder {
         ;
 
         from(MOBIDAM_S3_ROUTE)
-                .routeId(MOBIDAM_ROUTE_ID)
-                .bean("sstManagementIntegrationServiceFacade", "isActivated")
-                .choice().when(simple("${body} == 'TRUE'"))
-                    .bean("interfaceMessageFactory", "mobilithekMessageStart")
-                    .bean("sstManagementIntegrationServiceFacade", "logDatentransfer")
-                    .setBody(simple("${null}"))
-                    .setHeader(Exchange.HTTP_METHOD, constant(HttpMethods.GET))
-                    .toD(String.format("${header.%s.mobilithekUrl}", Constants.INTERFACE_TYPE))
+            .routeId(MOBIDAM_ROUTE_ID)
+            .setHeader(MicrometerConstants.HEADER_METRIC_NAME, constant(String.format("mobidam.sst.${header.%s}", Constants.INTERFACE_TYPE)))
+            .to("micrometer:counter:name.foo")
+            .bean("sstManagementIntegrationServiceFacade", "isActivated")
+            .choice().when(simple("${body} == 'TRUE'"))
+                .bean("interfaceMessageFactory", "mobilithekMessageStart")
+                .bean("sstManagementIntegrationServiceFacade", "logDatentransfer")
+                .setBody(simple("${null}"))
+                .setHeader(Exchange.HTTP_METHOD, constant(HttpMethods.GET))
+                .toD(String.format("${header.%s.mobilithekUrl}", Constants.INTERFACE_TYPE))
                 .setHeader(CommonConstants.HEADER_BUCKET_NAME, simple(String.format("${header.%s.s3Bucket}", Constants.INTERFACE_TYPE)))
                 .process("s3CredentialProvider")
                 .process("resourceTypeProcessor")
-                .to("micrometer:timer:mobidam.codedetection.timer?action=start")
+                .setHeader(MicrometerConstants.HEADER_METRIC_NAME, constant(String.format("mobidam.sst.${header.%s}.codedetection", Constants.INTERFACE_TYPE)))
+                .to("micrometer:timer:name.foo.timer?action=start")
                 .process("codeDetectionProcessor")
-                .to("micrometer:timer:mobidam.codedetection.timer?action=stop")
+                .to("micrometer:timer:name.foo.timer?action=stop")
                 .process("s3ObjectKeyProvider")
                 .process("fileSizeProcessor")
-                    .toD("aws2-s3://${header.bucketName}?accessKey=RAW(${header.accessKey})&secretKey=RAW(${header.secretKey})&region=${properties:camel.component.aws2-s3.region}&overrideEndpoint=true&uriEndpointOverride=${properties:camel.component.aws2-s3.override-endpoint}").id(MOBIDAM_ENDPOINT_S3_ID)
-                    .bean("interfaceMessageFactory", "mobilithekMessageSuccess")
-                    .bean("sstManagementIntegrationService", "logDatentransfer")
-                    .bean("interfaceMessageFactory", "mobilithekMessageEnd")
-                    .bean("sstManagementIntegrationService", "logDatentransfer")
-                .otherwise()
-                    .log(LoggingLevel.DEBUG, Constants.MOBIDAM_LOGGER, String.format("${header.%s.mobidamSstId} is not active.", Constants.INTERFACE_TYPE))
-                .end()
-        ;
-
-        from("direct:handleError")
-                .routeId("Error-Handler")
-                .bean("interfaceMessageFactory", "mobilithekMessageError")
+                .toD("aws2-s3://${header.bucketName}?accessKey=RAW(${header.accessKey})&secretKey=RAW(${header.secretKey})&region=${properties:camel.component.aws2-s3.region}&overrideEndpoint=true&uriEndpointOverride=${properties:camel.component.aws2-s3.override-endpoint}").id(MOBIDAM_ENDPOINT_S3_ID)
+                .bean("interfaceMessageFactory", "mobilithekMessageSuccess")
                 .bean("sstManagementIntegrationService", "logDatentransfer")
-                .log(LoggingLevel.ERROR, "${exception}")
                 .bean("interfaceMessageFactory", "mobilithekMessageEnd")
                 .bean("sstManagementIntegrationService", "logDatentransfer")
-        ;
+                .setHeader(MicrometerConstants.HEADER_METRIC_NAME, constant(String.format("mobidam.sst.${header.%s}.success", Constants.INTERFACE_TYPE)))
+                .to("micrometer:counter:name.foo.success")
+            .otherwise()
+                .log(LoggingLevel.DEBUG, Constants.MOBIDAM_LOGGER, String.format("${header.%s.mobidamSstId} is not active.", Constants.INTERFACE_TYPE))
+            .end()
+            ;
+
+        from("direct:handleError")
+            .routeId("Error-Handler")
+            .bean("interfaceMessageFactory", "mobilithekMessageError")
+            .bean("sstManagementIntegrationService", "logDatentransfer")
+            .log(LoggingLevel.ERROR, "${exception}")
+            .bean("interfaceMessageFactory", "mobilithekMessageEnd")
+            .bean("sstManagementIntegrationService", "logDatentransfer")
+            ;
         //  spotless:on
 
     }
