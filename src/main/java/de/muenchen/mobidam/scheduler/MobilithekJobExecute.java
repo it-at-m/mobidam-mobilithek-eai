@@ -57,10 +57,9 @@ public class MobilithekJobExecute implements Job {
     public void execute(JobExecutionContext context) throws JobExecutionException {
 
         String identifier = (String) context.getJobDetail().getJobDataMap().get(Constants.INTERFACE_TYPE);
-        log.info("Scheduler starts mobilithek '{}' request at '{}'.", identifier, context.getFireTime().toString());
-
         InterfaceDTO sst = getMobidamInterfaces().getInterfaces().get(identifier);
         sst.setIdentifier(identifier);
+        log.info("Scheduler starts mobilithek '{}' request at '{}'.", sst.getIdentifier(), context.getFireTime().toString());
         var exchange = metricsConfiguration.getProcessingTime().record(() -> ExchangeBuilder.anExchange(getCamelContext())
                 .withHeader(Constants.INTERFACE_TYPE, sst)
                 .build());
