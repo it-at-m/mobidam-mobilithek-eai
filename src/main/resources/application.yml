@@ -12,7 +12,7 @@ camel:
       proxy-auth-port: ...
       proxy-auth-scheme: ...
   metrics:
-    enable-message-history: true
+    enable-message-history: false
 
 spring:
   application:
