@@ -88,7 +88,7 @@ public class MobilithekEaiRouteBuilder extends RouteBuilder {
                 .setHeader(CommonConstants.HEADER_BUCKET_NAME, simple(String.format("${header.%s.s3Bucket}", Constants.INTERFACE_TYPE)))
                 .process("s3CredentialProvider").id("s3CredentialProvider")
                 .process("resourceTypeProcessor").id("resourceTypeProcessor")
- //               .setHeader(MicrometerConstants.HEADER_METRIC_NAME, simple(String.format("mobidam_sst_${header.%s.identifier}_codedetection_seconds", Constants.INTERFACE_TYPE)))
+                .setHeader(MicrometerConstants.HEADER_METRIC_NAME, simple(String.format("mobidam_sst_${header.%s.identifier}_codedetection_seconds", Constants.INTERFACE_TYPE)))
                 .to("micrometer:timer:mobidam_sst_codedetection_seconds?action=start")
                 .process("codeDetectionProcessor").id("codeDetectionProcessor")
                 .to("micrometer:timer:mobidam_sst_codedetection_seconds?action=stop")
