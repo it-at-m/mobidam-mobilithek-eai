@@ -32,7 +32,6 @@ import org.apache.camel.Exchange;
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.aws2.s3.AWS2S3Constants;
-import org.apache.camel.component.micrometer.MicrometerConstants;
 import org.apache.camel.http.common.HttpMethods;
 import org.apache.camel.impl.engine.DefaultStreamCachingStrategy;
 import org.apache.camel.spi.StreamCachingStrategy;
@@ -76,8 +75,7 @@ public class MobilithekEaiRouteBuilder extends RouteBuilder {
 
         from(MOBIDAM_S3_ROUTE)
             .routeId(MOBIDAM_ROUTE_ID)
-            .setHeader(MicrometerConstants.HEADER_METRIC_NAME, simple(String.format("mobidam_sst_${header.%s.identifier}_total", Constants.INTERFACE_TYPE)))
-            .to("micrometer:counter:name_foo").id("micrometer.counter")
+            .toD(String.format("metrics:counter:mobidam_sst_${header.%s.identifier}_total", Constants.INTERFACE_TYPE))
             .bean("sstManagementIntegrationServiceFacade", "isActivated").id("sstManagementIntegrationServiceFacade.isActivated")
             .choice().when(simple("${body} == 'TRUE'")).id("choice.isActivated")
                 .bean("interfaceMessageFactory", "mobilithekMessageStart").id("interfaceMessageFactory.start")
@@ -88,9 +86,9 @@ public class MobilithekEaiRouteBuilder extends RouteBuilder {
                 .setHeader(CommonConstants.HEADER_BUCKET_NAME, simple(String.format("${header.%s.s3Bucket}", Constants.INTERFACE_TYPE)))
                 .process("s3CredentialProvider").id("s3CredentialProvider")
                 .process("resourceTypeProcessor").id("resourceTypeProcessor")
-                .to("micrometer:timer:mobidam_sst_codedetection_seconds?action=start")
+                .toD(String.format("metrics:timer:mobidam_sst_${header.%s.identifier}_codedetection_seconds?action=start", Constants.INTERFACE_TYPE))
                 .process("codeDetectionProcessor").id("codeDetectionProcessor")
-                .to("micrometer:timer:mobidam_sst_codedetection_seconds?action=stop")
+                .toD(String.format("metrics:timer:mobidam_sst_${header.%s.identifier}_codedetection_seconds?action=stop", Constants.INTERFACE_TYPE))
                 .process("s3ObjectKeyProvider").id("s3ObjectKeyProvider")
                 .process("fileSizeProcessor").id("fileSizeProcessor")
                 .toD("aws2-s3://${header.bucketName}?accessKey=RAW(${header.accessKey})&secretKey=RAW(${header.secretKey})&region=${properties:camel.component.aws2-s3.region}&overrideEndpoint=true&uriEndpointOverride=${properties:camel.component.aws2-s3.override-endpoint}").id(MOBIDAM_ENDPOINT_S3_ID)
@@ -98,8 +96,7 @@ public class MobilithekEaiRouteBuilder extends RouteBuilder {
                 .bean("sstManagementIntegrationService", "logDatentransfer").id("sstManagementIntegrationServiceFacade.logTransfer.success")
                 .bean("interfaceMessageFactory", "mobilithekMessageEnd")
                 .bean("sstManagementIntegrationService", "logDatentransfer").id("sstManagementIntegrationServiceFacade.logTransfer.end")
-                .setHeader(MicrometerConstants.HEADER_METRIC_NAME, simple(String.format("mobidamp_sst_${header.%s.identifier}_success_total", Constants.INTERFACE_TYPE)))
-                .to("micrometer:counter:name_foo_success").id("micrometer.counter.success")
+                .toD(String.format("metrics:counter:mobidam_sst_${header.%s.identifier}_success_total", Constants.INTERFACE_TYPE))
             .otherwise()
                 .log(LoggingLevel.DEBUG, Constants.MOBIDAM_LOGGER, String.format("${header.%s.mobidamSstId} is not active.", Constants.INTERFACE_TYPE))
             .end()
