@@ -32,7 +32,6 @@ import org.apache.camel.Exchange;
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.aws2.s3.AWS2S3Constants;
-import org.apache.camel.component.micrometer.MicrometerConstants;
 import org.apache.camel.http.common.HttpMethods;
 import org.apache.camel.impl.engine.DefaultStreamCachingStrategy;
 import org.apache.camel.spi.StreamCachingStrategy;
