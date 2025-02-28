@@ -1,4 +1,8 @@
 # Release-Notes
+## Sprint 25 (25.02.2025 - 18.03.2025)
+## Hinzugefügt
+- Grafana Dashboard eingrichtet.
+
 ## Sprint 23 (14.01.2025 - 04.02.2025)
 ## Hinzugefügt
 - Technische Anbindung Ladesaeulen.
