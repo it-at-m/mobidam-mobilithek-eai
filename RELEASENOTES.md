@@ -1,7 +1,7 @@
 # Release-Notes
-## Sprint 25 (25.02.2025 - 18.03.2025)
+## Sprint 26 (18.03.2025 - 08.04.2025)
 ## Hinzugefügt
-- Grafana Dashboard eingrichtet.
+- Metriken für Grafana Dashboard eingerichtet.
 
 ## Sprint 23 (14.01.2025 - 04.02.2025)
 ## Hinzugefügt
