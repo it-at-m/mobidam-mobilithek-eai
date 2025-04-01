@@ -316,12 +316,16 @@ Von der mobidam-mobilitheks-eai werden verschiedene auf Probleme hinweisende Met
 - Kennwerte die auf Probleme bei einzelnen Schnittstellen hinweisen.
 - Kennwerte die die Verarbeitung von Downloads erfassen.
 
-Jede Dashboard Visualisierung stellt weiter Erklärungen zu ihren Inhalten zur Verfügung.
+Jede Dashboard Visualisierung stellt Erklärungen zu ihren Inhalten zur Verfügung.
 
-Das Dashboard ist gemäß der Anleitung im LHM-CAP-Wiki als Kubernetes Dashboard Manifest gesichert. 
-Alle Änderungen die im Grafana Dashboard gemacht werden, müssen im Kubernetes Manifest widergespiegelt werden. 
+Das Dashboard ist gemäß der Anleitung im LHM-CAP-Wiki als Kubernetes Dashboard Manifest gesichert. **Das hat zwei Auswirkungen
+für die Arbeit mit dem Grafana Dashboard zur Folge**:
+
+- Änderungen die man im Grafana Dashboard vornimmt werden durch das Kubernetes Manifeste automatisch wieder überschrieben. 
+Um das zu vermeiden über den Dashboard Edit Modus erst eine Kopie des Dashboard erstellen und die Änderungen darin vornehmen. 
+- Alle Änderungen die in der Kopie des Grafana Dashboard gemacht werden, müssen im Kubernetes Manifest widergespiegelt werden. 
 Dazu das _Grafana -> Settings -> JSON Model_ im Kubernetes Dashboard Manifest per Copy-Paste aktualisieren. 
-Anschließend werden durch Kubernetes alle Mainifest Änderungen wieder mit dem Grafana Dashboard aktualisiert und alle Umgebungen sind wieder up-to-date.
+Anschließend werden durch Kubernetes alle Manifest Änderungen wieder mit dem Grafana Dashboard aktualisiert und alle Umgebungen sind wieder up-to-date.
 
 Um Dashboard Aktualisierungen von K auf P zu bringen, die _JSON Model_ Änderungen in den Kubernetes Dashboards Manifeste der Namespaces synchronisieren.
 Die Grafana Instanzen auf K und P sind eigenständig. Daher kann die Grafana Dashboard-UID beibehalten werden.
