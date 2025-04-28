@@ -29,6 +29,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.camel.Exchange;
 import org.owasp.encoder.Encode;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
@@ -40,7 +41,7 @@ import org.xml.sax.SAXException;
 @Slf4j
 public class MaliciousXmlCodeDetector implements MaliciousCodeDetector {
 
-    public boolean isValidData(final InputStream stream) throws ParserConfigurationException, IOException {
+    public boolean isValidData(final InputStream stream, Exchange exchange) throws ParserConfigurationException, IOException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document doc;

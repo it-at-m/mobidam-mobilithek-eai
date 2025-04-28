@@ -20,18 +20,34 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.muenchen.mobidam.exception;
+package de.muenchen.mobidam.config;
 
-import java.math.BigDecimal;
-import java.util.Date;
+import java.util.*;
+import java.util.regex.Pattern;
+import javax.annotation.PostConstruct;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
-public class ErrorResponseBuilder {
+@Component
+@ConfigurationProperties(prefix = "de.muenchen.mobidam.data.review-specification")
+@Getter
+@Setter
+public class MaliciousDataRegex {
 
-    public static ErrorResponse build(final Integer status, final String message) {
-        var res = new ErrorResponse();
-        res.setTimestamp(new Date());
-        res.setStatus(BigDecimal.valueOf(status));
-        res.setError(message);
-        return res;
+    private Map<String, String> maliciousDataRegex;
+    private Map<String, Pattern> maliciousDataPatterns;
+
+    @PostConstruct
+    public Map<String, Pattern> getMaliciousDataPatterns() {
+
+        if (maliciousDataRegex != null && maliciousDataPatterns == null) {
+            maliciousDataPatterns = new HashMap<>();
+            for (Map.Entry<String, String> entry : maliciousDataRegex.entrySet()) {
+                maliciousDataPatterns.put(entry.getKey(), Pattern.compile(entry.getValue()));
+            }
+        }
+        return maliciousDataPatterns;
     }
 }

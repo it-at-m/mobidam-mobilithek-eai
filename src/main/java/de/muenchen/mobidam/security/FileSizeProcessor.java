@@ -27,7 +27,7 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
-import org.apache.camel.converter.stream.InputStreamCache;
+import org.apache.camel.StreamCache;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -40,7 +40,7 @@ public class FileSizeProcessor implements Processor {
 
     @Override
     public void process(Exchange exchange) throws Exception {
-        InputStreamCache stream = exchange.getMessage().getBody(InputStreamCache.class);
+        StreamCache stream = exchange.getMessage().getBody(StreamCache.class);
         stream.reset();
         maxStreamSize = Math.max(maxStreamSize, stream.length());
     }

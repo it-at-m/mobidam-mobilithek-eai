@@ -20,30 +20,34 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.muenchen.mobidam.security;
+package de.muenchen.mobidam.config;
 
-import java.io.IOException;
-import java.io.InputStream;
+import de.muenchen.mobidam.exception.MobidamException;
 import java.util.List;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.tika.Tika;
-import org.springframework.stereotype.Service;
+import java.util.Map;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
-@Service
-@Slf4j
-public class MimeTypeChecker {
+@Component
+@ConfigurationProperties(prefix = "de.muenchen.mobidam.data.defined-resource-types")
+@Getter
+@Setter
+public class ResourceTypes {
 
-    private final Tika tika = new Tika();
+    private Map<String, ResourceType> resourceTypes;
 
-    public boolean check(final InputStream stream, final List<String> allowedMimeTypes) throws IOException {
+    public List<String> getResourceTypes(List<String> expectedTypes) throws MobidamException {
 
-        String mimetype = getMimeType(stream);
-        log.debug("File is of mime type: {}", mimetype);
-        return allowedMimeTypes.contains(mimetype);
+        if (getResourceTypes() == null) {
+            throw new MobidamException("Invalid configuration of types.");
+        }
+
+        if (expectedTypes.isEmpty() || getResourceTypes().isEmpty())
+            return List.of();
+
+        return expectedTypes.stream().flatMap(type -> getResourceTypes().entrySet().stream().filter(entrySet -> entrySet.getKey().equals(type)))
+                .flatMap(entrySet -> entrySet.getValue().getAllowedMimeTypes().stream()).distinct().toList();
     }
-
-    private String getMimeType(final InputStream stream) throws IOException {
-        return tika.detect(stream);
-    }
-
 }

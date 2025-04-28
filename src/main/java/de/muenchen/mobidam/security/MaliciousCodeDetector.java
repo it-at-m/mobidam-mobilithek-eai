@@ -23,8 +23,9 @@
 package de.muenchen.mobidam.security;
 
 import java.io.InputStream;
+import org.apache.camel.Exchange;
 
 public interface MaliciousCodeDetector {
 
-    boolean isValidData(final InputStream stream) throws Exception;
+    boolean isValidData(final InputStream stream, Exchange exchange) throws Exception;
 }

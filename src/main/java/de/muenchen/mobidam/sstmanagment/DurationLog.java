@@ -20,31 +20,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.muenchen.mobidam.config;
+package de.muenchen.mobidam.sstmanagment;
 
-import java.util.Map;
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
+import lombok.extern.slf4j.Slf4j;
 
-/**
- * This class represents the configuration for S3 bucket credentials.
- * It contains a map of S3Credentials objects, with the keys being the names of the S3 buckets.
- */
-@Component
-@ConfigurationProperties(prefix = "mobidam.s3")
-@Getter
-@Setter
-public class S3BucketCredentialConfig {
+@Slf4j
+public class DurationLog {
 
-    private Map<String, BucketCredentialConfig> bucketCredentialConfig;
+    Long startParse;
+    String logDescription;
 
-    @Getter
-    @Setter
-    public static class BucketCredentialConfig {
+    public DurationLog(String logDescription) {
+        this.logDescription = logDescription;
+    }
 
-        private String accessKeyEnvVar;
-        private String secretKeyEnvVar;
+    public void startDebug() {
+        startParse = System.currentTimeMillis();
+        log.debug("{} - Start point {} ... ", logDescription, startParse);
+    }
+
+    public void endDebug() {
+        Long endParse = System.currentTimeMillis();
+        log.debug("{} - End point   {}. Duration : {} ms", logDescription, endParse, endParse - startParse);
     }
 }

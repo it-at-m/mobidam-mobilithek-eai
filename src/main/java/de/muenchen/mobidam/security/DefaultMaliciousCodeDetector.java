@@ -23,13 +23,14 @@
 package de.muenchen.mobidam.security;
 
 import java.io.InputStream;
+import org.apache.camel.Exchange;
 import org.owasp.encoder.Encode;
 import org.springframework.stereotype.Component;
 
 @Component
 public class DefaultMaliciousCodeDetector implements MaliciousCodeDetector {
 
-    public boolean isValidData(final InputStream stream) throws Exception {
+    public boolean isValidData(final InputStream stream, Exchange exchange) throws Exception {
         return isValidInput(new String(stream.readAllBytes()));
     }
 

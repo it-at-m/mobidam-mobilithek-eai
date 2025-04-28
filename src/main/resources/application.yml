@@ -62,29 +62,39 @@ oauth2:
   registration:
     id: ...
 
-de.muenchen.mobidam.integration:
-  baseUrl: ...
-  interfaces:
-    interface-1:
-      mobidam-sst-id:
-      name:
-      mobilithek-url:
-      cron-expression:
-      s3-object-path:
-      s3-date-format:
-      s3-bucket:
-      allowed-mime-types:
-      malicious-code-detection-enabled:
-
-mobidam:
+de.muenchen.mobidam:
+  integration:
+    baseUrl: ...
+    interfaces:
+      interface-1:
+        mobidam-sst-id:
+        name:
+        mobilithek-url:
+        cron-expression:
+        s3-object-path:
+        s3-date-format:
+        s3-bucket:
+        allowed-resource-types:
+        malicious-code-detection-enabled:
+  data:
+    review-specification:
+      malicious-data-regex:
+        key:
+    defined-resource-types:
+      resource-types:
+        xml:
+          allowed-mime-types:
+        csv:
+          allowed-mime-types:
   eai:
     cacerts-file: ...
     cacerts-password: ...
-  s3:
-    bucket-credential-config:
-      s3-bucket-1:
-        access-key-env-var: ...
-        secret-key-env-var: ...
+  common:
+    s3:
+      bucket-credential-configs:
+        s3-bucket-1:
+          access-key-env-var: ...
+          secret-key-env-var: ...
   metrics:
     beginn-counter-metric: mobidam.exchanges.ereignis.beginn.counter
     ende-counter-metric: mobidam.exchanges.ereignis.ende.counter
@@ -94,3 +104,4 @@ mobidam:
     inflight-exchanges-metric: mobidam.exchanges.inflight
     processing-time-metric: mobidam.exchanges.processingtime
     max-file-size-metric: mobidam.exchanges.filesize.max
+

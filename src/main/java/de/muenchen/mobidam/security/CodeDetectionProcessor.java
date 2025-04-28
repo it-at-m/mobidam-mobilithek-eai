@@ -23,13 +23,15 @@
 package de.muenchen.mobidam.security;
 
 import de.muenchen.mobidam.Constants;
+import de.muenchen.mobidam.config.ResourceTypes;
 import de.muenchen.mobidam.exception.MobidamSecurityException;
 import de.muenchen.mobidam.mobilithek.InterfaceDTO;
+import java.io.InputStream;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
-import org.apache.camel.converter.stream.InputStreamCache;
+import org.apache.camel.StreamCache;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -39,18 +41,22 @@ public class CodeDetectionProcessor implements Processor {
 
     private final CodeDetectorFactory codeDetectorFactory;
 
+    private final ResourceTypes resourceTypes;
+
     @Override
     public void process(Exchange exchange) throws Exception {
         var mobilithekInterface = exchange.getIn().getHeader(Constants.INTERFACE_TYPE, InterfaceDTO.class);
         if (!mobilithekInterface.getMaliciousCodeDetectionEnabled()) {
             return;
         }
-        InputStreamCache stream = exchange.getIn().getBody(InputStreamCache.class);
-        stream.reset();
-        MaliciousCodeDetector codeDetector = codeDetectorFactory.getCodeDetector(mobilithekInterface.getAllowedMimeTypes().get(0));
+        StreamCache receivedStream = exchange.getIn().getBody(StreamCache.class);
+        receivedStream.reset();
+        InputStream stream = (InputStream) receivedStream;
+        MaliciousCodeDetector codeDetector = codeDetectorFactory
+                .getCodeDetector(resourceTypes.getResourceTypes(mobilithekInterface.getAllowedResourceTypes()).get(0));
         boolean result = false;
         try {
-            result = codeDetector.isValidData(stream);
+            result = codeDetector.isValidData(stream, exchange);
         } catch (Exception ex) {
             log.warn("Malicious code detection failed", ex);
         }
