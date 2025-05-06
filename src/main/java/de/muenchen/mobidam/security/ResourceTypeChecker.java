@@ -52,7 +52,7 @@ public class ResourceTypeChecker {
 
         var contentType = exchange.getIn().getHeader(Exchange.CONTENT_TYPE, String.class);
         if (contentType != null && allowedMimeTypes.stream().filter(contentType::contains).findAny().isEmpty()) {
-            log.error("Mimetype is not allowed: { }", contentType);
+            log.error("Mimetype is not allowed: {}", contentType);
             return false;
         }
         String detectedMimeType = getResourceType(stream, contentType, exchange);

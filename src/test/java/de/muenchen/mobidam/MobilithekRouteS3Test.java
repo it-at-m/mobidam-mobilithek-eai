@@ -29,6 +29,7 @@ import de.muenchen.mobidam.eai.common.config.EnvironmentReader;
 import de.muenchen.mobidam.exception.MobidamSecurityException;
 import de.muenchen.mobidam.integration.client.domain.DatentransferCreateDTO;
 import de.muenchen.mobidam.integration.service.SstManagementIntegrationService;
+import de.muenchen.mobidam.mobilithek.InterfaceDTO;
 import de.muenchen.mobidam.mobilithek.MobilithekEaiRouteBuilder;
 import de.muenchen.mobidam.security.ResourceTypeProcessor;
 import de.muenchen.mobidam.sstmanagment.EreignisTyp;
@@ -151,7 +152,7 @@ class MobilithekRouteS3Test {
         camelContext.start();
 
         var mobilithekRequest = ExchangeBuilder.anExchange(camelContext)
-                .withHeader(Constants.INTERFACE_TYPE, this.interfaces.getInterfaces().get(this.interfaces.getInterfaces().keySet().iterator().next()))
+                .withHeader(Constants.INTERFACE_TYPE, getInterfaceDTO())
                 .build();
 
         Mockito.when(sstService.isActivated("999fcf2d-25bb-4fa9-85ff-f7ed12349999")).thenReturn(false);
@@ -175,7 +176,7 @@ class MobilithekRouteS3Test {
         camelContext.start();
 
         var mobilithekRequest = ExchangeBuilder.anExchange(camelContext)
-                .withHeader(Constants.INTERFACE_TYPE, this.interfaces.getInterfaces().get(this.interfaces.getInterfaces().keySet().iterator().next()))
+                .withHeader(Constants.INTERFACE_TYPE, getInterfaceDTO())
                 .build();
 
         Mockito.when(sstService.isActivated("999fcf2d-25bb-4fa9-85ff-f7ed12349999")).thenReturn(true);
@@ -203,7 +204,7 @@ class MobilithekRouteS3Test {
         camelContext.start();
 
         var mobilithekRequest = ExchangeBuilder.anExchange(camelContext)
-                .withHeader(Constants.INTERFACE_TYPE, this.interfaces.getInterfaces().get(this.interfaces.getInterfaces().keySet().iterator().next()))
+                .withHeader(Constants.INTERFACE_TYPE, getInterfaceDTO())
                 .build();
 
         Mockito.when(sstService.isActivated("999fcf2d-25bb-4fa9-85ff-f7ed12349999")).thenReturn(true);
@@ -223,4 +224,9 @@ class MobilithekRouteS3Test {
 
     }
 
+    private InterfaceDTO getInterfaceDTO() {
+        var sst = this.interfaces.getInterfaces().get(this.interfaces.getInterfaces().keySet().iterator().next());
+        sst.setIdentifier("test");
+        return sst;
+    }
 }

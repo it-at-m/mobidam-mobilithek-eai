@@ -25,6 +25,7 @@ package de.muenchen.mobidam.scheduler;
 import de.muenchen.mobidam.Constants;
 import de.muenchen.mobidam.config.Interfaces;
 import de.muenchen.mobidam.config.MetricsConfiguration;
+import de.muenchen.mobidam.mobilithek.InterfaceDTO;
 import de.muenchen.mobidam.mobilithek.MobilithekEaiRouteBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -55,11 +56,12 @@ public class MobilithekJobExecute implements Job {
 
     public void execute(JobExecutionContext context) throws JobExecutionException {
 
-        var identifier = context.getJobDetail().getJobDataMap().get(Constants.INTERFACE_TYPE);
-        log.info("Scheduler starts mobilithek '{}' request at '{}'.", identifier, context.getFireTime().toString());
-
+        String identifier = (String) context.getJobDetail().getJobDataMap().get(Constants.INTERFACE_TYPE);
+        InterfaceDTO sst = getMobidamInterfaces().getInterfaces().get(identifier);
+        sst.setIdentifier(identifier);
+        log.info("Scheduler starts mobilithek '{}' request at '{}'.", sst.getIdentifier(), context.getFireTime().toString());
         var exchange = metricsConfiguration.getProcessingTime().record(() -> ExchangeBuilder.anExchange(getCamelContext())
-                .withHeader(Constants.INTERFACE_TYPE, getMobidamInterfaces().getInterfaces().get(identifier))
+                .withHeader(Constants.INTERFACE_TYPE, sst)
                 .build());
 
         producer.send(exchange);
