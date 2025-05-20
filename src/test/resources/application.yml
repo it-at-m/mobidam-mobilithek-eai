@@ -10,6 +10,8 @@ management:
 spring:
   profiles:
     active: test
+  application:
+    name: '@project.artifactId@'
 
 logging:
   level:

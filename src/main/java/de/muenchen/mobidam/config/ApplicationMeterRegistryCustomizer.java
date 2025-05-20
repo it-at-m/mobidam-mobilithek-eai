@@ -22,16 +22,25 @@
  */
 package de.muenchen.mobidam.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.autoconfigure.metrics.MeterRegistryCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+
+
 @Configuration
 public class ApplicationMeterRegistryCustomizer<MeterRegistry extends io.micrometer.core.instrument.MeterRegistry> {
 
+    private final String applicationName;
+
+    public ApplicationMeterRegistryCustomizer(@Value("${spring.application.name}") String applicationName) {
+        this.applicationName = applicationName;
+    }
+
     @Bean
     public MeterRegistryCustomizer<MeterRegistry> configurator() {
-        return registry -> registry.config().commonTags("application", "mobidam-mobilithek-eai");
+        return registry -> registry.config().commonTags("application", applicationName);
     }
 
 }
