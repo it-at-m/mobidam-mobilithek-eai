@@ -27,8 +27,6 @@ import org.springframework.boot.actuate.autoconfigure.metrics.MeterRegistryCusto
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-
-
 @Configuration
 public class ApplicationMeterRegistryCustomizer<MeterRegistry extends io.micrometer.core.instrument.MeterRegistry> {
 
