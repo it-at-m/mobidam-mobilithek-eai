@@ -306,7 +306,4 @@ spring:
 
 ```
 ## Grafana
-Die EAI stellt Metriken für die Auswertung in einem Grafana Dashboard zur Verfügung.
-Alle zur Verfügung gestellten Metriken können im Pod-Terminal mit _curl localhost:8080/actuator/prometheus_ angezeigt werden.
-Einige Schnittstelle spezifische Metriken werden dynamisch erzeugt und sind erst sichtbar wenn die Schnittstelle aktiviert und erfolgreich beendet wurde.
-Weitere Informationen zum Grafana Dashboard finden sich im Betriebshandbuch und der Systemspezifikation.
+Die EAI stellt Metriken für die Auswertung z.Bsp. in einem Grafana Dashboard zur Verfügung.
