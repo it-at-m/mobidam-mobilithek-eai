@@ -10,6 +10,8 @@ management:
 spring:
   profiles:
     active: test
+  application:
+    name: '@project.artifactId@'
 
 logging:
   level:
@@ -27,6 +29,7 @@ de.muenchen.mobidam:
       parkRideStaticData:
         mobidam-sst-id: 999fcf2d-25bb-4fa9-85ff-f7ed12349999
         name: P+R statisch
+        identifier: parkRideStaticData
         mobilithek-url: mock:mobilithekInfo
         cron-expression: '0 0 0 ? * *'
         s3-object-path: MDAS/Mobilithek/PR-statisch/%s-pr-daten.xml

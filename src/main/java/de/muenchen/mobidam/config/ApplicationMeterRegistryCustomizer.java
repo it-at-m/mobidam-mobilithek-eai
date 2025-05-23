@@ -20,24 +20,25 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.muenchen.mobidam;
+package de.muenchen.mobidam.config;
 
-import org.apache.camel.observation.starter.CamelObservation;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.actuate.autoconfigure.metrics.MeterRegistryCustomizer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-/**
- * Spring Boot Anwendung, die alle Camel Routen startet.
- */
-@SpringBootApplication
-@CamelObservation
-public class Application {
+@Configuration
+public class ApplicationMeterRegistryCustomizer<MeterRegistry extends io.micrometer.core.instrument.MeterRegistry> {
 
-    /**
-     * Startet die Anwendung.
-     */
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+    private final String applicationName;
+
+    public ApplicationMeterRegistryCustomizer(@Value("${spring.application.name}") String applicationName) {
+        this.applicationName = applicationName;
+    }
+
+    @Bean
+    public MeterRegistryCustomizer<MeterRegistry> configurator() {
+        return registry -> registry.config().commonTags("application", applicationName);
     }
 
 }
