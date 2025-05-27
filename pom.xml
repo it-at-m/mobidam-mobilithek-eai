@@ -30,7 +30,7 @@
 
     <groupId>de.muenchen.mobidam</groupId>
     <artifactId>mobidam-mobilithek-eai</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.3-SNAPSHOT</version>
     <name>mobidam-mobilithek-eai</name>
     <description>Mobidam S3 EAI.</description>
 
