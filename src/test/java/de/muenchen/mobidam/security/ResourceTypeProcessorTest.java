@@ -131,7 +131,7 @@ public class ResourceTypeProcessorTest {
     private ResourceTypeProcessor createProcessor() {
         ResourceTypes resourceTypes = new ResourceTypes();
         resourceTypes.setResourceTypes(Map.of("xml", new ResourceType(List.of("application/xml", "text/plain")),
-                "csv", new ResourceType(List.of("binary/octet-stream", "application/octet-stream")),
+                "csv", new ResourceType(List.of("binary/octet-stream", "application/octet-stream", "text/plain")),
                 "plain", new ResourceType(List.of("text/plain"))));
         return new ResourceTypeProcessor(new ResourceTypeChecker(), resourceTypes);
     }

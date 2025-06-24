@@ -43,6 +43,8 @@ public class ResourceTypeChecker {
 
     public static final MediaType BINARY_CSV_TYPE = new MediaType("binary", "octet-stream");
 
+    public static final MediaType TEXT_CSV_TYPE = new MediaType("text", "csv");
+
     private final Tika tika = new Tika();
 
     private final DurationLog parseDuration = new DurationLog("Tika-Mime-Type-Detection");
@@ -70,7 +72,7 @@ public class ResourceTypeChecker {
     private String getResourceType(final InputStream stream, String contentType, Exchange exchange) throws IOException {
 
         log.debug("Getting resource type");
-        if (contentType != null && contentType.contains(BINARY_CSV_TYPE.toString())) {
+        if (contentType != null && contentType.contains(TEXT_CSV_TYPE.toString())) {
             log.debug("CSV Branch");
             ContentHandler handler = new BodyContentHandler(-1);
             TextAndCSVParser parser = new TextAndCSVParser();
@@ -87,12 +89,12 @@ public class ResourceTypeChecker {
             log.debug("Exit Parser");
             log.debug("Tika file metadata {}", metadata);
             String tikaContentType = metadata.get(Metadata.CONTENT_TYPE);
-            if (tikaContentType.toLowerCase().contains(BINARY_CSV_TYPE.toString())) {
+            if (tikaContentType.toLowerCase().contains(TEXT_CSV_TYPE.toString())) {
                 exchange.getIn().setHeader(TextAndCSVParser.DELIMITER_PROPERTY.getName(), metadata.get(TextAndCSVParser.DELIMITER_PROPERTY));
-                return BINARY_CSV_TYPE.toString();
+                return TEXT_CSV_TYPE.toString();
             } else {
                 log.warn("File content too small, Tika heuristic cannot determine 'text/csv' with the necessary certainty.");
-                return tika.detect(stream);
+                return "file-content-too-small";
             }
         } else {
             log.debug("Fallback tika detect");
