@@ -25,6 +25,8 @@ package de.muenchen.mobidam.security;
 import de.muenchen.mobidam.config.MaliciousDataRegex;
 import de.muenchen.mobidam.sstmanagment.DurationLog;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -33,7 +35,6 @@ import org.apache.camel.Exchange;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
-import org.apache.commons.io.input.CharSequenceReader;
 import org.apache.tika.parser.csv.TextAndCSVConfig;
 import org.apache.tika.parser.csv.TextAndCSVParser;
 import org.springframework.stereotype.Component;
@@ -52,42 +53,57 @@ public class MaliciousCSVCodeDetector implements MaliciousCodeDetector {
     }
 
     public boolean isValidData(final InputStream stream, Exchange exchange) throws Exception {
-        log.debug("entering isValid");
+        log.debug("Entering isValidData()");
         durationCSVParser.startDebug();
 
-        byte[] bytes = stream.readAllBytes();
-        String content = new String(bytes, StandardCharsets.UTF_8);
+        // Streaming-Ansatz statt alles in Memory zu laden
+        Reader reader = new InputStreamReader(stream, StandardCharsets.UTF_8);
 
         CSVParser records = CSVFormat.newFormat(selectTikaCsvDelimiter(exchange))
-                .parse(new CharSequenceReader(content));
+                .parse(reader);
 
         durationCSVParser.endDebug();
 
-        CSVRecord record;
+        CSVRecord record = null;
         int rowCount = 0;
         var rows = records.iterator();
 
         durationMaliciousCodeDetection.startDebug();
-        log.debug("Starting rows check");
-        while (rows.hasNext()) {
-            rowCount++;
-            record = rows.next();
+        log.debug("starting row validation");
 
-            var columns = record.stream().toList();
-            for (var column : columns) {
-                var cell = column.trim();
-                if (!cell.isEmpty()) {
-                    for (Map.Entry<String, Pattern> entry : maliciousPatterns.getMaliciousDataPatterns().entrySet()) {
-                        var match = entry.getValue().matcher(cell).matches();
-                        if (match) {
-                            log.warn("MaliciousCSVCode - {} ({}) : {}",
-                                    entry.getKey(),
-                                    maliciousPatterns.getMaliciousDataRegex().get(entry.getKey()),
-                                    cell);
-                            return false;
+        try {
+            while (rows.hasNext()) {
+                rowCount++;
+                record = rows.next();
+
+                var columns = record.stream().toList();
+                for (var column : columns) {
+                    var cell = column.trim();
+                    if (!cell.isEmpty()) {
+                        for (Map.Entry<String, Pattern> entry : maliciousPatterns.getMaliciousDataPatterns().entrySet()) {
+                            var match = entry.getValue().matcher(cell).matches();
+                            if (match) {
+                                log.warn("MaliciousCSVCode - {} ({}) : {}",
+                                        entry.getKey(),
+                                        maliciousPatterns.getMaliciousDataRegex().get(entry.getKey()),
+                                        cell);
+                                return false;
+                            }
                         }
                     }
                 }
+            }
+        } finally {
+            // Ressourcen explizit schließen
+            try {
+                records.close();
+            } catch (Exception e) {
+                log.debug("Error closing CSV parser", e);
+            }
+            try {
+                reader.close();
+            } catch (Exception e) {
+                log.debug("Error closing reader", e);
             }
         }
 
