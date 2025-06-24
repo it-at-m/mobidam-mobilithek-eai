@@ -46,6 +46,7 @@ public class CodeDetectorFactory {
     }
 
     public MaliciousCodeDetector getCodeDetector(final String mimeType) {
+        System.out.println("MIRNA: " + mimeType);
         return map.getOrDefault(mimeType, defaultMaliciousCodeDetector);
     }
 

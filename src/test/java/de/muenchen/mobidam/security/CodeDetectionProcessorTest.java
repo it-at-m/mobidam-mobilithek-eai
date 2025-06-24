@@ -64,7 +64,7 @@ public class CodeDetectionProcessorTest {
         factory.init();
         ResourceTypes resourceTypes = new ResourceTypes();
         resourceTypes.setResourceTypes(Map.of("xml", new ResourceType(List.of("application/xml", "text/plain")),
-                "csv", new ResourceType(List.of("text/csv")),
+                "csv", new ResourceType(List.of("binary/octet-stream")),
                 "plain", new ResourceType(List.of("text/plain"))));
         processor = new CodeDetectionProcessor(factory, resourceTypes);
     }
@@ -89,7 +89,7 @@ public class CodeDetectionProcessorTest {
 
     @Test
     public void testProcessWithValidCSVTestData() throws Exception {
-        Exchange exchange = createExchange(List.of(ResourceTypeChecker.BINARY_CSV_TYPE.getSubtype()));
+        Exchange exchange = createExchange(List.of("csv"));
         FileInputStreamCache stream = new FileInputStreamCache(new File("src/test/resources/testdata/ladesaulen-example.csv"));
         exchange.getIn().setBody(stream);
         processor.process(exchange);
@@ -103,7 +103,7 @@ public class CodeDetectionProcessorTest {
 
     @Test
     public void testProcessCsvWithExtensionExe() throws Exception {
-        Exchange exchange = createExchange(List.of(ResourceTypeChecker.BINARY_CSV_TYPE.getSubtype()));
+        Exchange exchange = createExchange(List.of("csv"));
         assertInvalid("/testdata/ladesaulen-invalid-script-example.csv", exchange);
     }
 
@@ -127,19 +127,19 @@ public class CodeDetectionProcessorTest {
 
     @Test
     public void testProcessCsvWithSQL() throws Exception {
-        Exchange exchange = createExchange(List.of(ResourceTypeChecker.BINARY_CSV_TYPE.getSubtype()));
+        Exchange exchange = createExchange(List.of("csv"));
         assertInvalid("/testdata/ladesaulen-invalid-sql-example.csv", exchange);
     }
 
     @Test
     public void testProcessCsvWithXssScript() throws Exception {
-        Exchange exchange = createExchange(List.of(ResourceTypeChecker.BINARY_CSV_TYPE.getSubtype()));
+        Exchange exchange = createExchange(List.of("csv"));
         assertInvalid("/testdata/ladesaulen-invalid-xss-example.csv", exchange);
     }
 
     @Test
     public void testProcessCsvWithExe() throws Exception {
-        Exchange exchange = createExchange(List.of(ResourceTypeChecker.BINARY_CSV_TYPE.getSubtype()));
+        Exchange exchange = createExchange(List.of("csv"));
         assertInvalid("/testdata/ladesaulen-invalid-script-example.csv", exchange);
     }
 

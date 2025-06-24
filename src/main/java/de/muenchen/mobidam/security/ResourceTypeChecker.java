@@ -92,7 +92,7 @@ public class ResourceTypeChecker {
                 return BINARY_CSV_TYPE.toString();
             } else {
                 log.warn("File content too small, Tika heuristic cannot determine 'text/csv' with the necessary certainty.");
-                return "file-content-too-small";
+                return tika.detect(stream);
             }
         } else {
             log.debug("Fallback tika detect");
