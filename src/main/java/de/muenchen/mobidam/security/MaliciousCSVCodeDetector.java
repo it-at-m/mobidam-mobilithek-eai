@@ -25,6 +25,7 @@ package de.muenchen.mobidam.security;
 import de.muenchen.mobidam.config.MaliciousDataRegex;
 import de.muenchen.mobidam.sstmanagment.DurationLog;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.regex.Pattern;
 import lombok.extern.slf4j.Slf4j;
@@ -53,15 +54,25 @@ public class MaliciousCSVCodeDetector implements MaliciousCodeDetector {
     public boolean isValidData(final InputStream stream, Exchange exchange) throws Exception {
 
         durationCSVParser.startDebug();
-        CSVParser records = CSVFormat.newFormat(selectTikaCsvDelimiter(exchange)).parse(new CharSequenceReader(new String(stream.readAllBytes())));
+
+        byte[] bytes = stream.readAllBytes();
+        String content = new String(bytes, StandardCharsets.UTF_8);
+
+        CSVParser records = CSVFormat.newFormat(selectTikaCsvDelimiter(exchange))
+                .parse(new CharSequenceReader(content));
+
         durationCSVParser.endDebug();
-        CSVRecord record = null;
+
+        CSVRecord record;
         int rowCount = 0;
         var rows = records.iterator();
+
         durationMaliciousCodeDetection.startDebug();
+
         while (rows.hasNext()) {
             rowCount++;
-            record = records.iterator().next();
+            record = rows.next();
+
             var columns = record.stream().toList();
             for (var column : columns) {
                 var cell = column.trim();
@@ -69,13 +80,17 @@ public class MaliciousCSVCodeDetector implements MaliciousCodeDetector {
                     for (Map.Entry<String, Pattern> entry : maliciousPatterns.getMaliciousDataPatterns().entrySet()) {
                         var match = entry.getValue().matcher(cell).matches();
                         if (match) {
-                            log.warn("MaliciousCSVCode - {} ({}) : {}", entry.getKey(), maliciousPatterns.getMaliciousDataRegex().get(entry.getKey()), cell);
+                            log.warn("MaliciousCSVCode - {} ({}) : {}",
+                                    entry.getKey(),
+                                    maliciousPatterns.getMaliciousDataRegex().get(entry.getKey()),
+                                    cell);
                             return false;
                         }
                     }
                 }
             }
         }
+
         durationMaliciousCodeDetection.endDebug();
         log.debug("File row size/read size : {}/{}", records.getRecordNumber(), rowCount);
         return true;
