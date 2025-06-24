@@ -26,7 +26,6 @@ import de.muenchen.mobidam.Constants;
 import de.muenchen.mobidam.config.ResourceTypes;
 import de.muenchen.mobidam.exception.MobidamSecurityException;
 import de.muenchen.mobidam.mobilithek.InterfaceDTO;
-
 import java.io.BufferedInputStream;
 import java.io.InputStream;
 import lombok.RequiredArgsConstructor;
