@@ -26,7 +26,7 @@ import de.muenchen.mobidam.Constants;
 import de.muenchen.mobidam.config.ResourceTypes;
 import de.muenchen.mobidam.exception.MobidamSecurityException;
 import de.muenchen.mobidam.mobilithek.InterfaceDTO;
-import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -50,12 +50,15 @@ public class ResourceTypeProcessor implements Processor {
         if (mobilithekInterface.getAllowedResourceTypes() == null) {
             return;
         }
+        byte[] buffer = new byte[8192]; // 8KB sollten für MIME-Detection reichen
         StreamCache receivedStream = exchange.getIn().getBody(StreamCache.class);
         receivedStream.reset();
         InputStream stream = (InputStream) receivedStream;
-        InputStream bufferedStream = stream.markSupported() ? stream : new BufferedInputStream(stream);
+        stream.mark(buffer.length);
+        int bytesRead = stream.read(buffer);
+        stream.reset();
         log.debug("Checking mime type of content for interface {}", mobilithekInterface.getName());
-        boolean result = resourceTypeChecker.check(bufferedStream, resourceTypes.getResourceTypes(mobilithekInterface.getAllowedResourceTypes()), exchange);
+        boolean result = resourceTypeChecker.check(new ByteArrayInputStream(buffer, 0, bytesRead), resourceTypes.getResourceTypes(mobilithekInterface.getAllowedResourceTypes()), exchange);
         if (!result) {
             throw new MobidamSecurityException("Illegal MIME type detected in interface: " + mobilithekInterface.getName());
         }
