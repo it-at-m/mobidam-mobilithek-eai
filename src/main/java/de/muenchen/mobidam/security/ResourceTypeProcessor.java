@@ -26,6 +26,7 @@ import de.muenchen.mobidam.Constants;
 import de.muenchen.mobidam.config.ResourceTypes;
 import de.muenchen.mobidam.exception.MobidamSecurityException;
 import de.muenchen.mobidam.mobilithek.InterfaceDTO;
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -53,7 +54,8 @@ public class ResourceTypeProcessor implements Processor {
         receivedStream.reset();
         InputStream stream = (InputStream) receivedStream;
         log.debug("Checking mime type of content for interface {}", mobilithekInterface.getName());
-        boolean result = resourceTypeChecker.check(stream, resourceTypes.getResourceTypes(mobilithekInterface.getAllowedResourceTypes()), exchange);
+        boolean result = resourceTypeChecker.check(stream,
+                resourceTypes.getResourceTypes(mobilithekInterface.getAllowedResourceTypes()), exchange);
         if (!result) {
             throw new MobidamSecurityException("Illegal MIME type detected in interface: " + mobilithekInterface.getName());
         }

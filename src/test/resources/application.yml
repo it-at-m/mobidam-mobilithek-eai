@@ -38,6 +38,7 @@ de.muenchen.mobidam:
         allowed-resource-types:
           - xml
           - plain
+          - csv
         malicious-code-detection-enabled: true
   data:
     defined-resource-types:
@@ -45,7 +46,7 @@ de.muenchen.mobidam:
         xml:
           allowed-mime-types: application/xml, text/plain
         csv:
-          allowed-mime-types: text/csv, text/plain
+          allowed-mime-types: binary/octet-stream, application/octet-stream
   common:
     s3:
       bucket-credential-configs:
