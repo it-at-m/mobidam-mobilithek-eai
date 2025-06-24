@@ -52,7 +52,7 @@ public class MaliciousCSVCodeDetector implements MaliciousCodeDetector {
     }
 
     public boolean isValidData(final InputStream stream, Exchange exchange) throws Exception {
-
+        log.debug("entering isValid");
         durationCSVParser.startDebug();
 
         byte[] bytes = stream.readAllBytes();
@@ -68,7 +68,7 @@ public class MaliciousCSVCodeDetector implements MaliciousCodeDetector {
         var rows = records.iterator();
 
         durationMaliciousCodeDetection.startDebug();
-
+        log.debug("Starting rows check");
         while (rows.hasNext()) {
             rowCount++;
             record = rows.next();
