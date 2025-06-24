@@ -93,14 +93,14 @@ public class MaliciousCSVCodeDetector implements MaliciousCodeDetector {
         String delimiterKey = exchange.getIn().getHeader(TextAndCSVParser.DELIMITER_PROPERTY.getName(), String.class);
 
         if (delimiterKey == null) {
-            log.warn("Delimiter header not found, using default comma");
+            log.warn("Delimiter header not found, using default semicolon");
             return ';';
         }
 
         Character delimiter = textAndCSVConfig.getNameToDelimiterMap().get(delimiterKey);
 
         if (delimiter == null) {
-            log.warn("Delimiter not found for key: '{}', using default comma", delimiterKey);
+            log.warn("Delimiter not found for key: '{}', using default semicolon", delimiterKey);
             return ';';
         }
 
