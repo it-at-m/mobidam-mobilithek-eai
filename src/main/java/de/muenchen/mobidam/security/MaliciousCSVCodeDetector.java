@@ -90,7 +90,21 @@ public class MaliciousCSVCodeDetector implements MaliciousCodeDetector {
     }
 
     private char selectTikaCsvDelimiter(Exchange exchange) {
-        return textAndCSVConfig.getNameToDelimiterMap().get(exchange.getIn().getHeader(TextAndCSVParser.DELIMITER_PROPERTY.getName(), String.class));
+        String delimiterKey = exchange.getIn().getHeader(TextAndCSVParser.DELIMITER_PROPERTY.getName(), String.class);
+
+        if (delimiterKey == null) {
+            log.warn("Delimiter header not found, using default comma");
+            return ';';
+        }
+
+        Character delimiter = textAndCSVConfig.getNameToDelimiterMap().get(delimiterKey);
+
+        if (delimiter == null) {
+            log.warn("Delimiter not found for key: '{}', using default comma", delimiterKey);
+            return ';';
+        }
+
+        return delimiter;
     }
 
 }
