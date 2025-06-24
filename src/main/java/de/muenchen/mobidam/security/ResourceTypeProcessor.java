@@ -51,18 +51,15 @@ public class ResourceTypeProcessor implements Processor {
         if (mobilithekInterface.getAllowedResourceTypes() == null) {
             return;
         }
-        byte[] buffer = new byte[8192]; // 8KB sollten für MIME-Detection reichen
         StreamCache receivedStream = exchange.getIn().getBody(StreamCache.class);
+        receivedStream.reset();
         InputStream stream = (InputStream) receivedStream;
-        stream.mark(buffer.length);
-        int bytesRead = stream.read(buffer);
-        stream.reset();
         long beforeMemory = runtime.totalMemory() - runtime.freeMemory();
         log.debug("Memory before check: {} MB", beforeMemory / 1024 / 1024);
         log.debug("Checking mime type of content for interface {}", mobilithekInterface.getName());
         boolean result = false;
         try {
-            result = resourceTypeChecker.check(new ByteArrayInputStream(buffer, 0, bytesRead),
+            result = resourceTypeChecker.check(stream,
                     resourceTypes.getResourceTypes(mobilithekInterface.getAllowedResourceTypes()), exchange);
             log.debug("Result after checking: {}", result);
         } finally {

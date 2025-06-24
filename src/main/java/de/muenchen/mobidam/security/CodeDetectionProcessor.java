@@ -61,6 +61,7 @@ public class CodeDetectionProcessor implements Processor {
             log.debug("Starting isValid check");
             result = codeDetector.isValidData(stream, exchange);
         } catch (Exception ex) {
+            log.debug(ex.getMessage());
             log.warn("Malicious code detection failed", ex);
         }
         if (!result) {

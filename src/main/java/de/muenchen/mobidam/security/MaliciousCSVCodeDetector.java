@@ -56,33 +56,22 @@ public class MaliciousCSVCodeDetector implements MaliciousCodeDetector {
         log.debug("Entering isValidData()");
         durationCSVParser.startDebug();
 
-        // Streaming-Ansatz statt alles in Memory zu laden
-        Reader reader = new InputStreamReader(stream, StandardCharsets.UTF_8);
+        try (Reader reader = new InputStreamReader(stream, StandardCharsets.UTF_8);
+                CSVParser records = CSVFormat.newFormat(selectTikaCsvDelimiter(exchange)).parse(reader)) {
 
-        CSVParser records = CSVFormat.newFormat(selectTikaCsvDelimiter(exchange))
-                .parse(reader);
+            durationCSVParser.endDebug();
+            durationMaliciousCodeDetection.startDebug();
+            log.debug("starting row validation");
 
-        durationCSVParser.endDebug();
-
-        CSVRecord record = null;
-        int rowCount = 0;
-        var rows = records.iterator();
-
-        durationMaliciousCodeDetection.startDebug();
-        log.debug("starting row validation");
-
-        try {
-            while (rows.hasNext()) {
+            int rowCount = 0;
+            for (CSVRecord record : records) {
                 rowCount++;
-                record = rows.next();
 
-                var columns = record.stream().toList();
-                for (var column : columns) {
-                    var cell = column.trim();
+                for (String column : record) {
+                    String cell = column.trim();
                     if (!cell.isEmpty()) {
                         for (Map.Entry<String, Pattern> entry : maliciousPatterns.getMaliciousDataPatterns().entrySet()) {
-                            var match = entry.getValue().matcher(cell).matches();
-                            if (match) {
+                            if (entry.getValue().matcher(cell).matches()) {
                                 log.warn("MaliciousCSVCode - {} ({}) : {}",
                                         entry.getKey(),
                                         maliciousPatterns.getMaliciousDataRegex().get(entry.getKey()),
@@ -93,23 +82,11 @@ public class MaliciousCSVCodeDetector implements MaliciousCodeDetector {
                     }
                 }
             }
-        } finally {
-            // Ressourcen explizit schließen
-            try {
-                records.close();
-            } catch (Exception e) {
-                log.debug("Error closing CSV parser", e);
-            }
-            try {
-                reader.close();
-            } catch (Exception e) {
-                log.debug("Error closing reader", e);
-            }
-        }
 
-        durationMaliciousCodeDetection.endDebug();
-        log.debug("File row size/read size : {}/{}", records.getRecordNumber(), rowCount);
-        return true;
+            durationMaliciousCodeDetection.endDebug();
+            log.debug("File row size/read size : {}/{}", records.getRecordNumber(), rowCount);
+            return true;
+        }
     }
 
     private char selectTikaCsvDelimiter(Exchange exchange) {
