@@ -53,7 +53,6 @@ public class MaliciousCSVCodeDetector implements MaliciousCodeDetector {
     }
 
     public boolean isValidData(final InputStream stream, Exchange exchange) throws Exception {
-        log.debug("Entering isValidData()");
         durationCSVParser.startDebug();
 
         try (Reader reader = new InputStreamReader(stream, StandardCharsets.UTF_8);
@@ -61,7 +60,6 @@ public class MaliciousCSVCodeDetector implements MaliciousCodeDetector {
 
             durationCSVParser.endDebug();
             durationMaliciousCodeDetection.startDebug();
-            log.debug("starting row validation");
 
             int rowCount = 0;
             for (CSVRecord record : records) {

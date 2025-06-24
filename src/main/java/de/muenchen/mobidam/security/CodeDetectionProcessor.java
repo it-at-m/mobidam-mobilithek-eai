@@ -45,7 +45,6 @@ public class CodeDetectionProcessor implements Processor {
 
     @Override
     public void process(Exchange exchange) throws Exception {
-        log.debug("entering Code detection processor");
         var mobilithekInterface = exchange.getIn().getHeader(Constants.INTERFACE_TYPE, InterfaceDTO.class);
         if (!mobilithekInterface.getMaliciousCodeDetectionEnabled()) {
             return;
@@ -53,12 +52,10 @@ public class CodeDetectionProcessor implements Processor {
         StreamCache receivedStream = exchange.getIn().getBody(StreamCache.class);
         receivedStream.reset();
         InputStream stream = (InputStream) receivedStream;
-        log.debug("Getting Code detector");
         MaliciousCodeDetector codeDetector = codeDetectorFactory
                 .getCodeDetector(resourceTypes.getResourceTypes(mobilithekInterface.getAllowedResourceTypes()).get(0));
         boolean result = false;
         try {
-            log.debug("Starting isValid check");
             result = codeDetector.isValidData(stream, exchange);
         } catch (Exception ex) {
             log.debug(ex.getMessage());
