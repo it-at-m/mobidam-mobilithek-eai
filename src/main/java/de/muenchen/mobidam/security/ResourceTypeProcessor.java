@@ -46,6 +46,7 @@ public class ResourceTypeProcessor implements Processor {
 
     @Override
     public void process(Exchange exchange) throws Exception {
+        Runtime runtime = Runtime.getRuntime();
         var mobilithekInterface = exchange.getIn().getHeader(Constants.INTERFACE_TYPE, InterfaceDTO.class);
         if (mobilithekInterface.getAllowedResourceTypes() == null) {
             return;
@@ -57,9 +58,19 @@ public class ResourceTypeProcessor implements Processor {
         stream.mark(buffer.length);
         int bytesRead = stream.read(buffer);
         stream.reset();
+        long beforeMemory = runtime.totalMemory() - runtime.freeMemory();
+        log.debug("Memory before check: {} MB", beforeMemory / 1024 / 1024);
         log.debug("Checking mime type of content for interface {}", mobilithekInterface.getName());
-        boolean result = resourceTypeChecker.check(new ByteArrayInputStream(buffer, 0, bytesRead),
-                resourceTypes.getResourceTypes(mobilithekInterface.getAllowedResourceTypes()), exchange);
+        boolean result = false;
+        try {
+            result = resourceTypeChecker.check(new ByteArrayInputStream(buffer, 0, bytesRead),
+                    resourceTypes.getResourceTypes(mobilithekInterface.getAllowedResourceTypes()), exchange);
+        } finally {
+            long afterMemory = runtime.totalMemory() - runtime.freeMemory();
+            log.debug("Memory after check: {} MB, diff: {} MB",
+                    afterMemory / 1024 / 1024,
+                    (afterMemory - beforeMemory) / 1024 / 1024);
+        }
         if (!result) {
             throw new MobidamSecurityException("Illegal MIME type detected in interface: " + mobilithekInterface.getName());
         }
