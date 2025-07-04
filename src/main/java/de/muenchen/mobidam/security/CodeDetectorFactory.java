@@ -42,6 +42,7 @@ public class CodeDetectorFactory {
     @PostConstruct
     public void init() {
         map.put(MediaType.APPLICATION_XML_VALUE, maliciousXmlCodeDetector);
+        map.put(ResourceTypeChecker.BINARY_OCTETSTREAM_TYPE.toString(), maliciousCSVCodeDetector);
         map.put(ResourceTypeChecker.TEXT_CSV_TYPE.toString(), maliciousCSVCodeDetector);
     }
 

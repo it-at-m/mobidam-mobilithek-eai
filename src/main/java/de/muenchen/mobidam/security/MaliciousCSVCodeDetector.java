@@ -25,6 +25,9 @@ package de.muenchen.mobidam.security;
 import de.muenchen.mobidam.config.MaliciousDataRegex;
 import de.muenchen.mobidam.sstmanagment.DurationLog;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.regex.Pattern;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +35,6 @@ import org.apache.camel.Exchange;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
-import org.apache.commons.io.input.CharSequenceReader;
 import org.apache.tika.parser.csv.TextAndCSVConfig;
 import org.apache.tika.parser.csv.TextAndCSVParser;
 import org.springframework.stereotype.Component;
@@ -46,43 +48,63 @@ public class MaliciousCSVCodeDetector implements MaliciousCodeDetector {
     private final DurationLog durationCSVParser = new DurationLog("CSV-Parser");
     private final DurationLog durationMaliciousCodeDetection = new DurationLog("CSV-Malicious-Code-Detection");
 
+    private static final char DEFAULT_DELIMITER = ';';
+
     public MaliciousCSVCodeDetector(MaliciousDataRegex maliciousPatterns) {
         this.maliciousPatterns = maliciousPatterns;
     }
 
     public boolean isValidData(final InputStream stream, Exchange exchange) throws Exception {
-
         durationCSVParser.startDebug();
-        CSVParser records = CSVFormat.newFormat(selectTikaCsvDelimiter(exchange)).parse(new CharSequenceReader(new String(stream.readAllBytes())));
-        durationCSVParser.endDebug();
-        CSVRecord record = null;
-        int rowCount = 0;
-        var rows = records.iterator();
-        durationMaliciousCodeDetection.startDebug();
-        while (rows.hasNext()) {
-            rowCount++;
-            record = records.iterator().next();
-            var columns = record.stream().toList();
-            for (var column : columns) {
-                var cell = column.trim();
-                if (!cell.isEmpty()) {
-                    for (Map.Entry<String, Pattern> entry : maliciousPatterns.getMaliciousDataPatterns().entrySet()) {
-                        var match = entry.getValue().matcher(cell).matches();
-                        if (match) {
-                            log.warn("MaliciousCSVCode - {} ({}) : {}", entry.getKey(), maliciousPatterns.getMaliciousDataRegex().get(entry.getKey()), cell);
-                            return false;
+
+        try (Reader reader = new InputStreamReader(stream, StandardCharsets.UTF_8);
+                CSVParser records = CSVFormat.newFormat(selectTikaCsvDelimiter(exchange)).parse(reader)) {
+
+            durationCSVParser.endDebug();
+            durationMaliciousCodeDetection.startDebug();
+
+            int rowCount = 0;
+            for (CSVRecord record : records) {
+                rowCount++;
+
+                for (String column : record) {
+                    String cell = column.trim();
+                    if (!cell.isEmpty()) {
+                        for (Map.Entry<String, Pattern> entry : maliciousPatterns.getMaliciousDataPatterns().entrySet()) {
+                            if (entry.getValue().matcher(cell).matches()) {
+                                log.warn("MaliciousCSVCode - {} ({}) : {}",
+                                        entry.getKey(),
+                                        maliciousPatterns.getMaliciousDataRegex().get(entry.getKey()),
+                                        cell);
+                                return false;
+                            }
                         }
                     }
                 }
             }
+
+            durationMaliciousCodeDetection.endDebug();
+            log.debug("File row size/read size : {}/{}", records.getRecordNumber(), rowCount);
+            return true;
         }
-        durationMaliciousCodeDetection.endDebug();
-        log.debug("File row size/read size : {}/{}", records.getRecordNumber(), rowCount);
-        return true;
     }
 
     private char selectTikaCsvDelimiter(Exchange exchange) {
-        return textAndCSVConfig.getNameToDelimiterMap().get(exchange.getIn().getHeader(TextAndCSVParser.DELIMITER_PROPERTY.getName(), String.class));
+        String delimiterKey = exchange.getIn().getHeader(TextAndCSVParser.DELIMITER_PROPERTY.getName(), String.class);
+
+        if (delimiterKey == null) {
+            log.warn("Delimiter header not found, using default semicolon");
+            return DEFAULT_DELIMITER;
+        }
+
+        Character delimiter = textAndCSVConfig.getNameToDelimiterMap().get(delimiterKey);
+
+        if (delimiter == null) {
+            log.warn("Delimiter not found for key: '{}', using default semicolon", delimiterKey);
+            return DEFAULT_DELIMITER;
+        }
+
+        return delimiter;
     }
 
 }

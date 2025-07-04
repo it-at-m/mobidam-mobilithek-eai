@@ -64,7 +64,7 @@ public class CodeDetectionProcessorTest {
         factory.init();
         ResourceTypes resourceTypes = new ResourceTypes();
         resourceTypes.setResourceTypes(Map.of("xml", new ResourceType(List.of("application/xml", "text/plain")),
-                "csv", new ResourceType(List.of("text/csv")),
+                "csv", new ResourceType(List.of("binary/octet-stream")),
                 "plain", new ResourceType(List.of("text/plain"))));
         processor = new CodeDetectionProcessor(factory, resourceTypes);
     }

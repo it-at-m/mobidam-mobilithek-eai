@@ -79,7 +79,7 @@ public class ResourceTypeProcessorTest {
     @Test
     public void testCheckWithValidCSV() throws Exception {
         Exchange exchange = createExchange(List.of(ResourceTypeChecker.TEXT_CSV_TYPE.getSubtype()));
-        exchange.getIn().setHeader(HttpHeaders.CONTENT_TYPE, ResourceTypeChecker.TEXT_CSV_TYPE.toString());
+        exchange.getIn().setHeader(HttpHeaders.CONTENT_TYPE, ResourceTypeChecker.BINARY_OCTETSTREAM_TYPE.toString());
         FileInputStreamCache stream = new FileInputStreamCache(new File("src/test/resources/testdata/ladesaulen-example.csv"));
         exchange.getIn().setBody(stream);
         createProcessor().process(exchange);
@@ -87,8 +87,8 @@ public class ResourceTypeProcessorTest {
 
     @Test
     public void testCheckWithValidHeaderOnlyCSV() {
-        Exchange exchange = createExchange(List.of(ResourceTypeChecker.TEXT_CSV_TYPE.getSubtype(), MediaType.TEXT_PLAIN.getSubtype()));
-        exchange.getIn().setHeader(HttpHeaders.CONTENT_TYPE, ResourceTypeChecker.TEXT_CSV_TYPE.toString());
+        Exchange exchange = createExchange(List.of(ResourceTypeChecker.BINARY_OCTETSTREAM_TYPE.getSubtype(), MediaType.TEXT_PLAIN.getSubtype()));
+        exchange.getIn().setHeader(HttpHeaders.CONTENT_TYPE, ResourceTypeChecker.BINARY_OCTETSTREAM_TYPE.toString());
         FileInputStreamCache stream = new FileInputStreamCache(new File("src/test/resources/testdata/ladesaulen-header-example.csv"));
         exchange.getIn().setBody(stream);
         Assertions.assertThrows(MobidamSecurityException.class, () -> createProcessor().process(exchange));
@@ -96,8 +96,8 @@ public class ResourceTypeProcessorTest {
 
     @Test
     public void testCheckWithInValidCSV() {
-        Exchange exchange = createExchange(List.of(ResourceTypeChecker.TEXT_CSV_TYPE.getSubtype()));
-        exchange.getIn().setHeader(HttpHeaders.CONTENT_TYPE, ResourceTypeChecker.TEXT_CSV_TYPE.toString());
+        Exchange exchange = createExchange(List.of(ResourceTypeChecker.BINARY_OCTETSTREAM_TYPE.getSubtype()));
+        exchange.getIn().setHeader(HttpHeaders.CONTENT_TYPE, ResourceTypeChecker.BINARY_OCTETSTREAM_TYPE.toString());
         FileInputStreamCache stream = new FileInputStreamCache(new File("src/test/resources/testdata/ladesaulen-header-invalid-delimiter-example.csv"));
         exchange.getIn().setBody(stream);
         Assertions.assertThrows(MobidamSecurityException.class, () -> createProcessor().process(exchange));
@@ -131,7 +131,7 @@ public class ResourceTypeProcessorTest {
     private ResourceTypeProcessor createProcessor() {
         ResourceTypes resourceTypes = new ResourceTypes();
         resourceTypes.setResourceTypes(Map.of("xml", new ResourceType(List.of("application/xml", "text/plain")),
-                "csv", new ResourceType(List.of("text/csv")),
+                "csv", new ResourceType(List.of("binary/octet-stream", "application/octet-stream", "text/plain")),
                 "plain", new ResourceType(List.of("text/plain"))));
         return new ResourceTypeProcessor(new ResourceTypeChecker(), resourceTypes);
     }
