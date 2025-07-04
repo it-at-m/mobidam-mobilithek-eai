@@ -41,7 +41,7 @@ import org.xml.sax.ContentHandler;
 @Slf4j
 public class ResourceTypeChecker {
 
-    public static final MediaType BINARY_CSV_TYPE = new MediaType("binary", "octet-stream");
+    public static final MediaType BINARY_OCTETSTREAM_TYPE = new MediaType("binary", "octet-stream");
 
     public static final MediaType TEXT_CSV_TYPE = new MediaType("text", "csv");
 

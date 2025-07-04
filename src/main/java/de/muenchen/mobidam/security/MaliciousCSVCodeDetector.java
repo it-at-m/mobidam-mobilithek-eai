@@ -48,6 +48,8 @@ public class MaliciousCSVCodeDetector implements MaliciousCodeDetector {
     private final DurationLog durationCSVParser = new DurationLog("CSV-Parser");
     private final DurationLog durationMaliciousCodeDetection = new DurationLog("CSV-Malicious-Code-Detection");
 
+    private static final char DEFAULT_DELIMITER = ';';
+
     public MaliciousCSVCodeDetector(MaliciousDataRegex maliciousPatterns) {
         this.maliciousPatterns = maliciousPatterns;
     }
@@ -92,14 +94,14 @@ public class MaliciousCSVCodeDetector implements MaliciousCodeDetector {
 
         if (delimiterKey == null) {
             log.warn("Delimiter header not found, using default semicolon");
-            return ';';
+            return DEFAULT_DELIMITER;
         }
 
         Character delimiter = textAndCSVConfig.getNameToDelimiterMap().get(delimiterKey);
 
         if (delimiter == null) {
             log.warn("Delimiter not found for key: '{}', using default semicolon", delimiterKey);
-            return ';';
+            return DEFAULT_DELIMITER;
         }
 
         return delimiter;
