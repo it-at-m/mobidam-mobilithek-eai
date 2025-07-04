@@ -78,7 +78,7 @@ public class ResourceTypeProcessorTest {
 
     @Test
     public void testCheckWithValidCSV() throws Exception {
-        Exchange exchange = createExchange(List.of("csv"));
+        Exchange exchange = createExchange(List.of(ResourceTypeChecker.TEXT_CSV_TYPE.getSubtype()));
         exchange.getIn().setHeader(HttpHeaders.CONTENT_TYPE, ResourceTypeChecker.BINARY_OCTETSTREAM_TYPE.toString());
         FileInputStreamCache stream = new FileInputStreamCache(new File("src/test/resources/testdata/ladesaulen-example.csv"));
         exchange.getIn().setBody(stream);
