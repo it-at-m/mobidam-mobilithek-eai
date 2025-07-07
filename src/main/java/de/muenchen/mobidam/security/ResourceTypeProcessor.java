@@ -53,7 +53,8 @@ public class ResourceTypeProcessor implements Processor {
         receivedStream.reset();
         InputStream stream = (InputStream) receivedStream;
         log.debug("Checking mime type of content for interface {}", mobilithekInterface.getName());
-        boolean result = resourceTypeChecker.check(stream, resourceTypes.getResourceTypes(mobilithekInterface.getAllowedResourceTypes()), exchange);
+        boolean result = resourceTypeChecker.check(stream,
+                resourceTypes.getResourceTypes(mobilithekInterface.getAllowedResourceTypes()), exchange);
         if (!result) {
             throw new MobidamSecurityException("Illegal MIME type detected in interface: " + mobilithekInterface.getName());
         }
