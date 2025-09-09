@@ -41,6 +41,8 @@ import org.xml.sax.ContentHandler;
 @Slf4j
 public class ResourceTypeChecker {
 
+    public static final MediaType BINARY_OCTETSTREAM_TYPE = new MediaType("binary", "octet-stream");
+
     public static final MediaType TEXT_CSV_TYPE = new MediaType("text", "csv");
 
     private final Tika tika = new Tika();
@@ -52,7 +54,7 @@ public class ResourceTypeChecker {
 
         var contentType = exchange.getIn().getHeader(Exchange.CONTENT_TYPE, String.class);
         if (contentType != null && allowedMimeTypes.stream().filter(contentType::contains).findAny().isEmpty()) {
-            log.error("Mimetype is not allowed: { }", contentType);
+            log.error("Mimetype is not allowed: {}", contentType);
             return false;
         }
         String detectedMimeType = getResourceType(stream, contentType, exchange);
@@ -65,7 +67,6 @@ public class ResourceTypeChecker {
     }
 
     private String getResourceType(final InputStream stream, String contentType, Exchange exchange) throws IOException {
-
         if (contentType != null && contentType.contains(TEXT_CSV_TYPE.toString())) {
             ContentHandler handler = new BodyContentHandler(-1);
             TextAndCSVParser parser = new TextAndCSVParser();
@@ -87,7 +88,9 @@ public class ResourceTypeChecker {
                 log.warn("File content too small, Tika heuristic cannot determine 'text/csv' with the necessary certainty.");
                 return "file-content-too-small";
             }
-        } else
+        } else {
+            log.debug("Fallback tika detect");
             return tika.detect(stream);
+        }
     }
 }

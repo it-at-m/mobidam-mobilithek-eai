@@ -305,3 +305,5 @@ spring:
             token-uri: https://.../realms/[my-realm]]/protocol/openid-connect/token
 
 ```
+## Grafana
+Die EAI stellt Metriken für die Auswertung z.Bsp. in einem Grafana Dashboard zur Verfügung.

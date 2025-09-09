@@ -10,6 +10,8 @@ management:
 spring:
   profiles:
     active: test
+  application:
+    name: '@project.artifactId@'
 
 logging:
   level:
@@ -27,6 +29,7 @@ de.muenchen.mobidam:
       parkRideStaticData:
         mobidam-sst-id: 999fcf2d-25bb-4fa9-85ff-f7ed12349999
         name: P+R statisch
+        identifier: parkRideStaticData
         mobilithek-url: mock:mobilithekInfo
         cron-expression: '0 0 0 ? * *'
         s3-object-path: MDAS/Mobilithek/PR-statisch/%s-pr-daten.xml
@@ -35,6 +38,7 @@ de.muenchen.mobidam:
         allowed-resource-types:
           - xml
           - plain
+          - csv
         malicious-code-detection-enabled: true
   data:
     defined-resource-types:
@@ -42,7 +46,7 @@ de.muenchen.mobidam:
         xml:
           allowed-mime-types: application/xml, text/plain
         csv:
-          allowed-mime-types: text/csv, text/plain
+          allowed-mime-types: binary/octet-stream, application/octet-stream
   common:
     s3:
       bucket-credential-configs:

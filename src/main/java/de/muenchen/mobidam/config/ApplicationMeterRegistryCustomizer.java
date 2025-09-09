@@ -20,34 +20,25 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.muenchen.mobidam.security;
+package de.muenchen.mobidam.config;
 
-import java.util.HashMap;
-import java.util.Map;
-import javax.annotation.PostConstruct;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.actuate.autoconfigure.metrics.MeterRegistryCustomizer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-@Component
-@RequiredArgsConstructor
-public class CodeDetectorFactory {
+@Configuration
+public class ApplicationMeterRegistryCustomizer<MeterRegistry extends io.micrometer.core.instrument.MeterRegistry> {
 
-    private final MaliciousXmlCodeDetector maliciousXmlCodeDetector;
-    private final DefaultMaliciousCodeDetector defaultMaliciousCodeDetector;
-    private final MaliciousCSVCodeDetector maliciousCSVCodeDetector;
+    private final String applicationName;
 
-    private final Map<String, MaliciousCodeDetector> map = new HashMap<>();
-
-    @PostConstruct
-    public void init() {
-        map.put(MediaType.APPLICATION_XML_VALUE, maliciousXmlCodeDetector);
-        map.put(ResourceTypeChecker.BINARY_OCTETSTREAM_TYPE.toString(), maliciousCSVCodeDetector);
-        map.put(ResourceTypeChecker.TEXT_CSV_TYPE.toString(), maliciousCSVCodeDetector);
+    public ApplicationMeterRegistryCustomizer(@Value("${spring.application.name}") String applicationName) {
+        this.applicationName = applicationName;
     }
 
-    public MaliciousCodeDetector getCodeDetector(final String mimeType) {
-        return map.getOrDefault(mimeType, defaultMaliciousCodeDetector);
+    @Bean
+    public MeterRegistryCustomizer<MeterRegistry> configurator() {
+        return registry -> registry.config().commonTags("application", applicationName);
     }
 
 }
