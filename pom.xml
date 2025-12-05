@@ -46,7 +46,7 @@
         <!-- Frameworks -->
         <camel.version>4.8.0</camel.version>
         <spring.boot.version>3.3.4</spring.boot.version>
-        <tika.version>3.0.0</tika.version>
+        <tika.version>3.2.2</tika.version>
 
         <!-- Other Maven Plugins -->
         <maven-scm-plugin.version>1.13.0</maven-scm-plugin.version>
